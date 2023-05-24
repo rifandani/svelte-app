@@ -15,9 +15,11 @@
   import { createToast } from '../../shared/stores/createToast.store';
   import { deleteTodoById, updateTodoById } from '../api/todo.api';
   import type {
+    DeleteTodoApiResponseSchema,
     DeleteTodoSchema,
     TodoListApiResponseSchema,
     TodoSchema,
+    UpdateTodoApiResponseSchema,
     UpdateTodoSchema,
   } from '../api/todo.schema';
   import TodoItem from '../components/TodoItem/TodoItem.svelte';
@@ -37,7 +39,12 @@
   const queryClient = useQueryClient();
   let todo = '';
 
-  const updateTodoMutation = createMutation({
+  const updateTodoMutation = createMutation<
+    UpdateTodoApiResponseSchema,
+    ErrorApiResponseSchema,
+    UpdateTodoSchema,
+    { previousTodosQueryResponse: TodoListApiResponseSchema }
+  >({
     // Called before `mutationFn`:
     onMutate: async ({ id, ...body }: UpdateTodoSchema) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -76,7 +83,12 @@
     },
   });
 
-  const deleteTodoMutation = createMutation({
+  const deleteTodoMutation = createMutation<
+    DeleteTodoApiResponseSchema,
+    ErrorApiResponseSchema,
+    DeleteTodoSchema['id'],
+    { previousTodosQueryResponse: TodoListApiResponseSchema }
+  >({
     // Called before `mutationFn`:
     onMutate: async (id: DeleteTodoSchema['id']) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
