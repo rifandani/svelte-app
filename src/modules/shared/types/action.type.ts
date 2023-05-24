@@ -28,12 +28,3 @@ export interface Environment {
   readonly browser?: boolean | Fn2<never, boolean>;
   readonly server?: boolean | Fn2<never, boolean>;
 }
-
-const isBrowser = () => typeof window !== 'undefined';
-
-export const ENVIRONMENT: Environment = {
-  browser: isBrowser(),
-  server: !isBrowser(),
-} as const;
-
-export const defaultWindow = ENVIRONMENT.browser ? window : undefined;

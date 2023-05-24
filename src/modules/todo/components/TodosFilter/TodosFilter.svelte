@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { push, querystring } from 'svelte-spa-router';
+  import { push } from 'svelte-spa-router';
   import type { HTMLSelectAttributes } from 'svelte/elements';
-  import { defaultLimit } from './Todos.page.svelte';
+  import { defaultLimit } from '../../pages/Todos.page.svelte';
 
-  $: searchParams = new URLSearchParams(`?${$querystring}`);
-  $: queryParams = Object.fromEntries(searchParams);
+  export let searchParams: URLSearchParams;
+  export let queryParams: Record<PropertyKey, string>;
 
   const onChangeLimit: HTMLSelectAttributes['on:change'] = async ({ currentTarget }) => {
     // set to url params
@@ -26,7 +26,8 @@
     id="limit"
   >
     <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="30">30</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
   </select>
 </form>

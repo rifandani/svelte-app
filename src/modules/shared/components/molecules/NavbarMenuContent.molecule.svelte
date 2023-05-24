@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { link } from 'svelte-spa-router';
   import active from 'svelte-spa-router/active';
-  import type { LoginApiResponseSchema } from '../../../auth/models/Auth.model';
+  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { themes } from '../../constants/global.constant';
   import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
 

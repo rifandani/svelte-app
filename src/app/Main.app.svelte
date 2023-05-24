@@ -7,8 +7,8 @@
   const queryClient = new QueryClient();
 
   const onConditionsFailed = (ev: ConditionsFailedEvent) => {
-    if (!ev.detail.userData || !('token' in ev.detail.userData)) replace('/login');
-    if (ev.detail.route === '/login' && 'token' in ev.detail.userData) replace('/');
+    if (!ev.detail.userData || !('token' in ev.detail.userData)) void replace('/login');
+    if (ev.detail.route === '/login' && 'token' in ev.detail.userData) void replace('/');
   };
 </script>
 

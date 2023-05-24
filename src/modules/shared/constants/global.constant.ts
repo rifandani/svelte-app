@@ -1,4 +1,6 @@
+import type { Environment } from '../types/action.type';
 import type { Theme } from '../types/theme.type';
+import { isBrowser } from '../utils/helper.util';
 
 export const themes: Theme[] = [
   'light',
@@ -43,3 +45,11 @@ export const END = 'End';
 export const TAB = 'Tab';
 export const SPACE = ' ';
 export const ENTER = 'Enter';
+
+// environments
+export const environment: Environment = {
+  browser: isBrowser(),
+  server: !isBrowser(),
+} as const;
+
+export const defaultWindow = environment.browser ? window : undefined;

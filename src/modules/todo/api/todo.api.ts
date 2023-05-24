@@ -11,7 +11,7 @@ import {
   type DeleteTodoSchema,
   type TodoSchema,
   type UpdateTodoSchema,
-} from '../models/Todo.model';
+} from './todo.schema';
 
 // #region query functions
 export const fetchTodoList = async (params: ResourceParamsSchema) => {
@@ -51,7 +51,7 @@ export const deleteTodoById = async (id: DeleteTodoSchema['id']) => {
 // #endregion
 
 // #region keys factory
-export const todosQueryKeys = createQueryKeys('todos', {
+export const todoQueryKeys = createQueryKeys('todos', {
   list: (params: ResourceParamsSchema = { limit: 10 }) => ({
     queryKey: [params] as const,
     queryFn: () => fetchTodoList(params),
@@ -62,20 +62,20 @@ export const todosQueryKeys = createQueryKeys('todos', {
   }),
 });
 
-export const todosMutationKeys = createMutationKeys('todos', {
+export const todoMutationKeys = createMutationKeys('todos', {
   create: () => ({
     // used for optimistic update, mutation filters
     // see more: https://tanstack.com/query/v5/docs/react/guides/optimistic-updates
     // see more: https://tanstack.com/query/v5/docs/react/guides/filters
-    mutationKey: todosQueryKeys.list._def,
+    mutationKey: todoQueryKeys.list._def,
     mutationFn: (params: CreateTodoSchema) => createTodo(params),
   }),
   updateById: () => ({
-    mutationKey: todosQueryKeys.list._def,
+    mutationKey: todoQueryKeys.list._def,
     mutationFn: (params: UpdateTodoSchema) => updateTodoById(params),
   }),
   deleteById: () => ({
-    mutationKey: todosQueryKeys.list._def,
+    mutationKey: todoQueryKeys.list._def,
     mutationFn: (params: DeleteTodoSchema['id']) => deleteTodoById(params),
   }),
 });

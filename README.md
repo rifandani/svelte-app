@@ -42,6 +42,18 @@ If you have state that's important to retain within a component, consider creati
 ```ts
 // store.ts
 // An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+import { writable } from 'svelte/store';
+export default writable(0);
+```
+
+```ts
+$: console.log('🚀 ~ file: Todos.page.svelte:119', {
+  todoQueryKeys: todoQueryKeys.list._def,
+  $queryOptions: $queryOptions.queryKey,
+  todoQueryKeysTodos: queryClient.getQueryData(todoQueryKeys.list._def),
+  $queryOptionsTodos: queryClient.getQueryData($queryOptions.queryKey),
+  queryCache: queryClient.getQueryCache(),
+  $updateTodoMutation,
+  $deleteTodoMutation,
+});
 ```

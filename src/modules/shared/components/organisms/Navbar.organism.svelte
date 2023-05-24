@@ -4,7 +4,7 @@
   import { fade, fly } from 'svelte/transition';
   import { themeChange } from 'theme-change';
   import svelteLogo from '../../../../assets/svelte.svg';
-  import type { LoginApiResponseSchema } from '../../../auth/models/Auth.model';
+  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
   import { Icon } from '../atoms';
   import { NavbarMenuContent } from '../molecules';
@@ -14,7 +14,7 @@
 
   const logout = (_ev: CustomEvent<{ email: string }>) => {
     reset(); // reset `user` store
-    replace('/login'); // back to login
+    void replace('/login'); // back to login
   };
 
   onMount(() => themeChange(false));

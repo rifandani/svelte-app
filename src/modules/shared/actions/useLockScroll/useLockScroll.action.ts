@@ -1,5 +1,5 @@
+import { defaultWindow, environment } from '../../constants/global.constant';
 import type { Action } from '../../types/action.type';
-import { ENVIRONMENT, defaultWindow } from '../../types/action.type';
 import { createStyleTag } from './createStyleTag';
 import { getLockStyles } from './getLockStyles';
 import { injectStyles } from './injectStyleTag';
@@ -31,7 +31,7 @@ export function lockScroll(
   lock?: boolean,
   options: LockScrollOptions = { disableBodyPadding: false },
 ): ReturnType<Action> {
-  const { browser } = ENVIRONMENT;
+  const { browser } = environment;
   let window: Window;
 
   if (browser) {

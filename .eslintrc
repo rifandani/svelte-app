@@ -22,10 +22,9 @@
     "prettier",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
-    // 'plugin:@tanstack/eslint-plugin-query/recommended',
-    // 'plugin:jest-dom/recommended',
-    // 'plugin:tailwindcss/recommended',
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:jest-dom/recommended",
+    "plugin:tailwindcss/recommended"
   ],
   "ignorePatterns": ["tailwind.config.ts"],
   "rules": {

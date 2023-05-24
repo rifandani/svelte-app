@@ -4,30 +4,29 @@
 </script>
 
 <script lang="ts">
-  import TodosFilter from './TodosFilter.svelte';
-
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
   import { querystring } from 'svelte-spa-router';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import { writable } from 'svelte/store';
+  import { readable } from 'svelte/store';
   import { LoadingSpinner } from '../../shared/components/atoms';
   import { Navbar } from '../../shared/components/organisms';
   import type { ErrorApiResponseSchema } from '../../shared/models/Error.model';
   import { mutationKeyFactory, queryKeyFactory } from '../../shared/services/api/keyFactory.api';
   import { createToast } from '../../shared/stores/createToast.store';
-  import { deleteTodoById, todosQueryKeys, updateTodoById } from '../api/todos.api';
-  import TodoItem from '../components/TodoItem/TodoItem.svelte';
+  import { deleteTodoById, updateTodoById } from '../api/todo.api';
   import type {
     DeleteTodoSchema,
     TodoListApiResponseSchema,
     TodoSchema,
     UpdateTodoSchema,
-  } from '../models/Todo.model';
-  import TodosCreate from './TodosCreate.svelte';
+  } from '../api/todo.schema';
+  import TodoItem from '../components/TodoItem/TodoItem.svelte';
+  import TodosCreate from '../components/TodosCreate/TodosCreate.svelte';
+  import TodosFilter from '../components/TodosFilter/TodosFilter.svelte';
 
   $: searchParams = new URLSearchParams(`?${$querystring}`);
   $: queryParams = Object.fromEntries(searchParams);
-  $: queryOptions = writable(
+  $: queryOptions = readable(
     queryKeyFactory.todos.list(
       queryParams && Object.keys(queryParams).length ? queryParams : undefined,
     ),
@@ -116,16 +115,6 @@
     },
   });
 
-  $: console.log('🚀 ~ file: Todos.page.svelte:119', {
-    todosQueryKeys: todosQueryKeys.list._def,
-    $queryOptions: $queryOptions.queryKey,
-    todosQueryKeysTodos: queryClient.getQueryData(todosQueryKeys.list._def),
-    $queryOptionsTodos: queryClient.getQueryData($queryOptions.queryKey),
-    queryCache: queryClient.getQueryCache(),
-    $updateTodoMutation,
-    $deleteTodoMutation,
-  });
-
   const onChangeTodo = (_ev: CustomEvent<TodoSchema>) => {
     $updateTodoMutation.mutate({ ..._ev.detail, completed: !_ev.detail.completed });
   };
@@ -148,9 +137,9 @@
     <section
       class="card bg-secondary text-secondary-content w-full rounded-lg border p-5 shadow-lg"
     >
-      <TodosCreate />
+      <TodosCreate {queryParams} {queryOptions} {todosQuery} />
 
-      <TodosFilter />
+      <TodosFilter {searchParams} {queryParams} />
 
       {#if $todosQuery.isLoading || $todosQuery.isFetching}
         <div class="flex items-center justify-center py-5">

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import type { LoginApiResponseSchema } from '../../../auth/models/Auth.model';
+  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
-  import type { TodoSchema } from '../../models/Todo.model';
+  import type { TodoSchema } from '../../api/todo.schema';
 
   export let todo: TodoSchema;
   export let onDeleteTodo: HTMLFormAttributes['on:submit'];

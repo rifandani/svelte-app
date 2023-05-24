@@ -29,13 +29,10 @@
   }
 
   // recalculate `minutes` when `seconds` changes
-  $: {
-    minutes = seconds > 0 ? (seconds % 2 === 0 ? minutes + 1 : minutes) : 0;
-  }
+  $: minutes = seconds > 0 ? (seconds % 2 === 0 ? minutes + 1 : minutes) : 0;
+
   // recalculate `hours` when `minutes` changes
-  $: {
-    hours = minutes > 0 ? (minutes % 2 === 0 ? hours + 1 : hours) : 0;
-  }
+  $: hours = minutes > 0 ? (minutes % 2 === 0 ? hours + 1 : hours) : 0;
 
   let buttons = [
     {

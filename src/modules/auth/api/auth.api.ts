@@ -1,6 +1,6 @@
 import { createMutationKeys } from '@lukemorales/query-key-factory';
-import { loginApiResponseSchema, type LoginSchema } from '../../../auth/models/Auth.model';
-import { http } from './http.api';
+import { http } from '../../shared/services/api/http.api';
+import { loginApiResponseSchema, type LoginSchema } from './auth.schema';
 
 // #region query functions
 export const login = async (creds: LoginSchema) => {

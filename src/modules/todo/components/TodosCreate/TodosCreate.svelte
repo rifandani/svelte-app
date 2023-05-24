@@ -1,37 +1,42 @@
 <script lang="ts">
-  import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
-  import { querystring } from 'svelte-spa-router';
+  import {
+    createMutation,
+    useQueryClient,
+    type CreateQueryResult,
+    type QueryOptions,
+  } from '@tanstack/svelte-query';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import { writable } from 'svelte/store';
-  import type { LoginApiResponseSchema } from '../../auth/models/Auth.model';
-  import { useLocalStorage } from '../../shared/hooks/useLocalStorage.hook';
-  import type { ErrorApiResponseSchema } from '../../shared/models/Error.model';
-  import { mutationKeyFactory, queryKeyFactory } from '../../shared/services/api/keyFactory.api';
-  import { createToast } from '../../shared/stores/createToast.store';
-  import { createTodo } from '../api/todos.api';
+  import type { Readable } from 'svelte/store';
+  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
+  import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
+  import type { ErrorApiResponseSchema } from '../../../shared/models/Error.model';
+  import { mutationKeyFactory } from '../../../shared/services/api/keyFactory.api';
+  import { createToast } from '../../../shared/stores/createToast.store';
+  import { createTodo } from '../../api/todo.api';
   import type {
     CreateTodoApiResponseSchema,
+    CreateTodoSchema,
     TodoListApiResponseSchema,
-  } from '../models/Todo.model';
-  import { defaultLimit } from './Todos.page.svelte';
+  } from '../../api/todo.schema';
+  import { defaultLimit } from '../../pages/Todos.page.svelte';
 
-  $: searchParams = new URLSearchParams(`?${$querystring}`);
-  $: queryParams = Object.fromEntries(searchParams);
-  $: queryOptions = writable(
-    queryKeyFactory.todos.list(
-      queryParams && Object.keys(queryParams).length ? queryParams : undefined,
-    ),
-  );
-  $: todosQuery = createQuery($queryOptions);
+  export let queryParams: Record<PropertyKey, string>;
+  export let queryOptions: Readable<QueryOptions>;
+  export let todosQuery: CreateQueryResult<TodoListApiResponseSchema, unknown>;
 
   const { toaster } = createToast();
   const queryClient = useQueryClient();
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
   let todo = '';
 
-  const createTodoMutation = createMutation({
+  const createTodoMutation = createMutation<
+    CreateTodoApiResponseSchema,
+    ErrorApiResponseSchema,
+    CreateTodoSchema,
+    { previousTodosQueryResponse: TodoListApiResponseSchema }
+  >({
     // Called before `mutationFn`:
-    onMutate: async (newTodo: CreateTodoApiResponseSchema) => {
+    onMutate: async (newTodo) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({ queryKey: $queryOptions.queryKey });
 

@@ -7,8 +7,8 @@
   import { Icon } from '../../shared/components/atoms';
   import { useLocalStorage } from '../../shared/hooks/useLocalStorage.hook';
   import type { ErrorApiResponseSchema } from '../../shared/models/Error.model';
-  import { login } from '../../shared/services/api/auth.api';
-  import type { LoginApiResponseSchema } from '../models/Auth.model';
+  import { login } from '../api/auth.api';
+  import type { LoginApiResponseSchema, LoginSchema } from '../api/auth.schema';
 
   // login form
   let username = '';
@@ -17,20 +17,22 @@
   // get 'user' store
   let { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
 
-  const loginMutation = createMutation({
-    mutationFn: () => login({ username, password }),
-    onSuccess: (resp: LoginApiResponseSchema) => {
-      user.set(resp);
-      push('/');
+  const loginMutation = createMutation<LoginApiResponseSchema, ErrorApiResponseSchema, LoginSchema>(
+    {
+      mutationFn: (creds) => login(creds),
+      onSuccess: async (resp) => {
+        user.set(resp);
+        await push('/');
+      },
+      onError: (_err) => {
+        username = '';
+        password = '';
+      },
     },
-    onError: (_err: ErrorApiResponseSchema) => {
-      username = '';
-      password = '';
-    },
-  });
+  );
 
   const onSubmit: HTMLFormAttributes['on:submit'] = () => {
-    $loginMutation.mutate();
+    $loginMutation.mutate({ username, password });
   };
 </script>
 

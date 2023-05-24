@@ -8,9 +8,7 @@ export const todoSchema = z.object({
   completed: z.boolean(),
   userId: z.number().positive(),
 });
-export const createTodoSchema = todoSchema.pick({ todo: true, completed: true }).extend({
-  userId: z.number().positive(),
-});
+export const createTodoSchema = todoSchema;
 export const updateTodoSchema = todoSchema.omit({ userId: true });
 export const deleteTodoSchema = todoSchema.pick({ id: true });
 // #endregion

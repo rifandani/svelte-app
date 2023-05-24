@@ -61,6 +61,11 @@ export function clamp({ value, min, max }: Clamp) {
   return Math.min(Math.max(value, min), max);
 }
 
+/**
+ * Check if we are in browser, not server
+ */
+export const isBrowser = () => typeof window !== 'undefined';
+
 export function addEventListener<E extends keyof WindowEventMap>(
   target: Window,
   event: Arrayable<E>,
