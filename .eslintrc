@@ -27,6 +27,7 @@
     // 'plugin:jest-dom/recommended',
     // 'plugin:tailwindcss/recommended',
   ],
+  "ignorePatterns": ["tailwind.config.ts"],
   "rules": {
     "no-void": "off",
     "no-nested-ternary": "off"
