@@ -4,7 +4,8 @@
   import type { HTMLFormAttributes } from 'svelte/elements';
   import { fade, fly } from 'svelte/transition';
   import svelteCyber from '../../../assets/svelte-cyber.avif';
-  import { Icon } from '../../shared/components/atoms';
+  import LL from '../../../i18n/i18n-svelte';
+  import { Icon, WrapTranslation } from '../../shared/components/atoms';
   import { useLocalStorage } from '../../shared/hooks/useLocalStorage.hook';
   import type { ErrorApiResponseSchema } from '../../shared/models/Error.model';
   import { login } from '../api/auth.api';
@@ -49,19 +50,19 @@
       <div
         class="my-auto flex flex-col justify-center px-8 pt-8 md:justify-start md:px-24 md:pt-0 lg:px-32"
       >
-        <p class="text-center text-3xl text-primary">Welcome Back</p>
+        <p class="text-center text-3xl text-primary">{$LL.auth.welcome()}</p>
 
         <!-- Start FORM -->
         <form class="form-control pt-3 md:pt-8" on:submit|preventDefault={onSubmit}>
           <!-- username -->
           <div class="form-control pt-4">
             <label class="label" for="username">
-              <span class="label-text">Username</span>
+              <span class="label-text">{$LL.forms.username()}</span>
             </label>
 
             <input
               class="input-bordered input-primary input mt-1 shadow-md"
-              placeholder="Your username..."
+              placeholder={$LL.forms.usernamePlaceholder()}
               name="username"
               type="text"
               required
@@ -72,12 +73,12 @@
           <!-- password -->
           <div class="form-control pt-4">
             <label class="label" for="password">
-              <span class="label-text">Password</span>
+              <span class="label-text">{$LL.forms.password()}</span>
             </label>
 
             <input
               class="input-bordered input-primary input mt-1 shadow-md"
-              placeholder="Your password..."
+              placeholder={$LL.forms.passwordPlaceholder()}
               type="password"
               name="password"
               required
@@ -88,7 +89,7 @@
           {#if $loginMutation.isError}
             <div class="alert alert-error mt-3 shadow-lg">
               <div class="flex flex-col items-start">
-                <span>❌ Form error</span>
+                <span>{$LL.forms.error({ icon: '❌' })}</span>
               </div>
             </div>
           {/if}
@@ -98,15 +99,16 @@
             type="submit"
             disabled={$loginMutation.isLoading}
           >
-            {$loginMutation.isLoading ? 'Logging in...' : 'Login 🎁'}
+            {$loginMutation.isLoading ? $LL.forms.loginLoading() : $LL.forms.login()}
           </button>
         </form>
         <!-- End FORM -->
 
         <div class="py-12 text-center">
           <p>
-            Don&apos;t have an account?{' '}
-            <a use:link href="/register" class="link-primary link">Register here</a>
+            <WrapTranslation message={$LL.auth.registerHere()} let:infix>
+              <a use:link href="/register" class="link-primary link">{infix}</a>
+            </WrapTranslation>
           </p>
         </div>
       </div>

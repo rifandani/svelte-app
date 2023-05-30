@@ -4,6 +4,7 @@
   import { fade, fly } from 'svelte/transition';
   import { themeChange } from 'theme-change';
   import svelteLogo from '../../../../assets/svelte.svg';
+  import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
   import { Icon } from '../atoms';
@@ -35,7 +36,7 @@
       <a use:link href="/" class="link-primary link mx-2 flex-1 px-2">
         <span class="flex items-center space-x-2 pl-2 text-2xl">
           <img src={svelteLogo} alt="svelte logo" class="h-8 w-8" />
-          <p class="font-semibold text-primary">Svelte Template</p>
+          <p class="font-semibold text-primary">{$LL.common.appName()}</p>
         </span>
       </a>
 
@@ -49,7 +50,7 @@
 
     <!-- Page content here -->
     <slot>
-      <h1 class="text-lg/10">No Page Content</h1>
+      <h1 class="text-lg/10">{$LL.common.noPageContent()}</h1>
     </slot>
   </section>
 

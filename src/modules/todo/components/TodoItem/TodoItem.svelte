@@ -1,24 +1,34 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
+  import { fly } from 'svelte/transition';
+  import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { TodoSchema } from '../../api/todo.schema';
 
+  //#region PROPS
   export let todo: TodoSchema;
   export let onDeleteTodo: HTMLFormAttributes['on:submit'];
+  //#endregion
 
   // event forwarding
   const dispatch = createEventDispatcher<{ changeTodo: TodoSchema }>();
 
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
 
+  //#region HANDLERS
   const onChangeTodo = () => {
     dispatch('changeTodo', todo);
   };
+  //#endregion
 </script>
 
-<form class="mb-2 flex items-center justify-between" on:submit|preventDefault={onDeleteTodo}>
+<form
+  transition:fly={{ y: 10, duration: 1000 }}
+  class="mb-2 flex items-center justify-between"
+  on:submit|preventDefault={onDeleteTodo}
+>
   <input value={todo.id} type="hidden" name="todoId" id="todoId" />
 
   <input
@@ -38,6 +48,8 @@
   </p>
 
   {#if todo.userId === $user.id}
-    <button class="btn-accent btn-sm btn normal-case" type="submit"> Remove 💥 </button>
+    <button class="btn-accent btn-sm btn normal-case" type="submit"
+      >{$LL.forms.remove({ icon: '💥' })}</button
+    >
   {/if}
 </form>

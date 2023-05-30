@@ -1,6 +1,10 @@
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { setLocale } from '../../../i18n/i18n-svelte';
+import type { Locales } from '../../../i18n/i18n-types';
+import { loadLocaleAsync } from '../../../i18n/i18n-util.async';
+import { loadLocale } from '../../../i18n/i18n-util.sync';
 
 // #region TYPES
 interface Clamp {
@@ -102,4 +106,24 @@ export function addEventListener(
   return () => {
     events.forEach((_event) => target.removeEventListener(_event, handler, options));
   };
+}
+
+/**
+ * handle changing language synchronously
+ */
+export function chooseLocaleSync(locale: Locales) {
+  // update dictionaries and update formatters
+  loadLocale(locale);
+  // change locale store
+  setLocale(locale);
+}
+
+/**
+ * handle changing language asynchronously
+ */
+export async function chooseLocaleAsync(locale: Locales) {
+  // update dictionaries and update formatters
+  await loadLocaleAsync(locale);
+  // change locale store
+  setLocale(locale);
 }

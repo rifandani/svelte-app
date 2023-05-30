@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Icon } from '..';
-  import { cn } from '../../../utils/helper.util';
+  import { Icon } from '.';
+  import { cn } from '../../utils/helper.util';
 
   export let className = '';
   export let stroke = '#8b5cf6';

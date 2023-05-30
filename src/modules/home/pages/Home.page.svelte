@@ -1,10 +1,12 @@
 <script lang="ts">
-  import autoAnimate from '@formkit/auto-animate';
   import { shuffle } from '@rifandani/nxact-yutiriti';
   import { onDestroy, onMount } from 'svelte';
   import { push } from 'svelte-spa-router';
+  import { flip } from 'svelte/animate';
   import { slide } from 'svelte/transition';
+  import LL, { locale } from '../../../i18n/i18n-svelte';
   import { Navbar } from '../../shared/components/organisms';
+  import { chooseLocaleSync } from '../../shared/utils/helper.util';
 
   let showClock = false;
   let timeoutId: number;
@@ -34,30 +36,30 @@
   // recalculate `hours` when `minutes` changes
   $: hours = minutes > 0 ? (minutes % 2 === 0 ? hours + 1 : hours) : 0;
 
-  let buttons = [
+  $: buttons = [
     {
       id: 'sort',
       class: 'btn-ghost btn',
       onClick: () => {},
-      text: 'Sort Buttons', // `${t('sortButtons')} 💫`,
+      text: $LL.home.sortBtn(),
     },
     {
       id: 'clock',
       class: 'btn-active btn',
       onClick: () => (showClock = !showClock),
-      text: 'Toggle Clock', // `${t('toggleClock')} 🕰`,
+      text: $LL.home.toggleClock(),
     },
     {
       id: 'language',
       class: 'btn-accent btn',
-      onClick: () => {}, // locale(locale() === 'en-US' ? 'id' : 'en-US'),
-      text: 'Change Language', // `${t('changeLanguage')} ♻`,
+      onClick: () => chooseLocaleSync($locale === 'en' ? 'id' : 'en'),
+      text: $LL.home.changeLang(),
     },
     {
       id: 'start',
       class: 'btn-secondary btn',
       onClick: () => push('/todos'),
-      text: 'Get Started', // `${t('getStarted')} ✨`,
+      text: $LL.home.getStarted(),
     },
   ];
 
@@ -73,7 +75,7 @@
     in:slide={{ axis: 'y', duration: 1000 }}
     class="text-primary-content container mx-auto flex flex-col items-center py-24 duration-300"
   >
-    <h1 class="text-primary-content mb-4 text-3xl font-medium sm:text-4xl">Svelte App using:</h1>
+    <h1 class="text-primary-content mb-4 text-3xl font-medium sm:text-4xl">{$LL.home.title()}</h1>
 
     <div class="mockup-code">
       <code class="block px-6"
@@ -83,23 +85,27 @@
     </div>
 
     {#if showClock}
-      <div class="stats mt-8 shadow">
+      <div
+        in:slide={{ axis: 'y', duration: 500 }}
+        out:slide={{ axis: 'y', duration: 250 }}
+        class="stats mt-8 shadow"
+      >
         <div class="stat">
-          <div class="stat-title">Clock:</div>
+          <div class="stat-title">{$LL.home.clock()}:</div>
           <div class="stat-value">
             {hours} : {minutes} : {seconds}{' '}
           </div>
-          <div class="stat-desc">Click toggle clock to restart the clock</div>
+          <div class="stat-desc">{$LL.home.clickToggleClock()}</div>
         </div>
       </div>
     {/if}
 
     <div
-      use:autoAnimate
       class="mt-8 grid grid-cols-1 gap-2 duration-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
       {#each buttons as btn (btn.id)}
         <button
+          animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
           class={btn.class}
           on:click={btn.id === 'sort' ? () => (buttons = shuffle(buttons)) : btn.onClick}
         >
