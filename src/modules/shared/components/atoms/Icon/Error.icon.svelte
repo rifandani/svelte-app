@@ -9,7 +9,6 @@
 <script lang="ts">
   type $$Props = ErrorProps;
 
-  export let className: $$Props['class'] = '';
   export let width: $$Props['width'] = 16;
   export let height: $$Props['height'] = 16;
   export let fill: $$Props['fill'] = 'currentColor';
@@ -18,7 +17,7 @@
   export let strokeWidthPath: $$Props['strokeWidthPath'] = '2';
 </script>
 
-<svg class={className} {width} {height} {viewBox} {fill} {xmlns} {...$$restProps}>
+<svg {width} {height} {viewBox} {fill} {xmlns} {...$$restProps}>
   <title>Error</title>
   <path
     stroke-width={strokeWidthPath}

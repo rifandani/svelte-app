@@ -7,15 +7,12 @@
 <script lang="ts">
   type $$Props = HomeProps;
 
-  export let className: $$Props['class'] = '';
   export let width: $$Props['width'] = 24;
   export let height: $$Props['height'] = 24;
-  export let fill: $$Props['fill'] = 'currentColor';
   export let viewBox: $$Props['viewBox'] = '0 0 24 24';
-  export let xmlns: $$Props['xmlns'] = 'http://www.w3.org/2000/svg';
 </script>
 
-<svg class={className} {width} {height} {fill} {viewBox} {xmlns} {...$$restProps}>
+<svg {width} {height} {viewBox} {...$$restProps}>
   <title>Home</title>
   <path
     fill="currentColor"

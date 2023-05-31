@@ -10,7 +10,6 @@
 <script lang="ts">
   type $$Props = SpinnerProps;
 
-  export let className: $$Props['class'] = '';
   export let width: $$Props['width'] = 64;
   export let height: $$Props['height'] = 64;
   export let fill: $$Props['fill'] = 'none';
@@ -20,7 +19,7 @@
   export let strokeWidthPath: $$Props['strokeWidthPath'] = '8';
 </script>
 
-<svg class={className} {width} {height} {viewBox} {fill} {xmlns} {...$$restProps}>
+<svg {width} {height} {viewBox} {fill} {xmlns} {...$$restProps}>
   <title>Spinner</title>
   <mask id="path-1-inside-1_38_4" fill="white">
     <path

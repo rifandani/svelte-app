@@ -43,7 +43,7 @@
     <section class="flex w-full flex-col md:w-1/2">
       <div class="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
         <a use:link href="/" class="relative cursor-pointer">
-          <Icon.Home className="h-8 w-8 rounded-full hover:text-primary" />
+          <Icon.Home class="h-8 w-8 rounded-full hover:text-primary" />
         </a>
       </div>
 
