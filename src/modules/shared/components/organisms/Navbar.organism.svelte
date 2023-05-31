@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, type ComponentEvents } from 'svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
   import { themeChange } from 'theme-change';
@@ -13,10 +13,13 @@
   // get 'user' store
   const { reset } = useLocalStorage<LoginApiResponseSchema>('user');
 
-  const logout = (_ev: CustomEvent<{ email: string }>) => {
+  //#region HANDLERS
+  // CustomEvent<{ email: string }>
+  const logout = (_ev: ComponentEvents<NavbarMenuContent>['logout']) => {
     reset(); // reset `user` store
     void replace('/login'); // back to login
   };
+  //#endregion
 
   onMount(() => themeChange(false));
 </script>

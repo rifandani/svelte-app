@@ -1,11 +1,20 @@
+<script lang="ts" context="module">
+  import type { SpinnerProps } from './Icon/Spinner.icon.svelte';
+
+  export type LoadingSpinnerProps = SpinnerProps & {
+    className?: string;
+  };
+</script>
+
 <script lang="ts">
   import { Icon } from '.';
   import { cn } from '../../utils/helper.util';
 
-  export let className = '';
-  export let stroke = '#8b5cf6';
+  type $$Props = LoadingSpinnerProps;
+
+  export let className: $$Props['className'] = '';
 </script>
 
 <div class={cn(['inline-block h-16 w-16 animate-spin', className])}>
-  <Icon.Spinner {stroke} />
+  <Icon.Spinner {...$$restProps} />
 </div>

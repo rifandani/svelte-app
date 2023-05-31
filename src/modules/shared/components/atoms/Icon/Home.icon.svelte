@@ -1,11 +1,21 @@
-<script lang="ts">
-  export let className = '';
-  export let width = 24;
-  export let height = 24;
-  export let viewBox = '0 0 24 24';
+<script lang="ts" context="module">
+  import type { SvelteHTMLElements } from 'svelte/elements';
+
+  type HomeProps = SvelteHTMLElements['svg'];
 </script>
 
-<svg class={className} {width} {height} {viewBox} xmlns="http://www.w3.org/2000/svg">
+<script lang="ts">
+  type $$Props = HomeProps;
+
+  export let className: $$Props['class'] = '';
+  export let width: $$Props['width'] = 24;
+  export let height: $$Props['height'] = 24;
+  export let fill: $$Props['fill'] = 'currentColor';
+  export let viewBox: $$Props['viewBox'] = '0 0 24 24';
+  export let xmlns: $$Props['xmlns'] = 'http://www.w3.org/2000/svg';
+</script>
+
+<svg class={className} {width} {height} {fill} {viewBox} {xmlns} {...$$restProps}>
   <title>Home</title>
   <path
     fill="currentColor"

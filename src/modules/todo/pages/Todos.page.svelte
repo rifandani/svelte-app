@@ -1,10 +1,12 @@
 <script context="module">
   // Code contained inside it will run once, when the module first evaluates, rather than when a component is instantiated.
   export const defaultLimit = '10';
+  export const limits = ['10', '25', '50', '100'];
 </script>
 
 <script lang="ts">
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
+  import type { ComponentEvents } from 'svelte';
   import { querystring } from 'svelte-spa-router';
   import type { HTMLFormAttributes } from 'svelte/elements';
   import { readable } from 'svelte/store';
@@ -19,7 +21,6 @@
     DeleteTodoApiResponseSchema,
     DeleteTodoSchema,
     TodoListApiResponseSchema,
-    TodoSchema,
     UpdateTodoApiResponseSchema,
     UpdateTodoSchema,
   } from '../api/todo.schema';
@@ -27,6 +28,7 @@
   import TodosCreate from '../components/TodosCreate/TodosCreate.svelte';
   import TodosFilter from '../components/TodosFilter/TodosFilter.svelte';
 
+  //#region VALUES
   $: searchParams = new URLSearchParams(`?${$querystring}`);
   $: queryParams = Object.fromEntries(searchParams);
   $: queryOptions = readable(
@@ -40,7 +42,6 @@
   const queryClient = useQueryClient();
   let todo = '';
 
-  //#region HANDLERS
   const updateTodoMutation = createMutation<
     UpdateTodoApiResponseSchema,
     ErrorApiResponseSchema,
@@ -128,8 +129,11 @@
       // queryClient.invalidateQueries({ queryKey: $queryOptions.queryKey });
     },
   });
+  //#endregion
 
-  const onChangeTodo = (_ev: CustomEvent<TodoSchema>) => {
+  //#region HANDLERS
+  // CustomEvent<TodoSchema>
+  const onChangeTodo = (_ev: ComponentEvents<TodoItem>['changeTodo']) => {
     $updateTodoMutation.mutate({ ..._ev.detail, completed: !_ev.detail.completed });
   };
 

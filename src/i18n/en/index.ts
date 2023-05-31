@@ -3,7 +3,7 @@ import type { BaseTranslation } from '../i18n-types';
 const en = {
   auth: {
     welcome: 'Welcome Back',
-    logoutUsername: 'Logout {username:string|capitalize}',
+    logoutUsername: 'Logout ({username:string})',
     registerHere: "Don't have an account? <>Register here<>",
     notFound404: '404: Not Found',
     gone: "It's gone",
@@ -34,9 +34,10 @@ const en = {
   },
   common: {
     list: '{0:string} List',
-    error: '❌ {module:string} error',
+    error: '❌ {module:string|capitalize} error',
     noPageContent: 'No Page Content',
     appName: 'Svelte Template',
+    theme: 'Theme',
   },
   today: 'Today is {date:Date|weekday}',
 } satisfies BaseTranslation;

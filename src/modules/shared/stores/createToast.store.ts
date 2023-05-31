@@ -63,6 +63,9 @@ const normalizeOptions = (options: ToastOptions): ToastParams => {
 
 const toasts$ = writable<ToastParams[]>([]);
 
+/**
+ * Use to give feedback & confirmation to users after they take an action.
+ */
 export function createToast(initConfig?: ToastConfig): ToastReturn {
   const {
     max = Number.MAX_SAFE_INTEGER,

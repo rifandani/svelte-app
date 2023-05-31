@@ -7,15 +7,15 @@
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { TodoSchema } from '../../api/todo.schema';
 
-  //#region PROPS
   export let todo: TodoSchema;
   export let onDeleteTodo: HTMLFormAttributes['on:submit'];
-  //#endregion
 
+  //#region VALUES
   // event forwarding
   const dispatch = createEventDispatcher<{ changeTodo: TodoSchema }>();
 
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  //#endregion
 
   //#region HANDLERS
   const onChangeTodo = () => {

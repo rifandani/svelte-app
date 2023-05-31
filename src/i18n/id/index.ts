@@ -3,7 +3,7 @@ import type { Translation } from '../i18n-types';
 const id = {
   auth: {
     welcome: 'Selamat Datang Kembali',
-    logoutUsername: 'Keluar {username|capitalize}',
+    logoutUsername: 'Keluar ({username})',
     registerHere: 'Tidak punya akun? <>Daftar disini<>',
     notFound404: '404: Tidak Ditemukan',
     gone: 'Halaman Kosong',
@@ -34,9 +34,10 @@ const id = {
   },
   common: {
     list: 'Daftar {0}',
-    error: '❌ {module} eror',
+    error: '❌ {module|capitalize} eror',
     noPageContent: 'Tidak Ada Konten',
     appName: 'Templat Svelte',
+    theme: 'Tema',
   },
   today: 'Hari ini {date|weekday}',
 } satisfies Translation;

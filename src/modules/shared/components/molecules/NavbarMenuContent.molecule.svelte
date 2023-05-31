@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { link } from 'svelte-spa-router';
   import active from 'svelte-spa-router/active';
+  import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { themes } from '../../constants/global.constant';
   import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
@@ -12,11 +13,11 @@
   // get 'user' store
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
 
+  //#region HANDLERS
   const onClickLogout = () => {
     dispatch('logout');
   };
-
-  // const [t] = useI18n();
+  //#endregion
 </script>
 
 <li>
@@ -40,7 +41,9 @@
   </a>
 </li>
 <li class="dropdown-bottom dropdown-end dropdown mt-3 lg:mt-0">
-  <button class="btn-secondary btn rounded-none normal-case text-secondary-content">Theme</button>
+  <button class="btn-secondary btn rounded-none normal-case text-secondary-content"
+    >{$LL.common.theme()}</button
+  >
 
   <ul
     tabIndex={0}
@@ -59,7 +62,7 @@
 {#if !!$user.username}
   <li class="ml-0 mt-auto lg:ml-3 lg:mt-0">
     <button on:click={onClickLogout} class="btn-primary btn h-full normal-case">
-      Logout ({$user.username})
+      {$LL.auth.logoutUsername({ username: $user.username })}
     </button>
   </li>
 {/if}

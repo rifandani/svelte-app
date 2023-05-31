@@ -20,10 +20,10 @@ type RootTranslation = {
 		 */
 		welcome: string
 		/**
-		 * L​o​g​o​u​t​ ​{​u​s​e​r​n​a​m​e​|​c​a​p​i​t​a​l​i​z​e​}
+		 * L​o​g​o​u​t​ ​(​{​u​s​e​r​n​a​m​e​}​)
 		 * @param {string} username
 		 */
-		logoutUsername: RequiredParams<'username|capitalize'>
+		logoutUsername: RequiredParams<'username'>
 		/**
 		 * D​o​n​'​t​ ​h​a​v​e​ ​a​n​ ​a​c​c​o​u​n​t​?​ ​<​>​R​e​g​i​s​t​e​r​ ​h​e​r​e​<​>
 		 */
@@ -132,10 +132,10 @@ type RootTranslation = {
 		 */
 		list: RequiredParams<'0'>
 		/**
-		 * ❌​ ​{​m​o​d​u​l​e​}​ ​e​r​r​o​r
+		 * ❌​ ​{​m​o​d​u​l​e​|​c​a​p​i​t​a​l​i​z​e​}​ ​e​r​r​o​r
 		 * @param {string} module
 		 */
-		error: RequiredParams<'module'>
+		error: RequiredParams<'module|capitalize'>
 		/**
 		 * N​o​ ​P​a​g​e​ ​C​o​n​t​e​n​t
 		 */
@@ -144,6 +144,10 @@ type RootTranslation = {
 		 * S​v​e​l​t​e​ ​T​e​m​p​l​a​t​e
 		 */
 		appName: string
+		/**
+		 * T​h​e​m​e
+		 */
+		theme: string
 	}
 	/**
 	 * T​o​d​a​y​ ​i​s​ ​{​d​a​t​e​|​w​e​e​k​d​a​y​}
@@ -159,7 +163,7 @@ export type TranslationFunctions = {
 		 */
 		welcome: () => LocalizedString
 		/**
-		 * Logout {username|capitalize}
+		 * Logout ({username})
 		 */
 		logoutUsername: (arg: { username: string }) => LocalizedString
 		/**
@@ -265,7 +269,7 @@ export type TranslationFunctions = {
 		 */
 		list: (arg0: string) => LocalizedString
 		/**
-		 * ❌ {module} error
+		 * ❌ {module|capitalize} error
 		 */
 		error: (arg: { module: string }) => LocalizedString
 		/**
@@ -276,6 +280,10 @@ export type TranslationFunctions = {
 		 * Svelte Template
 		 */
 		appName: () => LocalizedString
+		/**
+		 * Theme
+		 */
+		theme: () => LocalizedString
 	}
 	/**
 	 * Today is {date|weekday}

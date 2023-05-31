@@ -7,6 +7,7 @@
   } from '@tanstack/svelte-query';
   import type { HTMLFormAttributes } from 'svelte/elements';
   import type { Readable } from 'svelte/store';
+  import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { ErrorApiResponseSchema } from '../../../shared/models/Error.model';
@@ -24,6 +25,7 @@
   export let queryOptions: Readable<QueryOptions>;
   export let todosQuery: CreateQueryResult<TodoListApiResponseSchema, unknown>;
 
+  //#region VALUES
   const { toaster } = createToast();
   const queryClient = useQueryClient();
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
@@ -78,7 +80,9 @@
       // queryClient.invalidateQueries({ queryKey: $queryOptions.queryKey });
     },
   });
+  //#endregion
 
+  //#region HANDLERS
   const onSubmit: HTMLFormAttributes['on:submit'] = () => {
     $createTodoMutation.mutate({
       id: $todosQuery.data?.todos[$todosQuery.data?.todos.length - 1].id + 1,
@@ -87,13 +91,14 @@
       completed: false,
     });
   };
+  //#endregion
 </script>
 
 <form class="form-control mb-3 w-full duration-300 lg:flex-row" on:submit|preventDefault={onSubmit}>
   <input
     bind:value={todo}
     class="input-bordered input-accent input text-accent-content w-full lg:w-10/12"
-    placeholder="What should you do next..."
+    placeholder={$LL.forms.todoPlaceholder()}
     name="todo"
     id="todo"
     type="text"
@@ -104,6 +109,6 @@
     class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12"
     type="submit"
   >
-    Add ✔
+    {$LL.forms.add({ icon: '✔' })}
   </button>
 </form>
