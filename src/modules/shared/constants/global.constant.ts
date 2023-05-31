@@ -53,3 +53,6 @@ export const environment: Environment = {
 } as const;
 
 export const defaultWindow = environment.browser ? window : undefined;
+export const defaultDocument = environment.browser ? window.document : undefined;
+export const defaultNavigator = environment.browser ? window.navigator : undefined;
+export const defaultLocation = environment.browser ? window.location : undefined;
