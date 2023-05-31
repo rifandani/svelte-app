@@ -22,10 +22,10 @@ const defaultState: ObserverRect = {
  *
  * @example
  *
- * const [elementSize, ref] = useElementSize();
- * $: ({ width, height } = $elementSize);
+ * const [size, elementSize] = useElementSize();
+ * $: ({ width, height } = $size);
  *
- * <textarea use:ref style='width: 400px; height: 120;' />
+ * <textarea use:elementSize style='width: 400px; height: 120;' />
  * <div>Width: {width}px, height: {height}px</div>
  */
 export function useElementSize(): ElementSize {
