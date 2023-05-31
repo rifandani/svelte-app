@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["svelte3", "@typescript-eslint"],
+  "plugins": ["svelte3", "@typescript-eslint", "testing-library", "jest-dom"],
   "overrides": [
     {
       "files": ["*.svelte"],
@@ -29,7 +29,8 @@
   "ignorePatterns": ["tailwind.config.ts"],
   "rules": {
     "no-void": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "testing-library/no-node-access": ["error", { "allowContainerFirstChild": true }]
   },
   "settings": {
     "svelte3/typescript": true
