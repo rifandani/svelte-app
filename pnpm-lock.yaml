@@ -90,6 +90,9 @@ devDependencies:
   eslint-plugin-tailwindcss:
     specifier: ^3.12.1
     version: 3.12.1(tailwindcss@3.3.2)
+  eslint-plugin-testing-library:
+    specifier: ^5.11.0
+    version: 5.11.0(eslint@8.41.0)(typescript@5.0.3)
   jsdom:
     specifier: ^22.1.0
     version: 22.1.0
@@ -1804,6 +1807,19 @@ packages:
       fast-glob: 3.2.12
       postcss: 8.4.24
       tailwindcss: 3.3.2
+    dev: true
+
+  /eslint-plugin-testing-library@5.11.0(eslint@8.41.0)(typescript@5.0.3):
+    resolution: {integrity: sha512-ELY7Gefo+61OfXKlQeXNIDVVLPcvKTeiQOoMZG9TeuWa7Ln4dUNRv8JdRWBQI9Mbb427XGlVB1aa1QPZxBJM8Q==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6'}
+    peerDependencies:
+      eslint: ^7.5.0 || ^8.0.0
+    dependencies:
+      '@typescript-eslint/utils': 5.59.8(eslint@8.41.0)(typescript@5.0.3)
+      eslint: 8.41.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /eslint-scope@5.1.1:
