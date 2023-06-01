@@ -39,7 +39,7 @@
   $: buttons = [
     {
       id: 'sort',
-      class: 'btn-ghost btn',
+      class: 'btn-neutral btn',
       onClick: () => {},
       text: $LL.home.sortBtn(),
     },

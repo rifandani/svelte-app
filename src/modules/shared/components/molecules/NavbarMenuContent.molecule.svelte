@@ -25,33 +25,23 @@
     use:link
     use:active={{ path: '/todos', className: 'link-secondary', inactiveClassName: 'link-neutral' }}
     href="/todos"
-    class="link-hover link text-primary"
+    class="link-hover link text-primary tracking-wide mx-0 lg:mx-3"
   >
     Todos
   </a>
 </li>
-<li>
-  <a
-    use:link
-    use:active={{ path: '/posts', className: 'link-secondary', inactiveClassName: 'link-neutral' }}
-    href="/posts"
-    class="link-hover link mx-0 text-primary lg:mx-3"
-  >
-    Posts
-  </a>
-</li>
-<li class="dropdown-bottom dropdown-end dropdown mt-3 lg:mt-0">
-  <button class="btn-secondary btn rounded-none normal-case text-secondary-content"
+<li class="dropdown-top lg:dropdown-bottom lg:dropdown-end dropdown mt-auto mb-3 lg:mb-0 lg:mt-0">
+  <button tabindex={0} class="btn btn-sm btn-secondary btn-block normal-case text-secondary-content"
     >{$LL.common.theme()}</button
   >
 
   <ul
     tabIndex={0}
-    class="dropdown-content menu rounded-box block max-h-60 w-52 overflow-y-auto bg-base-100 p-2 shadow"
+    class="dropdown-content menu rounded-box block max-h-60 w-72 lg:w-52 overflow-y-auto bg-base-100 p-2 shadow z-10"
   >
     {#each themes as theme (theme)}
       <li>
-        <button class="capitalize text-secondary" data-set-theme={theme}>
+        <button class="capitalize text-neutral-content tracking-wide" data-set-theme={theme}>
           {theme}
         </button>
       </li>
@@ -60,8 +50,11 @@
 </li>
 
 {#if !!$user.username}
-  <li class="ml-0 mt-auto lg:ml-3 lg:mt-0">
-    <button on:click={onClickLogout} class="btn-primary btn h-full normal-case">
+  <li class="ml-0 lg:ml-3 lg:mt-0">
+    <button
+      on:click={onClickLogout}
+      class="btn btn-sm btn-primary normal-case text-primary-content tracking-wide"
+    >
       {$LL.auth.logoutUsername({ username: $user.username })}
     </button>
   </li>

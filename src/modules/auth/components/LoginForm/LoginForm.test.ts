@@ -16,9 +16,9 @@ describe('LoginPage', () => {
   it('should login successfully', async () => {
     // ARRANGE
     const { component } = render(LoginForm);
-    const iputUsername = screen.getByTestId('input-username') as HTMLInputElement;
-    const inputPassword = screen.getByTestId('input-password') as HTMLInputElement;
-    const buttonSubmit = screen.getByTestId('button-submit') as HTMLButtonElement;
+    const iputUsername: HTMLInputElement = screen.getByTestId('input-username');
+    const inputPassword: HTMLInputElement = screen.getByTestId('input-password');
+    const buttonSubmit: HTMLButtonElement = screen.getByTestId('button-submit');
 
     // ACT
     await fireEvent.change(iputUsername, { target: { value: validUsername } });

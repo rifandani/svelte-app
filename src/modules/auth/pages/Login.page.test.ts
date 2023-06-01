@@ -5,7 +5,7 @@ describe('LoginPage', () => {
   it('should render login title', () => {
     // ARRANGE
     render(Login);
-    const paragraph = screen.getByTestId('title') as HTMLParagraphElement;
+    const paragraph: HTMLParagraphElement = screen.getByTestId('title');
 
     // ASSERT
     expect(paragraph).toBeInTheDocument();
