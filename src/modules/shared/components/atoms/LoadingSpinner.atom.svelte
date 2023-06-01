@@ -7,14 +7,14 @@
 </script>
 
 <script lang="ts">
+  import { twMerge } from 'tailwind-merge';
   import { Icon } from '.';
-  import { cn } from '../../utils/helper.util';
 
   type $$Props = LoadingSpinnerProps;
 
   export let className: $$Props['className'] = '';
 </script>
 
-<div class={cn(['inline-block h-16 w-16 animate-spin', className])}>
+<div class={twMerge(['inline-block h-16 w-16 animate-spin', className])}>
   <Icon.Spinner {...$$restProps} />
 </div>

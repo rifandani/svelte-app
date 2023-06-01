@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [svelte({ hot: !process.env.VITEST })], // disabling Svelte's hot module reload when tests are running
   test: {
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['html'],
+    reporters: ['default', 'html'],
     environment: 'jsdom', // mocking the DOM API
     globals: true,
     setupFiles: ['node_modules/@testing-library/jest-dom/extend-expect.js', 'src/setupTests.ts'],

@@ -1,6 +1,4 @@
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
-import clsx, { type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import { setLocale } from '../../../i18n/i18n-svelte';
 import type { Locales } from '../../../i18n/i18n-types';
 import { loadLocaleAsync } from '../../../i18n/i18n-util.async';
@@ -51,15 +49,6 @@ export const template = (str: string, params: Record<string, string>, reg = /{{(
 // ): obj is ApiSuccessResponse<T> {
 //   return obj ? obj.ok : false;
 // }
-
-/**
- * Small wrapper around `clsx` and `twMerge` function.
- * `clsx` is for conditional classes.
- * `twMerge` is for resolving class conflicts and useful when we want to override styles for a component.
- */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 export function clamp({ value, min, max }: Clamp) {
   return Math.min(Math.max(value, min), max);
