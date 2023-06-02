@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/svelte';
+import { fireEvent, render, screen } from '@testing-library/svelte';
 import TestWrapper from '../../../../app/TestWrapper.app.svelte';
 import HomeClock from './HomeClock.svelte';
 
@@ -8,16 +8,20 @@ describe('HomeClock', () => {
     expect(() => result).not.toThrow();
   });
 
-  it.todo('should render toggle clock correctly', () => {
+  it('should render toggle clock correctly', async () => {
     // ARRANGE
     render(TestWrapper, { props: { component: HomeClock } });
-    const div: HTMLDivElement = screen.getByTestId('show-clock');
+    const clockBtn: HTMLButtonElement = screen.getByTestId('clock');
+
+    // ACT
+    await fireEvent.click(clockBtn);
 
     // ASSERT
+    const div: HTMLDivElement = screen.getByTestId('show-clock');
     expect(div).toBeInTheDocument();
   });
 
-  it.todo('should render buttons correctly', () => {
+  it('should render buttons correctly', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: HomeClock } });
     const sortBtn: HTMLButtonElement = screen.getByTestId('sort');
