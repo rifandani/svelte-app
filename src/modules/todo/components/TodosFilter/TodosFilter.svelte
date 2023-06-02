@@ -20,20 +20,25 @@
   //#endregion
 </script>
 
-<form class="mb-3 flex w-full flex-col duration-300 md:flex-row md:space-x-2">
-  <label for="limit" class="label">
+<form data-testid="form" class="mb-3 flex w-full flex-col duration-300 md:flex-row md:space-x-2">
+  <label data-testid="label-limit" for="limit" class="label">
     <span class="label-text text-primary-content">{$LL.forms.limit()}</span>
   </label>
 
   <select
-    value={selectedOption}
-    on:change={onChangeLimit}
+    data-testid="select-limit"
     class="select-bordered select select-primary"
     name="limit"
     id="limit"
+    value={selectedOption}
+    on:change={onChangeLimit}
   >
     {#each limits as limit (limit)}
-      <option value={limit} selected={limit === selectedOption}>{limit}</option>
+      <option
+        data-testid={`option-limit-${limit}`}
+        value={limit}
+        selected={limit === selectedOption}>{limit}</option
+      >
     {/each}
   </select>
 </form>

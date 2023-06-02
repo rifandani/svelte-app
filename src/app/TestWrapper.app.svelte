@@ -19,5 +19,5 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-  <svelte:component this={component} />
+  <svelte:component this={component} {...$$restProps} />
 </QueryClientProvider>

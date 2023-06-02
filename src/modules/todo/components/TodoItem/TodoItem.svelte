@@ -25,22 +25,25 @@
 </script>
 
 <form
-  transition:fly={{ y: 10, duration: 1000 }}
+  data-testid="form"
   class="mb-2 flex items-center justify-between"
+  transition:fly={{ y: 10, duration: 1000 }}
   on:submit|preventDefault={onDeleteTodo}
 >
-  <input value={todo.id} type="hidden" name="todoId" id="todoId" />
+  <input data-testid="input-todoId" value={todo.id} type="hidden" name="todoId" id="todoId" />
 
   <input
-    on:change={onChangeTodo}
-    checked={todo.completed}
-    name={`todo-${todo.id}`}
-    id={`todo-${todo.id}`}
+    data-testid="input-todo"
     class="checkbox-accent checkbox"
     type="checkbox"
+    id={`todo-${todo.id}`}
+    name={`todo-${todo.id}`}
+    checked={todo.completed}
+    on:change={onChangeTodo}
   />
 
   <p
+    data-testid="p-todo"
     class="text-secondary-content ml-5 w-full text-left text-lg"
     class:line-through={todo.completed}
   >
@@ -48,7 +51,7 @@
   </p>
 
   {#if todo.userId === $user.id}
-    <button class="btn-accent btn-sm btn normal-case" type="submit"
+    <button data-testid="button-remove" class="btn-accent btn-sm btn normal-case" type="submit"
       >{$LL.forms.remove({ icon: '💥' })}</button
     >
   {/if}

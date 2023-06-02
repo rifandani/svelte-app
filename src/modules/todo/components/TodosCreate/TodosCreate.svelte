@@ -85,8 +85,8 @@
   //#region HANDLERS
   const onSubmit: HTMLFormAttributes['on:submit'] = () => {
     $createTodoMutation.mutate({
-      id: $todosQuery.data?.todos[$todosQuery.data?.todos.length - 1].id + 1,
       todo,
+      id: $todosQuery?.data?.todos[$todosQuery?.data?.todos.length - 1].id + 1,
       userId: $user.id,
       completed: false,
     });
@@ -94,18 +94,24 @@
   //#endregion
 </script>
 
-<form class="form-control mb-3 w-full duration-300 lg:flex-row" on:submit|preventDefault={onSubmit}>
+<form
+  data-testid="form"
+  class="form-control mb-3 w-full duration-300 lg:flex-row"
+  on:submit|preventDefault={onSubmit}
+>
   <input
-    bind:value={todo}
+    data-testid="input-todo"
     class="input-bordered input-accent input text-accent-content w-full lg:w-10/12"
     placeholder={$LL.forms.todoPlaceholder()}
     name="todo"
     id="todo"
     type="text"
     required
+    bind:value={todo}
   />
 
   <button
+    data-testid="button-submit"
     class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12"
     type="submit"
   >

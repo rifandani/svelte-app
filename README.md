@@ -46,10 +46,16 @@ import { writable } from 'svelte/store';
 export default writable(0);
 ```
 
+## NOTES
+
 ```ts
 $: console.log('🚀 ~ file: Todos.page.svelte:119', {
+  queryParams,
+  queryOptions,
+  $queryOptions,
+  todosQuery,
+  $todosQuery,
   todoQueryKeys: todoQueryKeys.list._def,
-  $queryOptions: $queryOptions.queryKey,
   todoQueryKeysTodos: queryClient.getQueryData(todoQueryKeys.list._def),
   $queryOptionsTodos: queryClient.getQueryData($queryOptions.queryKey),
   queryCache: queryClient.getQueryCache(),
