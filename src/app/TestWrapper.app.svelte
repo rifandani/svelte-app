@@ -1,5 +1,8 @@
 <script lang="ts">
   import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
+  import type { ComponentType } from 'svelte';
+
+  export let component: ComponentType;
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -16,5 +19,5 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-  <slot {queryClient} />
+  <svelte:component this={component} />
 </QueryClientProvider>

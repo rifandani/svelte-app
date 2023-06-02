@@ -10,11 +10,13 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 
 // implementation of window.resizeTo for dispatching event
 window.resizeTo = function resizeTo(width, height) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
   Object.assign(this, {
     innerWidth: width,
     innerHeight: height,
     outerWidth: width,
     outerHeight: height,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   }).dispatchEvent(new this.Event('resize'));
 };
 

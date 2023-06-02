@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
+import TestWrapper from '../../../../app/TestWrapper.app.svelte';
 import LoginForm from './LoginForm.svelte';
 
 describe('LoginPage', () => {
@@ -15,7 +16,7 @@ describe('LoginPage', () => {
 
   it('should login successfully', async () => {
     // ARRANGE
-    const { component } = render(LoginForm);
+    const { component } = render(TestWrapper, { props: { component: LoginForm } });
     const iputUsername: HTMLInputElement = screen.getByTestId('input-username');
     const inputPassword: HTMLInputElement = screen.getByTestId('input-password');
     const buttonSubmit: HTMLButtonElement = screen.getByTestId('button-submit');
