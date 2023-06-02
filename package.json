@@ -11,9 +11,11 @@
     "format": "prettier --write --plugin-search-dir=. ./**/*.{html,svelte,ts,js}",
     "lint": "eslint . --ext .js,.ts,.svelte",
     "lint:fix": "eslint . --ext .js,.ts,.svelte --fix",
+    "msw:init": "msw init public/ --save",
+    "msw:delete": "rm -rf public/mockServiceWorker.js",
     "dev": "vite",
     "start": "npm-run-all --parallel dev typesafe-i18n",
-    "build": "vite build",
+    "build": "pnpm msw:delete && vite build --mode development",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "typesafe-i18n": "typesafe-i18n",
@@ -66,5 +68,8 @@
     "type-fest": "^3.11.1",
     "typesafe-i18n": "^5.24.3",
     "zod": "^3.21.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

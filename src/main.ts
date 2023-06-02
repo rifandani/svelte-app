@@ -9,15 +9,14 @@ if (import.meta.env.DEV && !(target instanceof HTMLElement)) {
   );
 }
 
-// NOTE: if we want to enable browser mocking
-// if (import.meta.env.DEV) {
-//   void import('./mocks/browser.mock').then(({ worker }) => {
-//     // insert it into global window object, so we can debug the worker in runtime (e.g Chrome DevTools)
-//     window.msw = { worker };
-//     // start browser worker
-//     return worker.start();
-//   });
-// }
+if (import.meta.env.DEV) {
+  void import('./mocks/browser.mock').then(({ worker }) => {
+    // insert it into global window object, so we can debug the worker in runtime (e.g Chrome DevTools)
+    window.msw = { worker };
+    // start browser worker
+    return worker.start();
+  });
+}
 
 const app = new App({
   target,
