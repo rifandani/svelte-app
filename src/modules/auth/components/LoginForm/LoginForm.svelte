@@ -33,7 +33,7 @@
   };
 </script>
 
-<form class="form-control pt-3 md:pt-8" on:submit|preventDefault={onSubmit}>
+<form data-testid="form" class="form-control pt-3 md:pt-8" on:submit|preventDefault={onSubmit}>
   <!-- username -->
   <div class="form-control pt-4">
     <label class="label" for="username">

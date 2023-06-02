@@ -3,6 +3,11 @@ import TestWrapper from '../../../app/TestWrapper.app.svelte';
 import Login from './Login.page.svelte';
 
 describe('LoginPage', () => {
+  it('should render properly', () => {
+    const result = render(TestWrapper, { props: { component: Login } });
+    expect(() => result).not.toThrow();
+  });
+
   it('should render login title', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: Login } });

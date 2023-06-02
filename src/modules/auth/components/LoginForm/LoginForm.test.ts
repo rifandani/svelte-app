@@ -6,29 +6,30 @@ import LoginForm from './LoginForm.svelte';
 describe('LoginPage', () => {
   const validUsername = 'kminchelle';
   const validPassword = '0lelplR';
-  const getItemSpy = vi.spyOn(localStorage, 'getItem');
-  localStorage.getItem = vi.fn(() => 'user');
+  const mockSubmitFn = vi.fn();
 
-  afterEach(() => {
-    getItemSpy.mockClear(); // clear call history
-    localStorage.clear();
+  it('should render properly', () => {
+    const result = render(TestWrapper, { props: { component: LoginForm } });
+    expect(() => result).not.toThrow();
   });
 
-  it('should login successfully', async () => {
+  it('should be able to type the inputs and submit the login form', async () => {
     // ARRANGE
-    const { component } = render(TestWrapper, { props: { component: LoginForm } });
-    const iputUsername: HTMLInputElement = screen.getByTestId('input-username');
+    render(TestWrapper, { props: { component: LoginForm } });
+    const form: HTMLFormElement = screen.getByTestId('form');
+    const inputUsername: HTMLInputElement = screen.getByTestId('input-username');
     const inputPassword: HTMLInputElement = screen.getByTestId('input-password');
     const buttonSubmit: HTMLButtonElement = screen.getByTestId('button-submit');
+    form.addEventListener('submit', mockSubmitFn);
 
     // ACT
-    await fireEvent.change(iputUsername, { target: { value: validUsername } });
+    await fireEvent.change(inputUsername, { target: { value: validUsername } });
     await fireEvent.change(inputPassword, { target: { value: validPassword } });
 
     // ASSERT
-    expect(iputUsername.value).toBe(validUsername);
+    expect(inputUsername.value).toBe(validUsername);
     expect(inputPassword.value).toBe(validPassword);
-
     await fireEvent.click(buttonSubmit);
+    expect(mockSubmitFn).toHaveBeenCalled();
   });
 });
