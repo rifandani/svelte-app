@@ -1,4 +1,4 @@
-import type * as svelteRouter from 'svelte-spa-router';
+import type * as svelteRouterActive from 'svelte-spa-router/active';
 import { vi } from 'vitest';
 
 // mock ResizeObserver
@@ -20,25 +20,48 @@ window.resizeTo = function resizeTo(width, height) {
   }).dispatchEvent(new this.Event('resize'));
 };
 
-export const mockedLink = vi.fn();
-export const mockedPush = vi.fn();
-export const mockedPop = vi.fn();
-export const mockedReplace = vi.fn();
-export const mockedLoc = vi.fn(() => ({ location: '/todos', querystring: '?limit=10' }));
-export const mockedLocation = vi.fn(() => '/todos');
-export const mockedQuerystring = vi.fn(() => '?limit=10');
-export const mockedParams = vi.fn(() => ({ limit: '10' }));
+// const mockedRouter = vi.hoisted(() => {
+//   return {
+//     link: vi.fn(),
+//     push: vi.fn(),
+//     pop: vi.fn(),
+//     replace: vi.fn(),
+//     loc: vi.fn(() => ({ location: '/todos', querystring: '?limit=10' })),
+//     location: vi.fn(() => '/todos'),
+//     querystring: vi.fn(() => '?limit=10'),
+//     params: vi.fn(() => ({ limit: '10' })),
+//   };
+// });
 
-vi.mock('svelte-spa-router', async () => {
-  const actual = await vi.importActual<typeof svelteRouter>('svelte-spa-router');
+const mockedRouterActive = vi.hoisted(() => {
+  return {
+    default: vi.fn(),
+    loc: vi.fn(() => ({ location: '/todos', querystring: '?limit=10' })),
+  };
+});
+
+// vi.mock('svelte-spa-router', async () => {
+//   const actual = await vi.importActual<typeof svelteRouter>('svelte-spa-router');
+
+//   return {
+//     ...actual,
+//     link: mockedRouter.link,
+//     push: mockedRouter.push,
+//     pop: mockedRouter.pop,
+//     replace: mockedRouter.replace,
+//     loc: mockedRouter.loc,
+//     location: mockedRouter.location,
+//   };
+// });
+
+vi.mock('svelte-spa-router/active', async (module) => {
+  const actual: typeof svelteRouterActive = await module();
 
   return {
     ...actual,
-    link: mockedLink,
-    push: mockedPush,
-    pop: mockedPop,
-    replace: mockedReplace,
-    loc: mockedLoc,
-    location: mockedLocation,
+    loc: mockedRouterActive.loc,
   };
 });
+
+vi.mock('typesafe-i18n', () => ({}));
+vi.mock('theme-change', () => ({}));

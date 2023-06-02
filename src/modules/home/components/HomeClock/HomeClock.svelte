@@ -4,8 +4,8 @@
   import { push } from 'svelte-spa-router';
   import { flip } from 'svelte/animate';
   import { slide } from 'svelte/transition';
-  import LL, { locale } from '../../../i18n/i18n-svelte';
-  import { chooseLocaleSync } from '../../shared/utils/helper.util';
+  import LL, { locale } from '../../../../i18n/i18n-svelte';
+  import { chooseLocaleSync } from '../../../shared/utils/helper.util';
 
   //#region VALUES
   let showClock = false;
@@ -69,6 +69,7 @@
 
 {#if showClock}
   <div
+    data-testid="show-clock"
     in:slide={{ axis: 'y', duration: 500 }}
     out:slide={{ axis: 'y', duration: 250 }}
     class="stats mt-8 shadow"
@@ -86,6 +87,7 @@
 <div class="mt-8 grid grid-cols-1 gap-2 duration-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
   {#each buttons as btn (btn.id)}
     <button
+      data-testid={btn.id}
       animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
       class={btn.class}
       on:click={btn.id === 'sort' ? () => (buttons = shuffle(buttons)) : btn.onClick}

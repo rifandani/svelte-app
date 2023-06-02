@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import TestWrapper from '../../../../app/TestWrapper.app.svelte';
 import LoginForm from './LoginForm.svelte';
 
-describe('LoginPage', () => {
+describe('LoginForm', () => {
   const validUsername = 'kminchelle';
   const validPassword = '0lelplR';
   const mockSubmitFn = vi.fn();
