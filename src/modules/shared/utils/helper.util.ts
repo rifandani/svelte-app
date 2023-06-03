@@ -17,6 +17,21 @@ export interface GeneralEventListener<E = Event> {
 // #endregion
 
 /**
+ * Type Guard for typescript assertions
+ *
+ * @example
+ *
+ * ```ts
+ * isApiSuccessResponse(postDetail.postDetailData) && ...
+ * ```
+ */
+// export function isApiSuccessResponse<T>(
+//   obj: ApiResponse<T> | undefined,
+// ): obj is ApiSuccessResponse<T> {
+//   return obj ? obj.ok : false;
+// }
+
+/**
  * Provided a string template it will replace dynamics parts in place of variables.
  * This util is largely inspired by [templite](https://github.com/lukeed/templite/blob/master/src/index.js)
  *
@@ -34,21 +49,6 @@ export interface GeneralEventListener<E = Event> {
  */
 export const template = (str: string, params: Record<string, string>, reg = /{{(.*?)}}/g): string =>
   str.replace(reg, (_, key: string) => deepReadObject(params, key, ''));
-
-/**
- * Type Guard for typescript assertions
- *
- * @example
- *
- * ```ts
- * isApiSuccessResponse(postDetail.postDetailData) && ...
- * ```
- */
-// export function isApiSuccessResponse<T>(
-//   obj: ApiResponse<T> | undefined,
-// ): obj is ApiSuccessResponse<T> {
-//   return obj ? obj.ok : false;
-// }
 
 export function clamp({ value, min, max }: Clamp) {
   return Math.min(Math.max(value, min), max);

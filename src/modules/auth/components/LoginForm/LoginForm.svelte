@@ -1,17 +1,20 @@
 <script lang="ts">
+  import { validator } from '@felte/validator-zod';
   import { createMutation } from '@tanstack/svelte-query';
+  import { createForm } from 'felte';
   import { push } from 'svelte-spa-router';
-  import type { HTMLFormAttributes } from 'svelte/elements';
+  import { twMerge } from 'tailwind-merge';
   import LL from '../../../../i18n/i18n-svelte';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { ErrorApiResponseSchema } from '../../../shared/models/Error.model';
   import { login } from '../../api/auth.api';
-  import type { LoginApiResponseSchema, LoginSchema } from '../../api/auth.schema';
+  import {
+    loginSchema,
+    type LoginApiResponseSchema,
+    type LoginSchema,
+  } from '../../api/auth.schema';
 
-  let username = '';
-  let password = '';
-
-  // get 'user' store
+  //#region VALUES
   let { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
 
   const loginMutation = createMutation<LoginApiResponseSchema, ErrorApiResponseSchema, LoginSchema>(
@@ -21,19 +24,27 @@
         user.set(resp);
         await push('/');
       },
-      onError: (_err) => {
-        username = '';
-        password = '';
-      },
     },
   );
 
-  const onSubmit: HTMLFormAttributes['on:submit'] = () => {
-    $loginMutation.mutate({ username, password });
-  };
+  const { form, isValid, errors } = createForm<LoginSchema>({
+    extend: [validator({ schema: loginSchema })],
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: (values, { reset }) => {
+      $loginMutation.mutate(values, {
+        onError: (err) => {
+          reset();
+        },
+      });
+    },
+  });
+  //#endregion
 </script>
 
-<form data-testid="form" class="form-control pt-3 md:pt-8" on:submit|preventDefault={onSubmit}>
+<form data-testid="form" class="form-control pt-3 md:pt-8" use:form>
   <!-- username -->
   <div class="form-control pt-4">
     <label class="label" for="username">
@@ -42,13 +53,20 @@
 
     <input
       data-testid="input-username"
-      class="input-bordered input-primary input mt-1 shadow-md"
+      class={twMerge(
+        'input mt-1 shadow-md',
+        $errors?.username?.length ? 'input-error' : 'input-primary',
+      )}
       placeholder={$LL.forms.usernamePlaceholder()}
+      id="username"
       name="username"
       type="text"
       required
-      bind:value={username}
     />
+
+    {#if $errors?.username?.length}
+      <p class="pl-5 pt-1 text-error">{$LL.error.minLength({ field: 'username', length: 3 })}</p>
+    {/if}
   </div>
 
   <!-- password -->
@@ -59,13 +77,20 @@
 
     <input
       data-testid="input-password"
-      class="input-bordered input-primary input mt-1 shadow-md"
+      class={twMerge(
+        'input mt-1 shadow-md',
+        $errors?.password?.length ? 'input-error' : 'input-primary',
+      )}
       placeholder={$LL.forms.passwordPlaceholder()}
       type="password"
+      id="password"
       name="password"
       required
-      bind:value={password}
     />
+
+    {#if $errors?.password?.length}
+      <p class="pl-5 pt-1 text-error">{$LL.error.passwordMinLength()}</p>
+    {/if}
   </div>
 
   {#if $loginMutation.isError}
@@ -80,7 +105,7 @@
     data-testid="button-submit"
     class="btn-primary btn mt-8 normal-case"
     type="submit"
-    disabled={$loginMutation.isLoading}
+    disabled={!$isValid || $loginMutation.isLoading}
   >
     {$loginMutation.isLoading ? $LL.forms.loginLoading() : $LL.forms.login()}
   </button>

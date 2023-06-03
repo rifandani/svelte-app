@@ -149,6 +149,18 @@ type RootTranslation = {
 		 */
 		theme: string
 	}
+	error: {
+		/**
+		 * {​f​i​e​l​d​}​ ​m​u​s​t​ ​c​o​n​t​a​i​n​ ​a​t​ ​l​e​a​s​t​ ​{​l​e​n​g​t​h​}​ ​c​h​a​r​a​c​t​e​r​s
+		 * @param {string} field
+		 * @param {number} length
+		 */
+		minLength: RequiredParams<'field' | 'length'>
+		/**
+		 * p​a​s​s​w​o​r​d​ ​m​u​s​t​ ​c​o​n​t​a​i​n​ ​a​t​ ​l​e​a​s​t​ ​6​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		passwordMinLength: string
+	}
 	/**
 	 * T​o​d​a​y​ ​i​s​ ​{​d​a​t​e​|​w​e​e​k​d​a​y​}
 	 * @param {Date} date
@@ -284,6 +296,16 @@ export type TranslationFunctions = {
 		 * Theme
 		 */
 		theme: () => LocalizedString
+	}
+	error: {
+		/**
+		 * {field} must contain at least {length} characters
+		 */
+		minLength: (arg: { field: string, length: number }) => LocalizedString
+		/**
+		 * password must contain at least 6 characters
+		 */
+		passwordMinLength: () => LocalizedString
 	}
 	/**
 	 * Today is {date|weekday}

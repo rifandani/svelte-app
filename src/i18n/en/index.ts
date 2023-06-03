@@ -39,6 +39,10 @@ const en = {
     appName: 'Svelte Template',
     theme: 'Theme',
   },
+  error: {
+    minLength: '{field:string} must contain at least {length:number} characters',
+    passwordMinLength: 'password must contain at least 6 characters',
+  },
   today: 'Today is {date:Date|weekday}',
 } satisfies BaseTranslation;
 

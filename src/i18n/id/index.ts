@@ -39,6 +39,10 @@ const id = {
     appName: 'Templat Svelte',
     theme: 'Tema',
   },
+  error: {
+    minLength: '{field} harus memiliki minimal {length} karakter',
+    passwordMinLength: 'password harus memiliki minimal 6 karakter',
+  },
   today: 'Hari ini {date|weekday}',
 } satisfies Translation;
 
