@@ -20,12 +20,12 @@ describe('TodoItem', () => {
   });
 
   it('should render properly', () => {
-    const result = render(TestWrapper, { component: TodoItem });
+    const result = render(TestWrapper, { todo, onDeleteTodo, component: TodoItem });
     expect(() => result).not.toThrow();
   });
 
   // TypeError: Cannot read properties of undefined (reading 'todo')
-  it.todo('should render, check, and remove todo correctly', async () => {
+  it('should render, check, and remove todo correctly', async () => {
     // ARRANGE
     render(TestWrapper, {
       props: {
