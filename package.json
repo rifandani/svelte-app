@@ -13,15 +13,16 @@
     "lint:fix": "eslint . --ext .js,.ts,.svelte --fix",
     "msw:init": "msw init public/ --save",
     "msw:delete": "rm -rf public/mockServiceWorker.js",
-    "dev": "vite",
-    "start": "npm-run-all --parallel dev typesafe-i18n",
-    "build": "pnpm msw:delete && vite build --mode development",
-    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "typesafe-i18n": "typesafe-i18n",
+    "dev": "vite",
+    "start": "npm-run-all --parallel dev typesafe-i18n",
+    "build": "pnpm msw:delete && vite build",
+    "preview": "vite preview",
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:preview": "vite preview --outDir html"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.1",
