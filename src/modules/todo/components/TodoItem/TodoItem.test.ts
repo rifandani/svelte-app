@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import TestWrapper from '../../../../app/TestWrapper.app.svelte';
 import { mockTodo } from '../../../../mocks/http/entities.http';
+import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import type { TodoSchema } from '../../api/todo.schema';
 import TodoItem from './TodoItem.svelte';
 

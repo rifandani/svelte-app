@@ -3,11 +3,11 @@
   import { onMount } from 'svelte';
   import Router, { replace, type ConditionsFailedEvent } from 'svelte-spa-router';
   import { localStorageDetector } from 'typesafe-i18n/detectors';
-  import { routes } from '../app/route.app';
   import { locale } from '../i18n/i18n-svelte';
   import { detectLocale } from '../i18n/i18n-util';
   import Toast from '../modules/shared/components/molecules/Toast.molecule.svelte';
   import { chooseLocaleAsync } from '../modules/shared/utils/helper.util';
+  import { routes } from './route.app';
 
   const queryClient = new QueryClient();
 
@@ -30,6 +30,6 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-  <Router {routes} restoreScrollState={true} on:conditionsFailed={onConditionsFailed} />
+  <Router {routes} restoreScrollState on:conditionsFailed={onConditionsFailed} />
   <Toast />
 </QueryClientProvider>

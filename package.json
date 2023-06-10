@@ -5,8 +5,11 @@
   "description": "Svelte template with typescript, vite, vitest, testing-library, router, msw, tailwindcss, tanstack svelte query, zod",
   "license": "MIT",
   "author": "Tri Rizeki Rifandani",
-  "packageManager": "pnpm@7.28.0",
   "type": "module",
+  "packageManager": "pnpm@7.28.0",
+  "msw": {
+    "workerDirectory": "public"
+  },
   "scripts": {
     "prepare": "husky install",
     "format": "prettier --write --plugin-search-dir=. ./**/*.{html,svelte,ts,js}",
@@ -76,8 +79,5 @@
     "type-fest": "^3.11.1",
     "typesafe-i18n": "^5.24.3",
     "zod": "^3.21.4"
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/svelte';
-import TestWrapper from '../../../app/TestWrapper.app.svelte';
+import TestWrapper from '../../shared/components/atoms/TestWrapper.app.svelte';
 import Todos from './Todos.page.svelte';
 
 describe('TodosPage', () => {

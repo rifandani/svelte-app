@@ -7,11 +7,11 @@
   let { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
 </script>
 
-<section class="flex h-screen flex-col items-center justify-center space-y-3 text-primary-content">
+<main class="flex h-screen flex-col items-center justify-center space-y-3 text-primary-content">
   <h1 class="text-3xl font-bold italic">{$LL.auth.notFound404()}</h1>
-  <p class="!mb-5">{$LL.auth.gone()}</p>
+  <p class="mb-5">{$LL.auth.gone()}</p>
 
   <a use:link href={user ? '/' : '/login'} class="link-neutral link hover:skew-x-12"
     >{$LL.auth.backTo({ isLoggedIn: user ? 'true' : 'false' })}</a
   >
-</section>
+</main>

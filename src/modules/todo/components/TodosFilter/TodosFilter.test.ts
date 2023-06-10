@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import TestWrapper from '../../../../app/TestWrapper.app.svelte';
+import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import TodosFilter from './TodosFilter.svelte';
 
 describe('TodosFilter', () => {
