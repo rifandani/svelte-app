@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 html
+coverage
 dist-ssr
 *.local
 .env.*
