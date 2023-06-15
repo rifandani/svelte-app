@@ -5,8 +5,8 @@
   import { push } from 'svelte-spa-router';
   import { twMerge } from 'tailwind-merge';
   import LL from '../../../../i18n/i18n-svelte';
+  import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
-  import type { ErrorApiResponseSchema } from '../../../shared/models/Error.model';
   import { login } from '../../api/auth.api';
   import {
     loginSchema,
@@ -21,6 +21,7 @@
     {
       mutationFn: (creds) => login(creds),
       onSuccess: async (resp) => {
+        // set user data to local storage
         user.set(resp);
         await push('/');
       },
@@ -35,7 +36,8 @@
     },
     onSubmit: (values, { reset }) => {
       $loginMutation.mutate(values, {
-        onError: (err) => {
+        onError: () => {
+          // reset form
           reset();
         },
       });

@@ -11,7 +11,7 @@
   <h1 class="text-3xl font-bold italic">{$LL.auth.notFound404()}</h1>
   <p class="mb-5">{$LL.auth.gone()}</p>
 
-  <a use:link href={user ? '/' : '/login'} class="link-neutral link hover:skew-x-12"
-    >{$LL.auth.backTo({ isLoggedIn: user ? 'true' : 'false' })}</a
+  <a use:link href={$user?.id ? '/' : '/login'} class="link-neutral link hover:skew-x-12"
+    >{$LL.auth.backTo({ isLoggedIn: $user?.id ? 'true' : 'false' })}</a
   >
 </main>

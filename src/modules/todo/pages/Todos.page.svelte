@@ -11,9 +11,9 @@
   import type { HTMLFormAttributes } from 'svelte/elements';
   import { readable } from 'svelte/store';
   import LL from '../../../i18n/i18n-svelte';
+  import type { ErrorApiResponseSchema } from '../../shared/api/error.schema';
   import { LoadingSpinner } from '../../shared/components/atoms';
   import { Navbar } from '../../shared/components/organisms';
-  import type { ErrorApiResponseSchema } from '../../shared/models/Error.model';
   import { mutationKeyFactory, queryKeyFactory } from '../../shared/services/api/keyFactory.api';
   import { createToast } from '../../shared/stores/createToast.store';
   import { deleteTodoById, updateTodoById } from '../api/todo.api';
@@ -40,7 +40,6 @@
 
   const { toaster } = createToast();
   const queryClient = useQueryClient();
-  let todo = '';
 
   const updateTodoMutation = createMutation<
     UpdateTodoApiResponseSchema,
@@ -114,8 +113,6 @@
     mutationKey: mutationKeyFactory.todos.deleteById().mutationKey,
     mutationFn: (id) => deleteTodoById(id),
     onSettled: (_id, error: ErrorApiResponseSchema, _variables, context) => {
-      todo = '';
-
       toaster.create({
         type: error ? 'error' : 'success',
         title: error ? 'Todo failed to delete' : 'Todo successfully deleted',

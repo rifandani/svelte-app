@@ -1,5 +1,5 @@
 import { createMutationKeys, createQueryKeys } from '@lukemorales/query-key-factory';
-import type { ResourceParamsSchema } from '../../shared/models/Resource.model';
+import type { ResourceParamsSchema } from '../../shared/api/resource.schema';
 import { http } from '../../shared/services/api/http.api';
 import {
   createTodoApiResponseSchema,

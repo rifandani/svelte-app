@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import {
   resourceParamsSchema,
   type ResourceParamsSchema,
-} from '../../../modules/shared/models/Resource.model';
+} from '../../../modules/shared/api/resource.schema';
 import type {
   CreateTodoSchema,
   DeleteTodoApiResponseSchema,

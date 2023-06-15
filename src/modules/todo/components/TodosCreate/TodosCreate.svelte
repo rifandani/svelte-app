@@ -9,8 +9,8 @@
   import type { Readable } from 'svelte/store';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
+  import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
-  import type { ErrorApiResponseSchema } from '../../../shared/models/Error.model';
   import { mutationKeyFactory } from '../../../shared/services/api/keyFactory.api';
   import { createToast } from '../../../shared/stores/createToast.store';
   import { createTodo } from '../../api/todo.api';
