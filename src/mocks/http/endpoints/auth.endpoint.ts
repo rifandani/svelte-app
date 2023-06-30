@@ -23,5 +23,3 @@ export const authHandlers = [
     ),
   ),
 ];
-
-export default { authHandlers };

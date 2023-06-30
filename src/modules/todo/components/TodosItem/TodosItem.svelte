@@ -4,11 +4,13 @@
   import { fly } from 'svelte/transition';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
+  import { clickOutside } from '../../../shared/actions/useClickOutside.action';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { TodoSchema } from '../../api/todo.schema';
 
   export let todo: TodoSchema;
   export let onDeleteTodo: HTMLFormAttributes['on:submit'];
+  let open = false;
 
   //#region VALUES
   // event forwarding
@@ -40,6 +42,7 @@
     name={`todo-${todo.id}`}
     checked={todo.completed}
     on:change={onChangeTodo}
+    use:clickOutside={{ enabled: open, callback: () => (open = !open) }}
   />
 
   <p

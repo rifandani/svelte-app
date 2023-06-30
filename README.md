@@ -48,9 +48,7 @@ export default writable(0);
 
 ## NOTES
 
-Todos:
-
-- [ ] revamp navbar, and all UI's
+- [ ] `/playground` route to showcase svelte-specific API's superiority, so that we can compare it to another framework
 - [ ] delete `@lukemorales/query-key-factory` library, instead implement simple custom query keys factory object
 - [ ] use [routify](https://www.routify.dev/), instead of [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
 - [ ] use [radix-svelte](https://www.radix-svelte.com/) and [shadcn-svelte](https://www.shadcn-svelte.com/)

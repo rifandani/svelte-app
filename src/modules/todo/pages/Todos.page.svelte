@@ -1,7 +1,7 @@
-<script context="module">
+<script lang="ts" context="module">
   // Code contained inside it will run once, when the module first evaluates, rather than when a component is instantiated.
   export const defaultLimit = '10';
-  export const limits = ['10', '25', '50', '100'];
+  export const limits = ['10', '25', '50', '100'] as const;
 </script>
 
 <script lang="ts">
@@ -24,9 +24,9 @@
     UpdateTodoApiResponseSchema,
     UpdateTodoSchema,
   } from '../api/todo.schema';
-  import TodoItem from '../components/TodoItem/TodoItem.svelte';
   import TodosCreate from '../components/TodosCreate/TodosCreate.svelte';
   import TodosFilter from '../components/TodosFilter/TodosFilter.svelte';
+  import TodosItem from '../components/TodosItem/TodosItem.svelte';
 
   //#region VALUES
   $: searchParams = new URLSearchParams(`?${$querystring}`);
@@ -130,7 +130,7 @@
 
   //#region HANDLERS
   // CustomEvent<TodoSchema>
-  const onChangeTodo = (_ev: ComponentEvents<TodoItem>['changeTodo']) => {
+  const onChangeTodo = (_ev: ComponentEvents<TodosItem>['changeTodo']) => {
     $updateTodoMutation.mutate({ ..._ev.detail, completed: !_ev.detail.completed });
   };
 
@@ -179,7 +179,7 @@
 
       {#if $todosQuery.isSuccess}
         {#each $todosQuery.data.todos as todo (todo.id)}
-          <TodoItem {todo} {onDeleteTodo} on:changeTodo={onChangeTodo} />
+          <TodosItem {todo} {onDeleteTodo} on:changeTodo={onChangeTodo} />
         {/each}
       {/if}
     </section>

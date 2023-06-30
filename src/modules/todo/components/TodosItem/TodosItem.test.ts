@@ -3,9 +3,9 @@ import { vi } from 'vitest';
 import { mockTodo } from '../../../../mocks/http/entities.http';
 import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import type { TodoSchema } from '../../api/todo.schema';
-import TodoItem from './TodoItem.svelte';
+import TodosItem from './TodosItem.svelte';
 
-describe('TodoItem', () => {
+describe('TodosItem', () => {
   const todo: TodoSchema = mockTodo();
   const onDeleteTodo = vi.fn();
   const mockSubmit = vi.fn();
@@ -20,7 +20,7 @@ describe('TodoItem', () => {
   });
 
   it('should render properly', () => {
-    const result = render(TestWrapper, { todo, onDeleteTodo, component: TodoItem });
+    const result = render(TestWrapper, { todo, onDeleteTodo, component: TodosItem });
     expect(() => result).not.toThrow();
   });
 
@@ -31,7 +31,7 @@ describe('TodoItem', () => {
       props: {
         todo,
         onDeleteTodo,
-        component: TodoItem,
+        component: TodosItem,
       },
     });
 
