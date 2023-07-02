@@ -18,6 +18,9 @@ const id = {
     changeLang: 'Ganti Bahasa',
     getStarted: 'Mulai',
   },
+  todo: {
+    backTo: 'Kembali ke {target}',
+  },
   forms: {
     username: 'Username',
     usernamePlaceholder: 'Username anda...',
@@ -33,17 +36,32 @@ const id = {
     todoPlaceholder: 'Apa yang akan anda lakukan selanjutnya...',
   },
   common: {
+    loading: 'Menunggu...',
     list: 'Daftar {0}',
+    xDetail: 'Detail {feature}',
+    xCreateSuccess: '{feature} berhasil dibuat',
+    xCreateError: '{feature} gagal dibuat',
+    xUpdateSuccess: '{feature} berhasil diubah',
+    xUpdateError: '{feature} gagal diubah',
+    xDeleteSuccess: '{feature} berhasil dihapus',
+    xDeleteError: '{feature} gagal dihapus',
     error: '❌ {module|capitalize} eror',
     noPageContent: 'Tidak Ada Konten',
     appName: 'Templat Svelte',
     theme: 'Tema',
+    add: 'Tambah {icon}',
+    update: 'Ubah {icon}',
+    remove: 'Hapus {icon}',
+    empty: 'Tidak Ada Data',
+  },
+  success: {
+    action: '{module} berhasil {action}',
   },
   error: {
     minLength: '{field} harus memiliki minimal {length} karakter',
     passwordMinLength: 'password harus memiliki minimal 6 karakter',
+    action: '{module} gagal di {action}',
   },
-  today: 'Hari ini {date|weekday}',
 } satisfies Translation;
 
 export default id;

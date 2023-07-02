@@ -1,27 +1,38 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import type { HTMLFormAttributes } from 'svelte/elements';
+  import { link } from 'svelte-spa-router';
+  import type { HTMLFormAttributes, HTMLInputAttributes } from 'svelte/elements';
   import { fly } from 'svelte/transition';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { clickOutside } from '../../../shared/actions/useClickOutside.action';
   import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
   import type { TodoSchema } from '../../api/todo.schema';
-
-  export let todo: TodoSchema;
-  export let onDeleteTodo: HTMLFormAttributes['on:submit'];
-  let open = false;
+  import { createTodoDeleteMutation } from '../../stores/createTodoDeleteMutation.store';
+  import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
+  import { createTodoUpdateMutation } from '../../stores/createTodoUpdateMutation.store';
 
   //#region VALUES
-  // event forwarding
-  const dispatch = createEventDispatcher<{ changeTodo: TodoSchema }>();
+  export let todo: TodoSchema;
 
+  const { queryOptions } = createTodoListQuery();
   const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  const todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryOptions.queryKey });
+  const todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryOptions.queryKey });
   //#endregion
 
   //#region HANDLERS
-  const onChangeTodo = () => {
-    dispatch('changeTodo', todo);
+  const onChangeTodo: HTMLInputAttributes['on:change'] = () => {
+    $todoUpdateMutation.mutate({ ...todo, completed: !todo.completed });
+  };
+
+  const onDeleteTodo: HTMLFormAttributes['on:submit'] = (ev) => {
+    // don't allow if not the correct auth user
+    if (todo.userId !== $user.id) return;
+
+    // parse form data & get todo id from input hidden with name/id `todoId`
+    const formData = new FormData(ev.currentTarget);
+    const { todoId } = Object.fromEntries(formData.entries());
+
+    $todoDeleteMutation.mutate(Number(todoId));
   };
   //#endregion
 </script>
@@ -42,16 +53,17 @@
     name={`todo-${todo.id}`}
     checked={todo.completed}
     on:change={onChangeTodo}
-    use:clickOutside={{ enabled: open, callback: () => (open = !open) }}
   />
 
-  <p
+  <a
+    use:link
     data-testid="p-todo"
-    class="text-secondary-content ml-5 w-full text-left text-lg"
+    href={`/todos/${todo.id}`}
+    class="ml-5 w-full text-left text-lg text-secondary-content hover:font-bold"
     class:line-through={todo.completed}
   >
     {todo.todo}
-  </p>
+  </a>
 
   {#if todo.userId === $user.id}
     <button data-testid="button-remove" class="btn-accent btn-sm btn normal-case" type="submit"

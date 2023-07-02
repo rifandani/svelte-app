@@ -1,18 +1,15 @@
-<script lang="ts" context="module">
+<script lang="ts">
   import type { SvelteHTMLElements } from 'svelte/elements';
+  import type { SvgProps } from '../../../types/element.type';
 
-  type ErrorProps = SvelteHTMLElements['svg'] & {
+  type $$Props = SvgProps & {
     strokeWidthPath?: SvelteHTMLElements['path']['stroke-width'];
   };
-</script>
-
-<script lang="ts">
-  type $$Props = ErrorProps;
 
   export let width: $$Props['width'] = 16;
   export let height: $$Props['height'] = 16;
-  export let fill: $$Props['fill'] = 'currentColor';
   export let viewBox: $$Props['viewBox'] = '0 0 16 16';
+  export let fill: $$Props['fill'] = 'currentColor';
   export let xmlns: $$Props['xmlns'] = 'http://www.w3.org/2000/svg';
   export let strokeWidthPath: $$Props['strokeWidthPath'] = '2';
 </script>

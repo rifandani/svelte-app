@@ -1,4 +1,5 @@
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
+import { extendTailwindMerge } from 'tailwind-merge';
 import { setLocale } from '../../../i18n/i18n-svelte';
 import type { Locales } from '../../../i18n/i18n-types';
 import { loadLocaleAsync } from '../../../i18n/i18n-util.async';
@@ -233,3 +234,23 @@ export function doDownload(url: string): void {
   link.click();
   document.body.removeChild(link);
 }
+
+/**
+ * create merge function with custom config which extends the default config.
+ * Use this if you use the default Tailwind config and just extend it in some places.
+ */
+export const tw = extendTailwindMerge({
+  classGroups: {
+    // ↓ The `foo` key here is the class group ID
+    //   ↓ Creates group of classes which have conflicting styles
+    //     Classes here: 'alert-info', 'alert-success', 'alert-warning', 'alert-error'
+    alert: ['alert-info', 'alert-success', 'alert-warning', 'alert-error'],
+  },
+  // ↓ Here you can define additional conflicts across different groups
+  conflictingClassGroups: {
+    // ↓ ID of class group which creates a conflict with…
+    //     ↓ …classes from groups with these IDs
+    // In this case `tw('alert-success alert-error') → 'alert-error'`
+    alert: ['alert'],
+  },
+});

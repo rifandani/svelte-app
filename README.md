@@ -48,21 +48,19 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] `/playground` route to showcase svelte-specific API's superiority, so that we can compare it to another framework
-- [ ] delete `@lukemorales/query-key-factory` library, instead implement simple custom query keys factory object
+- [-] `mutationKey`
+- [ ] get rid of `hooks` folder, use `stores` folder instead
 - [ ] use [routify](https://www.routify.dev/), instead of [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
 - [ ] use [radix-svelte](https://www.radix-svelte.com/) and [shadcn-svelte](https://www.shadcn-svelte.com/)
+- [ ] `/playground` route to showcase svelte-specific API's superiority, so that we can compare it to another framework
+- [ ] try out svelte component compiled to web component
+- [ ] fix all tests
 
 Debug query:
 
 ```ts
 $: console.log('🚀 ~ file: Todos.page.svelte:119', {
-  queryParams,
-  queryOptions,
-  $queryOptions,
-  todosQuery,
   $todosQuery,
-  todoQueryKeys: todoQueryKeys.list._def,
   todoQueryKeysTodos: queryClient.getQueryData(todoQueryKeys.list._def),
   $queryOptionsTodos: queryClient.getQueryData($queryOptions.queryKey),
   queryCache: queryClient.getQueryCache(),

@@ -1,6 +1,10 @@
 import { derived, readable, writable } from 'svelte/store';
-import type { PaginationConfig, PaginationItem, PaginationReturn } from '../types/pagination.type';
-import { writableEffect } from '../utils/store.util';
+import type {
+  PaginationConfig,
+  PaginationItem,
+  PaginationReturn,
+} from '../../../types/pagination.type';
+import { writableEffect } from '../../../utils/store.util';
 
 /**
  * Allow user to select a specific page from a range of pages.

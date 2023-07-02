@@ -14,7 +14,7 @@
   const { reset } = useLocalStorage<LoginApiResponseSchema>('user');
 
   //#region HANDLERS
-  // CustomEvent<{ email: string }>
+  // CustomEvent<undefined>
   const logout = (_ev: ComponentEvents<NavbarMenuContent>['logout']) => {
     reset(); // reset `user` store
     void replace('/login'); // back to login

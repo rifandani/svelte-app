@@ -1,19 +1,16 @@
-<script lang="ts" context="module">
+<script lang="ts">
   import type { SvelteHTMLElements } from 'svelte/elements';
+  import type { SvgProps } from '../../../types/element.type';
 
-  export type SpinnerProps = SvelteHTMLElements['svg'] & {
+  type $$Props = SvgProps & {
     strokePath?: SvelteHTMLElements['path']['stroke'];
     strokeWidthPath?: SvelteHTMLElements['path']['stroke-width'];
   };
-</script>
-
-<script lang="ts">
-  type $$Props = SpinnerProps;
 
   export let width: $$Props['width'] = 64;
   export let height: $$Props['height'] = 64;
-  export let fill: $$Props['fill'] = 'none';
   export let viewBox: $$Props['viewBox'] = '0 0 64 64';
+  export let fill: $$Props['fill'] = 'none';
   export let xmlns: $$Props['xmlns'] = 'http://www.w3.org/2000/svg';
   export let strokePath: $$Props['strokePath'] = '#8b5cf6';
   export let strokeWidthPath: $$Props['strokeWidthPath'] = '8';

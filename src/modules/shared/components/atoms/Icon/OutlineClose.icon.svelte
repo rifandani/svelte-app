@@ -6,12 +6,13 @@
   export let width: $$Props['width'] = 24;
   export let height: $$Props['height'] = 24;
   export let viewBox: $$Props['viewBox'] = '0 0 24 24';
+  export let fill: $$Props['fill'] = 'currentColor';
 </script>
 
-<svg {width} {height} {viewBox} {...$$restProps}>
-  <title>Home</title>
+<svg {width} {height} {viewBox} {fill} {...$$restProps}>
+  <title>OutlineClose</title>
   <path
     fill="currentColor"
-    d="M12 2a1 1 0 00-.71.297l-10.087 8.8A.5.5 0 001 11.5a.5.5 0 00.5.5H4v8a1 1 0 001 1h4a1 1 0 001-1v-6h4v6a1 1 0 001 1h4a1 1 0 001-1v-8h2.5a.5.5 0 00.5-.5.5.5 0 00-.203-.402l-10.08-8.795a1 1 0 00-.006-.006A1 1 0 0012 2z"
+    d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z"
   />
 </svg>

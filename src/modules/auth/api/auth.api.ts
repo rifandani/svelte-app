@@ -1,4 +1,3 @@
-import { createMutationKeys } from '@lukemorales/query-key-factory';
 import { http } from '../../shared/services/api/http.api';
 import { loginApiResponseSchema, type LoginSchema } from './auth.schema';
 
@@ -29,13 +28,4 @@ export const login = async (creds: LoginSchema) => {
 //   return resp.data as ErrorApiResponseSchema;
 // }
 // };
-// #endregion
-
-// #region keys factory
-export const authMutationKeys = createMutationKeys('auth', {
-  login: () => ({
-    mutationKey: [''],
-    mutationFn: (params: LoginSchema) => login(params),
-  }),
-});
 // #endregion

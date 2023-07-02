@@ -14,6 +14,7 @@ commitlint.config.cts
 svelte.config.js
 vite.config.ts
 coverage
+html
 .vscode
 .yarn
 .husky

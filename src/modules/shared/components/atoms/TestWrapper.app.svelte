@@ -13,7 +13,7 @@
     logger: {
       log: console.log,
       warn: console.warn,
-      error: () => {},
+      error: () => void 0,
     },
   });
 </script>

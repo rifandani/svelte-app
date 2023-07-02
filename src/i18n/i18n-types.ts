@@ -72,6 +72,13 @@ type RootTranslation = {
 		 */
 		getStarted: string
 	}
+	todo: {
+		/**
+		 * G​o​ ​b​a​c​k​ ​t​o​ ​{​t​a​r​g​e​t​}
+		 * @param {string} target
+		 */
+		backTo: RequiredParams<'target'>
+	}
 	forms: {
 		/**
 		 * U​s​e​r​n​a​m​e
@@ -127,10 +134,49 @@ type RootTranslation = {
 	}
 	common: {
 		/**
+		 * L​o​a​d​i​n​g​.​.​.
+		 */
+		loading: string
+		/**
 		 * {​0​}​ ​L​i​s​t
 		 * @param {string} 0
 		 */
 		list: RequiredParams<'0'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​D​e​t​a​i​l
+		 * @param {string} feature
+		 */
+		xDetail: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​c​r​e​a​t​e​d
+		 * @param {string} feature
+		 */
+		xCreateSuccess: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​f​a​i​l​e​d​ ​t​o​ ​c​r​e​a​t​e
+		 * @param {string} feature
+		 */
+		xCreateError: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​u​p​d​a​t​e​d
+		 * @param {string} feature
+		 */
+		xUpdateSuccess: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​f​a​i​l​e​d​ ​t​o​ ​u​p​d​a​t​e
+		 * @param {string} feature
+		 */
+		xUpdateError: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​d​e​l​e​t​e​d
+		 * @param {string} feature
+		 */
+		xDeleteSuccess: RequiredParams<'feature'>
+		/**
+		 * {​f​e​a​t​u​r​e​}​ ​f​a​i​l​e​d​ ​t​o​ ​d​e​l​e​t​e
+		 * @param {string} feature
+		 */
+		xDeleteError: RequiredParams<'feature'>
 		/**
 		 * ❌​ ​{​m​o​d​u​l​e​|​c​a​p​i​t​a​l​i​z​e​}​ ​e​r​r​o​r
 		 * @param {string} module
@@ -148,6 +194,33 @@ type RootTranslation = {
 		 * T​h​e​m​e
 		 */
 		theme: string
+		/**
+		 * A​d​d​ ​{​i​c​o​n​}
+		 * @param {string} icon
+		 */
+		add: RequiredParams<'icon'>
+		/**
+		 * U​p​d​a​t​e​ ​{​i​c​o​n​}
+		 * @param {string} icon
+		 */
+		update: RequiredParams<'icon'>
+		/**
+		 * R​e​m​o​v​e​ ​{​i​c​o​n​}
+		 * @param {string} icon
+		 */
+		remove: RequiredParams<'icon'>
+		/**
+		 * E​m​p​t​y​ ​D​a​t​a
+		 */
+		empty: string
+	}
+	success: {
+		/**
+		 * {​m​o​d​u​l​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​{​a​c​t​i​o​n​}
+		 * @param {string} action
+		 * @param {string} module
+		 */
+		action: RequiredParams<'action' | 'module'>
 	}
 	error: {
 		/**
@@ -160,12 +233,13 @@ type RootTranslation = {
 		 * p​a​s​s​w​o​r​d​ ​m​u​s​t​ ​c​o​n​t​a​i​n​ ​a​t​ ​l​e​a​s​t​ ​6​ ​c​h​a​r​a​c​t​e​r​s
 		 */
 		passwordMinLength: string
+		/**
+		 * {​m​o​d​u​l​e​}​ ​f​a​i​l​e​d​ ​t​o​ ​{​a​c​t​i​o​n​}
+		 * @param {string} action
+		 * @param {string} module
+		 */
+		action: RequiredParams<'action' | 'module'>
 	}
-	/**
-	 * T​o​d​a​y​ ​i​s​ ​{​d​a​t​e​|​w​e​e​k​d​a​y​}
-	 * @param {Date} date
-	 */
-	today: RequiredParams<'date|weekday'>
 }
 
 export type TranslationFunctions = {
@@ -225,6 +299,12 @@ export type TranslationFunctions = {
 		 */
 		getStarted: () => LocalizedString
 	}
+	todo: {
+		/**
+		 * Go back to {target}
+		 */
+		backTo: (arg: { target: string }) => LocalizedString
+	}
 	forms: {
 		/**
 		 * Username
@@ -277,9 +357,41 @@ export type TranslationFunctions = {
 	}
 	common: {
 		/**
+		 * Loading...
+		 */
+		loading: () => LocalizedString
+		/**
 		 * {0} List
 		 */
 		list: (arg0: string) => LocalizedString
+		/**
+		 * {feature} Detail
+		 */
+		xDetail: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} successfully created
+		 */
+		xCreateSuccess: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} failed to create
+		 */
+		xCreateError: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} successfully updated
+		 */
+		xUpdateSuccess: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} failed to update
+		 */
+		xUpdateError: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} successfully deleted
+		 */
+		xDeleteSuccess: (arg: { feature: string }) => LocalizedString
+		/**
+		 * {feature} failed to delete
+		 */
+		xDeleteError: (arg: { feature: string }) => LocalizedString
 		/**
 		 * ❌ {module|capitalize} error
 		 */
@@ -296,6 +408,28 @@ export type TranslationFunctions = {
 		 * Theme
 		 */
 		theme: () => LocalizedString
+		/**
+		 * Add {icon}
+		 */
+		add: (arg: { icon: string }) => LocalizedString
+		/**
+		 * Update {icon}
+		 */
+		update: (arg: { icon: string }) => LocalizedString
+		/**
+		 * Remove {icon}
+		 */
+		remove: (arg: { icon: string }) => LocalizedString
+		/**
+		 * Empty Data
+		 */
+		empty: () => LocalizedString
+	}
+	success: {
+		/**
+		 * {module} successfully {action}
+		 */
+		action: (arg: { action: string, module: string }) => LocalizedString
 	}
 	error: {
 		/**
@@ -306,14 +440,13 @@ export type TranslationFunctions = {
 		 * password must contain at least 6 characters
 		 */
 		passwordMinLength: () => LocalizedString
+		/**
+		 * {module} failed to {action}
+		 */
+		action: (arg: { action: string, module: string }) => LocalizedString
 	}
-	/**
-	 * Today is {date|weekday}
-	 */
-	today: (arg: { date: Date }) => LocalizedString
 }
 
 export type Formatters = {
 	capitalize: (value: string) => unknown
-	weekday: (value: Date) => unknown
 }

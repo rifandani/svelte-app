@@ -9,7 +9,7 @@
 
   //#region VALUES
   let showClock = false;
-  let timeoutId: NodeJS.Timer;
+  let timeoutId: ReturnType<typeof setInterval>;
   let seconds = 0;
   let minutes = 0;
   let hours = 0;
@@ -88,8 +88,8 @@
   {#each buttons as btn (btn.id)}
     <button
       data-testid={btn.id}
-      animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
       class={btn.class}
+      animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
       on:click={btn.id === 'sort' ? () => (buttons = shuffle(buttons)) : btn.onClick}
     >
       {btn.text}

@@ -25,7 +25,7 @@
     use:link
     use:active={{ path: '/todos', className: 'link-secondary', inactiveClassName: 'link-neutral' }}
     href="/todos"
-    class="link-hover link text-primary tracking-wide mx-0 lg:mx-3"
+    class="link-hover px-3 link text-primary tracking-wide mx-0 lg:mx-3"
   >
     Todos
   </a>
@@ -37,11 +37,11 @@
 
   <ul
     tabIndex={0}
-    class="dropdown-content menu rounded-box block max-h-60 w-72 lg:w-52 overflow-y-auto bg-base-100 p-2 shadow z-10"
+    class="bg-secondary text-secondary-content dropdown-content menu rounded-box block max-h-60 w-72 lg:w-52 overflow-y-auto p-2 shadow z-10"
   >
     {#each themes as theme (theme)}
       <li>
-        <button class="capitalize text-neutral-content tracking-wide" data-set-theme={theme}>
+        <button class="capitalize tracking-wide" data-set-theme={theme}>
           {theme}
         </button>
       </li>
