@@ -6,7 +6,7 @@
   import { twMerge } from 'tailwind-merge';
   import LL from '../../../../i18n/i18n-svelte';
   import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
-  import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import { login } from '../../api/auth.api';
   import {
     loginSchema,
@@ -15,7 +15,7 @@
   } from '../../api/auth.schema';
 
   //#region VALUES
-  let { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
 
   const loginMutation = createMutation<LoginApiResponseSchema, ErrorApiResponseSchema, LoginSchema>(
     {

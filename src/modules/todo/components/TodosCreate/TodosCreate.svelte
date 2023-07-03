@@ -5,7 +5,7 @@
   import { createForm } from 'felte';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import { createToast } from '../../../shared/stores/createToast.store';
   import { todoSchema, type TodoSchema } from '../../api/todo.schema';
   import { createTodoCreateMutation } from '../../stores/createTodoCreateMutation.store';
@@ -13,7 +13,7 @@
 
   //#region VALUES
   const queryClient = useQueryClient();
-  const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
   const { toaster } = createToast();
   const { queryOptions } = createTodoListQuery();
   const todoCreateMutation = createTodoCreateMutation({ queryKey: $queryOptions.queryKey });

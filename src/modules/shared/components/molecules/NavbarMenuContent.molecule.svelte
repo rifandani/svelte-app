@@ -5,13 +5,13 @@
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { themes } from '../../constants/global.constant';
-  import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../../stores/createLocalStorage.store';
 
   // event forwarding
   const dispatch = createEventDispatcher<{ logout: undefined }>();
 
   // get 'user' store
-  const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
 
   //#region HANDLERS
   const onClickLogout = () => {

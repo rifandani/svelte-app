@@ -21,7 +21,7 @@ export interface RafFnOptions extends ConfigurableWindow {
  * ```tsx
  * <script>
  * 	let count = 0;
- * 	const { pause, resume } = useRafFn(() => {
+ * 	const { pause, resume } = createRafFn(() => {
  * 		count++
  *     })
  * </script>
@@ -31,7 +31,7 @@ export interface RafFnOptions extends ConfigurableWindow {
  * <button on:click={() => resume()}>Resume</button>
  * ```
  */
-export function useRafFn(fn: () => void, options: RafFnOptions = {}): Pauseable {
+export function createRafFn(fn: () => void, options: RafFnOptions = {}): Pauseable {
   const { immediate = true } = options;
   let isActive = false;
 

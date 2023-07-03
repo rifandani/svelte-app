@@ -4,7 +4,7 @@
   import { fly } from 'svelte/transition';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { useLocalStorage } from '../../../shared/hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import type { TodoSchema } from '../../api/todo.schema';
   import { createTodoDeleteMutation } from '../../stores/createTodoDeleteMutation.store';
   import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
@@ -14,7 +14,7 @@
   export let todo: TodoSchema;
 
   const { queryOptions } = createTodoListQuery();
-  const { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
   const todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryOptions.queryKey });
   const todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryOptions.queryKey });
   //#endregion

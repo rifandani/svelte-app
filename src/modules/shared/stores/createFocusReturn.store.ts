@@ -1,4 +1,4 @@
-export interface useFocusReturnResult {
+export interface CreateFocusReturnResult {
   handleFocusReturn: (opened: boolean, shouldReturnFocus?: boolean) => void;
   returnFocus: () => void;
 }
@@ -9,7 +9,7 @@ export interface useFocusReturnResult {
  *
  * @example
  *
- * const { handleFocusReturn } = useFocusReturn();
+ * const { handleFocusReturn } = createFocusReturn();
  *
  * let opened = false;
  *
@@ -20,7 +20,7 @@ export interface useFocusReturnResult {
  * @example
  *
  * // if `shouldReturnFocus(second param)` option is set to false you can call `returnFocus` function to focus last active element manually:
- * const { handleFocusReturn, returnFocus } = useFocusReturn();
+ * const { handleFocusReturn, returnFocus } = createFocusReturn();
  *
  * let opened = false;
  *
@@ -34,7 +34,7 @@ export interface useFocusReturnResult {
  *   returnFocus();
  * }
  */
-export function useFocusReturn(): useFocusReturnResult {
+export function createFocusReturn(): CreateFocusReturnResult {
   let lastActiveElement: HTMLElement | undefined;
   const returnFocus = () => {
     if (

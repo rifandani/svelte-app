@@ -10,11 +10,11 @@ const listenerOptions = {
  *
  * @example
  *
- * const viewport = useViewportSize();
+ * const viewport = createViewportSize();
  *
  * $: ({ width, height } = $viewport);
  */
-export function useViewportSize(): Writable<{ width: number; height: number }> {
+export function createViewportSize(): Writable<{ width: number; height: number }> {
   let window: Window;
   if (environment.browser) window = defaultWindow;
 

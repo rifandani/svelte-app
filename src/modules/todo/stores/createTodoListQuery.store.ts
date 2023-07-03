@@ -10,7 +10,12 @@ export const createTodoListQuery = () => {
 
   const queryOptions = derived<
     typeof queryParams,
-    CreateQueryOptions<TodoListApiResponseSchema, ErrorApiResponseSchema>
+    CreateQueryOptions<
+      TodoListApiResponseSchema,
+      ErrorApiResponseSchema,
+      TodoListApiResponseSchema,
+      ReturnType<typeof todoKeys.list>
+    >
   >(queryParams, ($queryParams) => ({
     queryKey: todoKeys.list($queryParams),
     queryFn: () => todoApi.list($queryParams),

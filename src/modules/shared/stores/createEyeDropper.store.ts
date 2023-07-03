@@ -29,7 +29,7 @@ export interface EyeDropperReturn {
  *
  * @example
  *
- * const { isSupported, sRGBHex, open } = useEyeDropper({ initialValue: '#000000' });
+ * const { isSupported, sRGBHex, open } = createEyeDropper({ initialValue: '#000000' });
  *
  * <Text>isSupported: {isSupported}</Text>
  * <Text>
@@ -39,7 +39,7 @@ export interface EyeDropperReturn {
  *   Open Eye Dropper
  * </Button>
  */
-export function useEyeDropper(options: EyeDropperOptions = {}): EyeDropperReturn {
+export function createEyeDropper(options: EyeDropperOptions = {}): EyeDropperReturn {
   let window: Window;
   if (environment.browser) window = defaultWindow;
 

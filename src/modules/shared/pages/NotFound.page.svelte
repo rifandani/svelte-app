@@ -2,9 +2,9 @@
   import { link } from 'svelte-spa-router';
   import LL from '../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../auth/api/auth.schema';
-  import { useLocalStorage } from '../hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../stores/createLocalStorage.store';
 
-  let { store: user } = useLocalStorage<LoginApiResponseSchema>('user');
+  let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
 </script>
 
 <main class="flex h-screen flex-col items-center justify-center space-y-3 text-primary-content">

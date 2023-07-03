@@ -3,17 +3,18 @@ import { writable, type Writable } from 'svelte/store';
 
 /**
  * This creates a store that also integrated with local storage.
+ * NOTE: using `onDestroy` inside
  *
  * @example
  *
  * ```ts
  * // don't pass second argument to get the already instantiated instance
- * const { store: user } = useLocalStorage('user')
+ * const { store: user } = createLocalStorage('user')
  *
  * <p>{$user}</p>
  * ```
  */
-export function useLocalStorage<T>(key: string): {
+export function createLocalStorage<T>(key: string): {
   store: Writable<T>;
   reset: () => void;
   update: (newValue: T) => void;
@@ -21,6 +22,7 @@ export function useLocalStorage<T>(key: string): {
 
 /**
  * This creates a store that also integrated with local storage.
+ * NOTE: using `onDestroy` inside
  *
  * @example
  *
@@ -28,12 +30,12 @@ export function useLocalStorage<T>(key: string): {
  * import { onDestroy } from 'svelte';
  *
  * // don't pass second argument to get the already instantiated instance
- * const { store: user } = useLocalStorage('user', { username: 'rifandani' })
+ * const { store: user } = createLocalStorage('user', { username: 'rifandani' })
  *
  * onDestroy(unsubscribe);
  * ```
  */
-export function useLocalStorage<T>(
+export function createLocalStorage<T>(
   key: string,
   initialValue: T,
 ): {
@@ -42,7 +44,7 @@ export function useLocalStorage<T>(
   update: (newValue: T) => void;
 };
 
-export function useLocalStorage<T>(key: string, initialValue?: T) {
+export function createLocalStorage<T>(key: string, initialValue?: T) {
   // get current data from `localStorage`
   const data = localStorage.getItem(key);
 
@@ -80,8 +82,7 @@ export function useLocalStorage<T>(key: string, initialValue?: T) {
     localStorage.setItem(key, JSON.stringify(val));
   });
 
-  // because we're using svelte lifecycle here, then we named it `useLocalStorage`
-  // which means we need to call this function inside of svelte component script tag
+  // we need to call this function inside of svelte component script tag
   onDestroy(unsubscribe);
 
   return { store, reset, update };

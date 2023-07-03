@@ -7,7 +7,12 @@ import type { TodoDetailApiResponseSchema } from '../api/todo.schema';
 export const createTodoDetailQuery = (id: Readable<number>) => {
   const queryOptions = derived<
     typeof id,
-    CreateQueryOptions<TodoDetailApiResponseSchema, ErrorApiResponseSchema>
+    CreateQueryOptions<
+      TodoDetailApiResponseSchema,
+      ErrorApiResponseSchema,
+      TodoDetailApiResponseSchema,
+      ReturnType<typeof todoKeys.detail>
+    >
   >(id, ($id) => {
     return {
       enabled: $id > 0,

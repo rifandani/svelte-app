@@ -45,7 +45,6 @@ export const createTodoCreateMutation = ({ queryKey }: CreateTodoCreateMutationP
       // Return a context object with the snapshotted value
       return { previousTodosQueryResponse };
     },
-    mutationKey: queryKey,
     mutationFn: (newTodo) => todoApi.create(newTodo),
   });
 };

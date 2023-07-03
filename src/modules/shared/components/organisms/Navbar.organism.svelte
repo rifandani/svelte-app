@@ -6,12 +6,12 @@
   import svelteLogo from '../../../../assets/svelte.svg';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { useLocalStorage } from '../../hooks/useLocalStorage.hook';
+  import { createLocalStorage } from '../../stores/createLocalStorage.store';
   import { Icon } from '../atoms';
   import { NavbarMenuContent } from '../molecules';
 
   // get 'user' store
-  const { reset } = useLocalStorage<LoginApiResponseSchema>('user');
+  const { reset } = createLocalStorage<LoginApiResponseSchema>('user');
 
   //#region HANDLERS
   // CustomEvent<undefined>

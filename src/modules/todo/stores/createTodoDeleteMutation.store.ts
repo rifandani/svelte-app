@@ -46,7 +46,6 @@ export const createTodoDeleteMutation = ({ queryKey }: CreateTodoDeleteMutationP
       // Return a context object with the snapshotted value
       return { previousTodosQueryResponse };
     },
-    mutationKey: queryKey,
     mutationFn: (id) => todoApi.delete(id),
     onSettled: (_id, error, _variables, context) => {
       toaster.create({

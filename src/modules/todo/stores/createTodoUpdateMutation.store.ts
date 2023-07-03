@@ -48,7 +48,6 @@ export const createTodoUpdateMutation = ({ queryKey }: CreateTodoUpdateMutationP
       // Return a context object with the snapshotted value
       return { previousTodosQueryResponse };
     },
-    mutationKey: queryKey,
     mutationFn: (updateTodo) => todoApi.update(updateTodo),
     onSettled: (_updateTodo, error, _variables, context) => {
       toaster.create({

@@ -23,10 +23,11 @@ const listenerOptions = {
 
 /**
  * Get access to the reactive browser location API
+ * NOTE: using `onMount` inside
  *
  * @example
  *
- * const location = useBrowserContext();
+ * const location = createBrowserContext();
  *
  * $: ({
  *   trigger,
@@ -43,7 +44,7 @@ const listenerOptions = {
  *   state,
  * } = $location);
  */
-export function useBrowserContext(): Writable<BrowserContextState> {
+export function createBrowserContext(): Writable<BrowserContextState> {
   let window: Window;
   if (environment.browser) window = defaultWindow;
 
