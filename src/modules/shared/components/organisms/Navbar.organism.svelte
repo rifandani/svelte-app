@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import { onMount, type ComponentEvents } from 'svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
@@ -7,7 +8,6 @@
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { createLocalStorage } from '../../stores/createLocalStorage.store';
-  import { Icon } from '../atoms';
   import { NavbarMenuContent } from '../molecules';
 
   // get 'user' store
@@ -32,7 +32,11 @@
     <div class="navbar w-full bg-base-300">
       <div class="flex-none lg:hidden">
         <label for="my-nav-drawer" class="btn-primary btn-square btn">
-          <Icon.HamburgerMenu2 width={20} height={20} style="fill:hsl(var(--p))" />
+          <Icon
+            icon="lucide:menu"
+            height="2em"
+            style="color: hsl(var(--pc) / var(--tw-text-opacity));"
+          />
         </label>
       </div>
 

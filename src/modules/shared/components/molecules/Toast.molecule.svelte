@@ -1,8 +1,8 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import { fly, scale } from 'svelte/transition';
   import { twMerge } from 'tailwind-merge';
   import { createToast } from '../../stores/createToast.store';
-  import { Icon } from '../atoms';
 
   const { toasts, toaster, useToast, rootAttrs, groupAttrs, progress } = createToast();
 </script>
@@ -20,7 +20,7 @@
         <h3 class={`font-bold text-${toast.type}-content`}>{toast.title}</h3>
 
         <button class="btn btn-xs btn-ghost" on:click={() => toaster.dismiss(toast.id)}>
-          <Icon.OutlineClose />
+          <Icon icon="lucide:x" height="1.5em" />
         </button>
       </div>
 

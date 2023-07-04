@@ -1,9 +1,10 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import { link } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
   import svelteCyber from '../../../assets/svelte-cyber.avif';
   import LL from '../../../i18n/i18n-svelte';
-  import { Icon, WrapTranslation } from '../../shared/components/atoms';
+  import { WrapTranslation } from '../../shared/components/atoms';
   import LoginForm from '../components/LoginForm/LoginForm.svelte';
 </script>
 
@@ -12,8 +13,8 @@
     <!-- Login Section -->
     <section class="flex w-full flex-col md:w-1/2">
       <div class="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
-        <a use:link href="/" class="relative cursor-pointer">
-          <Icon.Home class="h-8 w-8 rounded-full hover:text-primary" />
+        <a use:link href="/" class="relative cursor-pointer rounded-full hover:text-primary">
+          <Icon icon="lucide:home" height="1.5em" />
         </a>
       </div>
 
