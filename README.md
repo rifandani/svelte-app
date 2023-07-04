@@ -48,8 +48,7 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] use `@iconify/svelte` OR SVG sprites
-- [ ] use `redaxios` instead of `axios`
+- [ ] use SVG sprites for custom SVG
 - [ ] use [radix-svelte](https://www.radix-svelte.com/) and [shadcn-svelte](https://www.shadcn-svelte.com/)
 - [ ] `/playground` route to showcase svelte-specific API's superiority, so that we can compare it to another framework
 - [ ] try out svelte component compiled to web component

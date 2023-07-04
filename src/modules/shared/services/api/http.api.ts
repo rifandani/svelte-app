@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'redaxios';
 import { env } from '../../configs/env.config';
 
 // Set config defaults when creating the instance
