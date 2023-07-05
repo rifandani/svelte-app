@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
   import { createForm } from 'felte';
   import { link, params, push } from 'svelte-spa-router';
@@ -6,7 +7,6 @@
   import { z } from 'zod';
   import LL from '../../../../i18n/i18n-svelte';
   import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
-  import { LoadingSpinner } from '../../../shared/components/atoms';
   import { Navbar } from '../../../shared/components/organisms';
   import { createToast } from '../../../shared/stores/createToast.store';
   import { todoApi, todoKeys } from '../../api/todo.api';
@@ -88,7 +88,7 @@
 
     {#if $todoQuery.isLoading}
       <div class="flex items-center justify-center py-5">
-        <LoadingSpinner color="currentColor" />
+        <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-secondary-content" />
       </div>
     {/if}
 

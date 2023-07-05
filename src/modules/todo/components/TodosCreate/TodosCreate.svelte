@@ -16,7 +16,7 @@
   const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
   const { toaster } = createToast();
   const { queryOptions } = createTodoListQuery();
-  const todoCreateMutation = createTodoCreateMutation({ queryKey: $queryOptions.queryKey });
+  $: todoCreateMutation = createTodoCreateMutation({ queryKey: $queryOptions.queryKey });
 
   const { form } = createForm<TodoSchema>({
     extend: [validator({ schema: todoSchema })],

@@ -15,8 +15,8 @@
 
   const { queryOptions } = createTodoListQuery();
   const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
-  const todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryOptions.queryKey });
-  const todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryOptions.queryKey });
+  $: todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryOptions.queryKey });
+  $: todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryOptions.queryKey });
   //#endregion
 
   //#region HANDLERS
