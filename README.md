@@ -48,11 +48,10 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] use [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
-- [ ] `/playground` route to showcase svelte-specific API's superiority, so that we can compare it to another framework
 - [ ] try out svelte component compiled to web component
 - [ ] watch jherr videos about svelte inside react
 - [ ] fix all tests
+- [ ] use [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
 
 Debug query:
 
