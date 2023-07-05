@@ -4,10 +4,10 @@
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
   import { themeChange } from 'theme-change';
-  import svelteLogo from '../../../../assets/svelte.svg';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { createLocalStorage } from '../../stores/createLocalStorage.store';
+  import SvgIcon from '../atoms/SvgIcon.atom.svelte';
   import { NavbarMenuContent } from '../molecules';
 
   // get 'user' store
@@ -32,17 +32,13 @@
     <div class="navbar w-full bg-base-300">
       <div class="flex-none lg:hidden">
         <label for="my-nav-drawer" class="btn-primary btn-square btn">
-          <Icon
-            icon="lucide:menu"
-            height="2em"
-            style="color: hsl(var(--pc) / var(--tw-text-opacity));"
-          />
+          <Icon icon="lucide:menu" height="2em" class="text-primary-content" />
         </label>
       </div>
 
       <a use:link href="/" class="link-primary link mx-2 flex-1 px-2">
         <span class="flex items-center space-x-2 pl-2 text-2xl">
-          <img src={svelteLogo} alt="svelte logo" class="h-6 w-6" />
+          <SvgIcon id="icon-svelte" class="w-6 h-6" />
           <p class="font-semibold text-primary tracking-wider">{$LL.common.appName()}</p>
         </span>
       </a>

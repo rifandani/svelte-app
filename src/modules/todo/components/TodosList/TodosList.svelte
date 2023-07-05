@@ -1,7 +1,7 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import { createQuery } from '@tanstack/svelte-query';
   import LL from '../../../../i18n/i18n-svelte';
-  import { LoadingSpinner } from '../../../shared/components/atoms';
   import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
   import TodosItem from '../TodosItem/TodosItem.svelte';
 
@@ -13,7 +13,7 @@
 
 {#if $todosQuery.isLoading}
   <div class="flex items-center justify-center py-5">
-    <LoadingSpinner stroke="currentColor" />
+    <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-secondary-content" />
   </div>
 {/if}
 
