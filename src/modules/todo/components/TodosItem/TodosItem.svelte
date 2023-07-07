@@ -58,9 +58,9 @@
   <a
     use:link
     data-testid="p-todo"
-    href={`/todos/${todo.id}`}
     class="ml-5 w-full text-left text-lg text-secondary-content hover:font-bold"
     class:line-through={todo.completed}
+    href={`/todos/${todo.id}`}
   >
     {todo.todo}
   </a>

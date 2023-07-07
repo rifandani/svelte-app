@@ -5,7 +5,19 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [svelte({ hot: !process.env.VITEST })], // disabling Svelte's hot module reload when tests are running
+  plugins: [
+    svelte({
+      hot: !process.env.VITEST, // disabling Svelte's hot module reload when tests are running
+      exclude: ['./src/lib/wc/Counter.molecule.svelte'], // exclude web components lib
+    }),
+    // used only for compiling svelte components to web components
+    svelte({
+      include: ['./src/lib/wc/Counter.molecule.svelte'],
+      compilerOptions: {
+        customElement: true,
+      },
+    }),
+  ],
   test: {
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     // to see how your tests are running in real time in the terminal, add "default"

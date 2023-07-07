@@ -101,7 +101,6 @@
       </div>
     {/if}
 
-    <!-- <Match when={todoQuery.isSuccess}> -->
     {#if $todoQuery.isSuccess}
       <form use:form data-testid="form" class="join">
         <input
