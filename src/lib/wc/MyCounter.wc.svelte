@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import type { HTMLButtonAttributes } from 'svelte/elements';
-  import { myCounterEventDecrement, myCounterEventIncrement } from './Counter.constant';
+  import { myCounterEventDecrement, myCounterEventIncrement } from './MyCounter.constant';
 
   export let initialCount = '0';
   $: count = initialCount;

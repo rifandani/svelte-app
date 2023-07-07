@@ -5,8 +5,8 @@
     myCounterEventDecrement,
     myCounterEventIncrement,
     type MyCounterEventDetail,
-  } from '../../../lib/wc/Counter.constant';
-  import '../../../lib/wc/Counter.molecule.svelte';
+  } from '../../../lib/wc/MyCounter.constant';
+  import '../../../lib/wc/MyCounter.wc.svelte';
 
   let sectionRef: HTMLElement;
   let initialCount = '10';

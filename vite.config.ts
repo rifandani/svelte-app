@@ -8,11 +8,11 @@ export default defineConfig({
   plugins: [
     svelte({
       hot: !process.env.VITEST, // disabling Svelte's hot module reload when tests are running
-      exclude: ['./src/lib/wc/Counter.molecule.svelte'], // exclude web components lib
+      exclude: ['./src/lib/wc/MyCounter.wc.svelte'], // exclude web components lib
     }),
     // used only for compiling svelte components to web components
     svelte({
-      include: ['./src/lib/wc/Counter.molecule.svelte'],
+      include: ['./src/lib/wc/MyCounter.wc.svelte'],
       compilerOptions: {
         customElement: true,
       },
@@ -53,6 +53,7 @@ export default defineConfig({
         'src/main.ts',
         'src/mocks/**',
         'src/assets/**',
+        'src/lib/**',
         'src/i18n/**',
       ],
     },
