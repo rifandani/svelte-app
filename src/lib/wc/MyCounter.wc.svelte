@@ -5,7 +5,7 @@
     tag: 'my-counter',
     shadow: 'none', // styles are no longer encapsulated but now we can use global styles, and you can't use slots
     props: {
-      name: { reflect: true, type: 'Number', attribute: 'initial-count' },
+      name: { reflect: true, type: 'String', attribute: 'initial-count' },
     },
   }}
 />
@@ -15,7 +15,7 @@
   import { myCounterEventDecrement, myCounterEventIncrement } from './MyCounter.constant';
 
   export let initialCount = '0';
-  $: count = initialCount;
+  $: count = initialCount; // sync the props `initialCount` to `count` state
 
   const onDecrement: HTMLButtonAttributes['on:click'] = (ev) => {
     const newCount = (Number(count) - 1).toString();
@@ -43,13 +43,13 @@
   };
 </script>
 
-<div class="flex items-center space-x-2">
-  <button class="btn btn-xs btn-primary" on:click={onDecrement}>Decrement</button>
-  <p>{count}</p>
-  <button class="btn btn-xs btn-primary" on:click={onIncrement}>Increment</button>
+<div part="containerPart" class="flex items-center space-x-2">
+  <button part="btnPart" class="btn btn-xs btn-primary" on:click={onDecrement}>Decrement</button>
+  <p part="countPart">{count}</p>
+  <button part="btnPart" class="btn btn-xs btn-primary" on:click={onIncrement}>Increment</button>
 </div>
 
-<!-- comment these if we use `shadow: 'none'` -->
+<!-- uncomment these if we use `shadow: 'none'` -->
 <!-- <style>
   .flex {
     display: flex;

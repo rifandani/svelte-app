@@ -48,7 +48,8 @@ export function useElementSize(): ElementSize {
         })
       : null;
 
-    observer.observe(node);
+    // only run on browser
+    if (observer) observer.observe(node);
 
     return {
       destroy: () => {

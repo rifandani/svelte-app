@@ -73,13 +73,20 @@ export function createBrowserContext(): Writable<BrowserContextState> {
 
   const state: Writable<BrowserContextState> = writable(setState('load'));
 
+  const handlePopStateListener: EventListenerOrEventListenerObject = () => {
+    state.set(setState('popstate'));
+  };
+  const handleHashChangeListener: EventListenerOrEventListenerObject = () => {
+    state.set(setState('hashchange'));
+  };
+
   onMount(() => {
-    window.addEventListener('popstate', () => state.set(setState('popstate')), listenerOptions);
-    window.addEventListener('hashchange', () => state.set(setState('hashchange')), listenerOptions);
+    window.addEventListener('popstate', handlePopStateListener, listenerOptions);
+    window.addEventListener('hashchange', handleHashChangeListener, listenerOptions);
 
     return () => {
-      window.removeEventListener('popstate', () => state.set(setState('popstate')));
-      window.removeEventListener('hashchange', () => state.set(setState('hashchange')));
+      window.removeEventListener('popstate', handlePopStateListener);
+      window.removeEventListener('hashchange', handleHashChangeListener);
     };
   });
 

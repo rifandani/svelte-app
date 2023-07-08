@@ -7,7 +7,7 @@ export function createAriaHider(containerNode: HTMLElement) {
   const hiddenDomNodes: Value[] = [];
 
   gatherOutsideDomNodes(containerNode);
-  hiddenDomNodes.map(({ node }) => {
+  hiddenDomNodes.forEach(({ node }) => {
     node.setAttribute('aria-hidden', 'true');
   });
 
