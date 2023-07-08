@@ -1,16 +1,62 @@
-# Svelte + TS + Vite
+# Intro
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+[![DeepScan grade](https://deepscan.io/api/teams/13942/projects/25053/branches/777069/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=13942&pid=25053&bid=777069)
 
-## Recommended IDE Setup
+Svelte template built with:
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- `typescript` + `eslint` + `prettier` -> dev productivity
+- `svelte-spa-router` -> hash based routing
+- `vite` + `vitest` + `@testing-library/svelte` -> unit test, integration test, coverage
+- `msw` -> browser and server mocking
+- `tailwindcss` + `tailwind-merge` + `daisyui` -> styling
+- `@formkit/auto-animate` -> automate transition animation when component mount/unmount
+- `@kobalte/core` -> unstyled UI component library (similar to `radix-ui` in React)
+- `redaxios` + `@tanstack/svelte-query` -> data fetching
+- `zod` -> schema validation
+- `felte` -> form management
+- `@iconify/svelte` -> icon on demand
+- `type-fest` -> useful type helpers
+- `typesafe-i18n` -> typesafe i18n
 
-## Need an official Svelte framework?
+## Development
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+```bash
+# install deps
+$ pnpm install
 
-## Technical considerations
+# init msw
+$ pnpm msw:init
+
+# Runs the app
+$ pnpm start
+```
+
+```bash
+# run test
+$ pnpm test
+
+# coverage with c8
+$ pnpm coverage
+```
+
+## Build
+
+Builds the app for production to the `dist` folder.<br>
+It correctly bundles Svelte in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+```bash
+# build app
+$ pnpm build
+```
+
+## Deployment
+
+You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+
+## Technical considerations (from the vite starter)
 
 **Why use this over SvelteKit?**
 
@@ -50,6 +96,7 @@ export default writable(0);
 
 - [ ] use [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
 - [ ] fix all tests
+- [ ] add `/docs` folder, including all my decisions or technical considerations.
 
 Debug query:
 
