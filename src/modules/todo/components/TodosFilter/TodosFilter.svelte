@@ -38,8 +38,6 @@
         value={limit}
         selected={limit === selectedOption}>{limit}</option
       >
-    {:else}
-      <p class="flex w-full items-center justify-center py-5">{$LL.common.empty()}</p>
     {/each}
   </select>
 </form>

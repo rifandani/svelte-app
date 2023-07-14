@@ -3,8 +3,12 @@
 
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
+import { configDefaults } from 'vitest/config';
 
 export default defineConfig({
+  server: {
+    port: 5500,
+  },
   plugins: [
     svelte({
       hot: !process.env.VITEST, // disabling Svelte's hot module reload when tests are running
@@ -26,6 +30,7 @@ export default defineConfig({
     environment: 'jsdom', // mocking the DOM API
     globals: true, // use APIs globally like jest
     setupFiles: ['node_modules/@testing-library/jest-dom/extend-expect.js', 'src/setupTests.ts'],
+    exclude: [...configDefaults.exclude, 'e2e/*'],
     // Will call .mockRestore() on all spies before each test. This will clear mock history and reset its implementation to the original one.
     restoreMocks: true,
     coverage: {

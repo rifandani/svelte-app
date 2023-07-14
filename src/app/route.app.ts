@@ -1,8 +1,8 @@
 import type { RouteDefinition } from 'svelte-spa-router';
 import { authRoute } from '../modules/auth/routes/auth.route';
+import { notFoundRoute } from '../modules/auth/routes/notFound.route';
 import { homeRoute } from '../modules/home/routes/home.route';
 import { playgroundRoute } from '../modules/playground/routes/playground.route';
-import { sharedRoute } from '../modules/shared/routes/auth.route';
 import { todoRoute } from '../modules/todo/routes/todo.route';
 
 export const routes: RouteDefinition = {
@@ -10,12 +10,5 @@ export const routes: RouteDefinition = {
   ...todoRoute,
   ...playgroundRoute,
   ...authRoute,
-  ...sharedRoute,
-  // Using named parameters, with last being optional
-  // '/author/:first/:last?': wrap({
-  //   asyncComponent: () => import('./Author.svelte')
-  // }),
-
-  // Wildcard parameter
-  // '/book/*': Book,
+  ...notFoundRoute,
 };

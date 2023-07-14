@@ -4,9 +4,9 @@
 
 Svelte template built with:
 
-- `typescript` + `eslint` + `prettier` -> dev productivity
+- `vite` + `typescript` + `eslint` + `prettier` -> dev productivity
 - `svelte-spa-router` -> hash based routing
-- `vite` + `vitest` + `@testing-library/svelte` -> unit test, integration test, coverage
+- `vitest` + `@testing-library/svelte` -> unit test, integration test, coverage
 - `msw` -> browser and server mocking
 - `tailwindcss` + `tailwind-merge` + `daisyui` -> styling
 - `@formkit/auto-animate` -> automate transition animation when component mount/unmount
