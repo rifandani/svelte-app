@@ -6,14 +6,19 @@
   import { derived } from 'svelte/store';
   import { z } from 'zod';
   import LL from '../../../../i18n/i18n-svelte';
+  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
   import { Navbar } from '../../../shared/components/organisms';
+  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import { createToast } from '../../../shared/stores/createToast.store';
   import { todoApi, todoKeys } from '../../api/todo.api';
   import type { UpdateTodoApiResponseSchema, UpdateTodoSchema } from '../../api/todo.schema';
   import { createTodoDetailQuery } from '../../stores/createTodoDetailQuery.store';
 
   //#region VALUES
+  const { toaster } = createToast();
+  const queryClient = useQueryClient();
+  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
   const id = derived(params, ($params) => {
     // initial load, `$params === undefined`
     // -1 to make query options `enabled: false`
@@ -24,8 +29,6 @@
     return Number(id);
   });
   const { queryOptions } = createTodoDetailQuery(id);
-  const { toaster } = createToast();
-  const queryClient = useQueryClient();
 
   $: todoQuery = createQuery($queryOptions);
   $: todoUpdateMutation = createMutation<
@@ -101,7 +104,7 @@
       </div>
     {/if}
 
-    {#if $todoQuery.isSuccess}
+    {#if $todoQuery.isSuccess && $todoQuery.data}
       <form use:form data-testid="form" class="join">
         <input
           data-testid="input-todo"
@@ -110,16 +113,18 @@
           id="todo"
           type="text"
           required
-          value={$todoQuery.data?.todo ?? $LL.common.loading()}
+          value={$todoQuery.data.todo ?? $LL.common.loading()}
         />
 
-        <button
-          data-testid="button-submit"
-          class="btn-accent join-item btn normal-case"
-          type="submit"
-        >
-          {$LL.common.update({ icon: '🖋' })}
-        </button>
+        {#if $user.id === $todoQuery.data.userId}
+          <button
+            data-testid="button-submit"
+            class="btn-accent join-item btn normal-case"
+            type="submit"
+          >
+            {$LL.common.update({ icon: '🖋' })}
+          </button>
+        {/if}
       </form>
     {/if}
   </section>

@@ -1,9 +1,8 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { onMount, type ComponentEvents } from 'svelte';
+  import { type ComponentEvents } from 'svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
-  import { themeChange } from 'theme-change';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
   import { createLocalStorage } from '../../stores/createLocalStorage.store';
@@ -20,8 +19,6 @@
     void replace('/login'); // back to login
   };
   //#endregion
-
-  onMount(() => themeChange(false));
 </script>
 
 <nav in:fly={{ x: -100, duration: 1000 }} out:fade class="drawer text-primary-content min-h-screen">

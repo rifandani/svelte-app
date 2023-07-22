@@ -1,7 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { fly, scale } from 'svelte/transition';
-  import { twMerge } from 'tailwind-merge';
   import { createToast } from '../../stores/createToast.store';
 
   const { toasts, toaster, useToast, rootAttrs, groupAttrs, progress } = createToast();
@@ -16,7 +15,7 @@
       use:useToast={toast}
       {...$rootAttrs(toast)}
     >
-      <div class={twMerge(['flex items-center justify-between p-3', !toast.description && 'pb-5'])}>
+      <div class="flex items-center justify-between p-3">
         <h3 class={`font-bold text-${toast.type}-content`}>{toast.title}</h3>
 
         <button class="btn btn-xs btn-ghost" on:click={() => toaster.dismiss(toast.id)}>

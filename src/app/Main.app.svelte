@@ -2,6 +2,7 @@
   import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
   import { onMount } from 'svelte';
   import Router, { replace, type ConditionsFailedEvent } from 'svelte-spa-router';
+  import { themeChange } from 'theme-change';
   import { localStorageDetector } from 'typesafe-i18n/detectors';
   import { locale } from '../i18n/i18n-svelte';
   import { detectLocale } from '../i18n/i18n-util';
@@ -22,6 +23,9 @@
   };
 
   onMount(async () => {
+    // change theme based on html `data-theme` and local storage `theme`
+    themeChange(false);
+
     // detect locale based on localStorage
     const detectedLocale = detectLocale(localStorageDetector);
     // update locale
