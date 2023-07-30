@@ -4,18 +4,28 @@
   import active from 'svelte-spa-router/active';
   import LL from '../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { themes } from '../../constants/global.constant';
+  import { modes, themes } from '../../constants/global.constant';
+  import { createColorMode } from '../../stores/createColorMode.store';
   import { createLocalStorage } from '../../stores/createLocalStorage.store';
+  import type { Theme } from '../../types/theme.type';
 
   // event forwarding
   const dispatch = createEventDispatcher<{ logout: undefined }>();
 
   // get 'user' store
   const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
+  const mode = createColorMode({
+    modes,
+    attribute: 'data-theme',
+  });
 
   //#region HANDLERS
   const onClickLogout = () => {
     dispatch('logout');
+  };
+
+  const onClickChangeTheme = (_theme: Theme) => {
+    mode.update(_theme);
   };
   //#endregion
 </script>
@@ -41,7 +51,11 @@
   >
     {#each themes as theme (theme)}
       <li>
-        <button class="capitalize tracking-wide" data-set-theme={theme}>
+        <button
+          type="button"
+          class="capitalize tracking-wide"
+          on:click={() => onClickChangeTheme(theme)}
+        >
           {theme}
         </button>
       </li>

@@ -6,80 +6,6 @@ import type {
 } from '../../../types/pagination.type';
 import { writableEffect } from '../../../utils/store.util';
 
-/**
- * Allow user to select a specific page from a range of pages.
- */
-export const createPagination = ({
-  boundaryCount = 1,
-  total = 0,
-  perPage = 10,
-  hideNextButton = false,
-  hidePrevButton = false,
-  page = 1,
-  hideFirstButton = true,
-  hideLastButton = true,
-  siblingCount = 1,
-  ariaLabel = 'Pagination Navigation',
-  getPageAriaLabel = (page: number) => `Goto Page ${page}`,
-  onPageChange,
-}: PaginationConfig = {}): PaginationReturn => {
-  const page$ = writableEffect(page, onPageChange);
-  const total$ = writable(total);
-  const perPage$ = writable(perPage);
-
-  const count$ = derived([total$, perPage$], ([$total, $perPage]) => {
-    return Math.ceil(+$total / +$perPage);
-  });
-
-  const items = derived([page$, count$], ([$page, $count]) => {
-    const itemList = getItems({
-      boundaryCount,
-      count: $count,
-      hideNextButton,
-      hidePrevButton,
-      page: $page,
-      hideFirstButton,
-      hideLastButton,
-      siblingCount,
-    });
-
-    return itemList;
-  });
-
-  const navAttrs = readable({ role: 'navigation', 'aria-label': ariaLabel });
-
-  const pageAttrs = derived(page$, () => {
-    return function (item: PaginationItem) {
-      return {
-        ...(item.page && !item.disabled
-          ? { 'aria-label': getPageAriaLabel(item.page, !!item.selected) }
-          : {}),
-        ...(item.selected ? { 'aria-current': 'page' } : {}),
-        ...(item.disabled ? { disabled: 'true' } : {}),
-      };
-    };
-  });
-
-  const start = derived([page$, perPage$, total$], ([$page, $perPage, $total]) =>
-    Math.min(Math.max(1 + ((+$page || 1) - 1) * +$perPage, 0), +$total),
-  );
-
-  const end = derived([start, perPage$, total$], ([$start, $perPage, $total]) =>
-    Math.min($start + (+$perPage - 1), +$total),
-  );
-
-  return {
-    navAttrs,
-    pageAttrs,
-    items,
-    page: page$,
-    start,
-    end,
-    total: total$,
-    perPage: perPage$,
-  };
-};
-
 function getPageItem(item: string | number, page: number, count: number): PaginationItem {
   if (typeof item === 'number') {
     return {
@@ -178,3 +104,77 @@ function getItems({
     ...(hideLastButton ? [] : ['last']),
   ].map((i) => getPageItem(i, page, count));
 }
+
+/**
+ * Allow user to select a specific page from a range of pages.
+ */
+export const createPagination = ({
+  boundaryCount = 1,
+  total = 0,
+  perPage = 10,
+  hideNextButton = false,
+  hidePrevButton = false,
+  page = 1,
+  hideFirstButton = true,
+  hideLastButton = true,
+  siblingCount = 1,
+  ariaLabel = 'Pagination Navigation',
+  getPageAriaLabel = (page: number) => `Goto Page ${page}`,
+  onPageChange,
+}: PaginationConfig = {}): PaginationReturn => {
+  const page$ = writableEffect(page, onPageChange);
+  const total$ = writable(total);
+  const perPage$ = writable(perPage);
+
+  const count$ = derived([total$, perPage$], ([$total, $perPage]) => {
+    return Math.ceil(+$total / +$perPage);
+  });
+
+  const items = derived([page$, count$], ([$page, $count]) => {
+    const itemList = getItems({
+      boundaryCount,
+      count: $count,
+      hideNextButton,
+      hidePrevButton,
+      page: $page,
+      hideFirstButton,
+      hideLastButton,
+      siblingCount,
+    });
+
+    return itemList;
+  });
+
+  const navAttrs = readable({ role: 'navigation', 'aria-label': ariaLabel });
+
+  const pageAttrs = derived(page$, () => {
+    return function (item: PaginationItem) {
+      return {
+        ...(item.page && !item.disabled
+          ? { 'aria-label': getPageAriaLabel(item.page, !!item.selected) }
+          : {}),
+        ...(item.selected ? { 'aria-current': 'page' } : {}),
+        ...(item.disabled ? { disabled: 'true' } : {}),
+      };
+    };
+  });
+
+  const start = derived([page$, perPage$, total$], ([$page, $perPage, $total]) =>
+    Math.min(Math.max(1 + ((+$page || 1) - 1) * +$perPage, 0), +$total),
+  );
+
+  const end = derived([start, perPage$, total$], ([$start, $perPage, $total]) =>
+    Math.min($start + (+$perPage - 1), +$total),
+  );
+
+  return {
+    navAttrs,
+    pageAttrs,
+    items,
+    page: page$,
+    start,
+    end,
+    total: total$,
+    perPage: perPage$,
+  };
+};

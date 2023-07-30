@@ -3,6 +3,7 @@ import type { Theme } from '../types/theme.type';
 import { isBrowser } from '../utils/helper.util';
 
 export const themes: Theme[] = [
+  'auto',
   'light',
   'dark',
   'cupcake',
@@ -33,6 +34,12 @@ export const themes: Theme[] = [
   'coffee',
   'winter',
 ];
+
+// object version of `themes`
+export const modes = themes.reduce((acc, item) => {
+  acc[item] = item;
+  return acc;
+}, {} as Record<Theme, Theme>);
 
 // Commonly used keyboard constants
 export const ESCAPE = 'Escape';

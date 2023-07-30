@@ -34,7 +34,7 @@ function getOS() {
  * If os cannot be identified as well as during server side rendering `undetermined` will be returned.
  *
  * ```ts
- * const os = createOs()
+ * const os = makeOs()
  *
  * if (os === 'macos') {
  * 	key = 'cmd'
@@ -43,7 +43,7 @@ function getOS() {
  * }
  * ```
  */
-export function createOs(): OS {
+export function makeOs(): OS {
   if (typeof window !== 'undefined') {
     return getOS();
   }
