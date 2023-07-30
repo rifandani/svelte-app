@@ -8,6 +8,20 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn(),
 }));
 
+// mock window matchMedia
+window.matchMedia = function matchMedia(query) {
+  return {
+    media: query,
+    matches: false,
+    onchange: null,
+    addListener: vi.fn(), // Deprecated
+    removeListener: vi.fn(), // Deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  };
+};
+
 // implementation of window.resizeTo for dispatching event
 window.resizeTo = function resizeTo(width, height) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -64,4 +78,3 @@ vi.mock('svelte-spa-router/active', async (module) => {
 });
 
 vi.mock('typesafe-i18n', () => ({}));
-vi.mock('theme-change', () => ({}));

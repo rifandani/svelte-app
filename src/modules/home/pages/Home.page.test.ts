@@ -11,7 +11,7 @@ describe('HomePage', () => {
   it('should render text correctly', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: Home } });
-    const text = screen.getByText(/svelte-spa-router/);
+    const text = screen.getByTestId('home-title');
 
     // ASSERT
     expect(text).toBeInTheDocument();
