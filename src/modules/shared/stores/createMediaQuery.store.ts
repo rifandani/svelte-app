@@ -11,7 +11,8 @@ import { readonly, writable } from 'svelte/store';
  * @example
  * ```ts
  * const isSmall = createMediaQuery("(max-width: 767px)");
- * console.log($isSmall);
+ *
+ * <h1>{$isSmall}</h1>;
  * ```
  */
 export function createMediaQuery(query: string, serverFallback = false) {

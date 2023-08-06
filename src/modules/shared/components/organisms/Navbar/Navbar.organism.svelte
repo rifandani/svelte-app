@@ -3,11 +3,11 @@
   import { type ComponentEvents } from 'svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
-  import LL from '../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { createLocalStorage } from '../../stores/createLocalStorage.store';
-  import SvgIcon from '../atoms/SvgIcon.atom.svelte';
-  import { NavbarMenuContent } from '../molecules';
+  import LL from '../../../../../i18n/i18n-svelte';
+  import type { LoginApiResponseSchema } from '../../../../auth/api/auth.schema';
+  import { createLocalStorage } from '../../../stores/createLocalStorage.store';
+  import SvgIcon from '../../atoms/SvgIcon.atom.svelte';
+  import { NavbarMenuContent } from '../../molecules';
 
   // get 'user' store
   const { reset } = createLocalStorage<LoginApiResponseSchema>('user');
@@ -22,7 +22,7 @@
 </script>
 
 <nav in:fly={{ x: -100, duration: 1000 }} out:fade class="drawer text-primary-content min-h-screen">
-  <input id="my-nav-drawer" type="checkbox" class="drawer-toggle" />
+  <input id="my-nav-drawer" type="checkbox" aria-label="drawer" class="drawer-toggle" />
 
   <section class="drawer-content flex flex-col">
     <!-- Navbar -->
@@ -33,7 +33,7 @@
         </label>
       </div>
 
-      <a use:link href="/" class="link-primary link mx-2 flex-1 px-2">
+      <a use:link href="/" aria-label="logo" class="link-primary link mx-2 flex-1 px-2">
         <span class="flex items-center space-x-2 pl-2 text-2xl">
           <SvgIcon id="icon-svelte" class="w-6 h-6" />
           <p class="font-semibold text-primary tracking-wider">{$LL.common.appName()}</p>

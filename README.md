@@ -94,7 +94,7 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] use [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
+- [ ] use more [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
 - [ ] fix all tests
 - [ ] add `/docs` folder, including all my decisions or technical considerations.
 

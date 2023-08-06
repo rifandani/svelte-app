@@ -54,19 +54,19 @@
   //#endregion
 </script>
 
-<form use:form data-testid="form" class="form-control mb-3 w-full duration-300 lg:flex-row">
+<form use:form aria-label="form-add" class="form-control mb-3 w-full duration-300 lg:flex-row">
   <input
-    data-testid="input-todo"
     class="input-bordered input-accent input text-accent-content w-full lg:w-10/12"
-    placeholder={$LL.forms.todoPlaceholder()}
+    aria-label="textbox-add"
     name="todo"
     id="todo"
     type="text"
     required
+    placeholder={$LL.forms.todoPlaceholder()}
   />
 
   <button
-    data-testid="button-submit"
+    aria-label="button-add"
     class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12"
     type="submit"
   >

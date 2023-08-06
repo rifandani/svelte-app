@@ -11,9 +11,13 @@ describe('LoginPage', () => {
   it('should render login title', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: Login } });
-    const paragraph: HTMLParagraphElement = screen.getByTestId('title');
+    const linkHome: HTMLAnchorElement = screen.getByRole('link', { name: /home/i });
+    const linkRegister: HTMLAnchorElement = screen.getByRole('link', { name: /register/i });
+    const imgCover: HTMLImageElement = screen.getByRole('img', { name: /cover/i });
 
     // ASSERT
-    expect(paragraph).toBeInTheDocument();
+    expect(linkHome).toBeInTheDocument();
+    expect(linkRegister).toBeInTheDocument();
+    expect(imgCover).toBeInTheDocument();
   });
 });

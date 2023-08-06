@@ -9,7 +9,7 @@ import { onDestroy } from 'svelte';
  *
  * @example
  * makeMediaQueryListener("(max-width: 767px)", e => {
- *    console.log(e.matches)
+ *    // e.matches
  * });
  */
 export function makeMediaQueryListener(

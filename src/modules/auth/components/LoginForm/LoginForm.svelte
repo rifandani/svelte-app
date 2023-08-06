@@ -46,7 +46,7 @@
   //#endregion
 </script>
 
-<form data-testid="form" class="form-control pt-3 md:pt-8" use:form>
+<form aria-label="form-login" class="form-control pt-3 md:pt-8" use:form>
   <!-- username -->
   <div class="form-control pt-4">
     <label class="label" for="username">
@@ -54,16 +54,17 @@
     </label>
 
     <input
-      data-testid="input-username"
+      id="username"
+      name="username"
+      aria-label="textbox-username"
+      aria-labelledby="#username"
+      type="text"
+      required
+      placeholder={$LL.forms.usernamePlaceholder()}
       class={twMerge(
         'input mt-1 shadow-md',
         $errors?.username?.length ? 'input-error' : 'input-primary',
       )}
-      placeholder={$LL.forms.usernamePlaceholder()}
-      id="username"
-      name="username"
-      type="text"
-      required
     />
 
     {#if $errors?.username?.length}
@@ -78,16 +79,18 @@
     </label>
 
     <input
-      data-testid="input-password"
+      id="password"
+      name="password"
+      role="textbox"
+      aria-label="textbox-password"
+      aria-labelledby="#password"
+      type="password"
+      required
+      placeholder={$LL.forms.passwordPlaceholder()}
       class={twMerge(
         'input mt-1 shadow-md',
         $errors?.password?.length ? 'input-error' : 'input-primary',
       )}
-      placeholder={$LL.forms.passwordPlaceholder()}
-      type="password"
-      id="password"
-      name="password"
-      required
     />
 
     {#if $errors?.password?.length}
@@ -104,7 +107,7 @@
   {/if}
 
   <button
-    data-testid="button-submit"
+    id="button-submit"
     class="btn-primary btn mt-8 normal-case"
     type="submit"
     disabled={!$isValid || $loginMutation.isLoading}

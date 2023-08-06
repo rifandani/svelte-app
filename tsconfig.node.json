@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["node", "jsdom", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["vite.config.ts", "tailwind.config.ts"]
+  "include": ["vite.config.ts", "vitest.config.ts", "tailwind.config.ts"]
 }

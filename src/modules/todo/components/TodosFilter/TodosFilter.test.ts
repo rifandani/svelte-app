@@ -14,24 +14,22 @@ describe('TodosFilter', () => {
 
   it('should render and change limit correctly', async () => {
     // ARRANGE
-    render(TestWrapper, {
-      component: TodosFilter,
-    });
-    const form: HTMLFormElement = screen.getByTestId('form');
-    const label: HTMLLabelElement = screen.getByTestId('label-limit');
-    const select: HTMLInputElement = screen.getByTestId('select-limit');
+    render(TestWrapper, { component: TodosFilter });
+    const form: HTMLFormElement = screen.getByRole('form');
+    const select: HTMLInputElement = screen.getByRole('combobox', { name: /filter/i });
     const options: HTMLOptionElement[] = screen.getAllByRole('option');
-    select.addEventListener('select', mockChangeFn);
 
     // ASSERT
     expect(form).toBeInTheDocument();
-    expect(label).toBeInTheDocument();
     expect(select).toBeInTheDocument();
-    expect(options.length).toBe(4);
+    expect(options).toHaveLength(4);
 
-    // ACT & ASSERT
+    // ACT
+    select.addEventListener('select', mockChangeFn);
     await fireEvent.select(select, { target: { value: validLimit } });
-    expect(select.value).toBe(validLimit);
+
+    // ASSERT
+    expect(select).toHaveValue(validLimit);
     expect(mockChangeFn).toHaveBeenCalled();
   });
 });

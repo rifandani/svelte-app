@@ -11,9 +11,9 @@ describe('HomePage', () => {
   it('should render text correctly', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: Home } });
-    const text = screen.getByTestId('home-title');
+    const heading: HTMLHeadingElement = screen.getByRole('heading', { level: 1 });
 
     // ASSERT
-    expect(text).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
   });
 });

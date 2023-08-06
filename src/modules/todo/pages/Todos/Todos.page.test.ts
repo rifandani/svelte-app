@@ -8,10 +8,10 @@ describe('TodosPage', () => {
     expect(() => result).not.toThrow();
   });
 
-  it('should render title correctly', () => {
+  it('should render content roles correctly', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: Todos } });
-    const title = screen.getByTestId('title');
+    const title = screen.getByRole('heading', { level: 1 });
 
     // ASSERT
     expect(title).toBeInTheDocument();

@@ -16,19 +16,19 @@ describe('LoginForm', () => {
   it('should be able to type the inputs and submit the login form', async () => {
     // ARRANGE
     render(TestWrapper, { props: { component: LoginForm } });
-    const form: HTMLFormElement = screen.getByTestId('form');
-    const inputUsername: HTMLInputElement = screen.getByTestId('input-username');
-    const inputPassword: HTMLInputElement = screen.getByTestId('input-password');
-    const buttonSubmit: HTMLButtonElement = screen.getByTestId('button-submit');
-    form.addEventListener('submit', mockSubmitFn);
+    const formLogin: HTMLFormElement = screen.getByRole('form', { name: /login/i });
+    const inputUsername: HTMLInputElement = screen.getByRole('textbox', { name: /username/i });
+    const inputPassword: HTMLInputElement = screen.getByRole('textbox', { name: /password/i });
+    const buttonSubmit: HTMLButtonElement = screen.getByRole('button');
+    formLogin.addEventListener('submit', mockSubmitFn);
 
     // ACT
     await fireEvent.change(inputUsername, { target: { value: validUsername } });
     await fireEvent.change(inputPassword, { target: { value: validPassword } });
 
     // ASSERT
-    expect(inputUsername.value).toBe(validUsername);
-    expect(inputPassword.value).toBe(validPassword);
+    expect(inputUsername).toHaveValue(validUsername);
+    expect(inputPassword).toHaveValue(validPassword);
     await fireEvent.click(buttonSubmit);
     expect(mockSubmitFn).toHaveBeenCalled();
   });

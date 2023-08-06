@@ -77,4 +77,6 @@ vi.mock('svelte-spa-router/active', async (module) => {
   };
 });
 
-vi.mock('typesafe-i18n', () => ({}));
+vi.mock('typesafe-i18n', () => ({
+  LL: vi.fn(),
+}));

@@ -1,38 +1,67 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
+import { vi } from 'vitest';
 import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import HomeClock from './HomeClock.svelte';
 
 describe('HomeClock', () => {
-  it('should render properly', () => {
-    const result = render(TestWrapper, { props: { component: HomeClock } });
-    expect(() => result).not.toThrow();
-  });
+  const mockButtonFn = vi.fn();
 
-  it('should render toggle clock correctly', async () => {
+  it('should render clock when toggle clock button clicked', async () => {
     // ARRANGE
     render(TestWrapper, { props: { component: HomeClock } });
-    const clockBtn: HTMLButtonElement = screen.getByTestId('clock');
+    const button: HTMLButtonElement = screen.getByTestId(/home-clock-button-clock/i);
 
     // ACT
-    await fireEvent.click(clockBtn);
+    await fireEvent.click(button);
 
     // ASSERT
-    const div: HTMLDivElement = screen.getByTestId('show-clock');
-    expect(div).toBeInTheDocument();
+    expect(screen.queryByTestId('home-clock-show')).toBeInTheDocument();
   });
 
-  it('should render buttons correctly', () => {
+  it.todo('should shuffle buttons when sort button clicked', async () => {
     // ARRANGE
     render(TestWrapper, { props: { component: HomeClock } });
-    const sortBtn: HTMLButtonElement = screen.getByTestId('sort');
-    const clockBtn: HTMLButtonElement = screen.getByTestId('clock');
-    const languageBtn: HTMLButtonElement = screen.getByTestId('language');
-    const startBtn: HTMLButtonElement = screen.getByTestId('start');
+    const buttonsBefore: HTMLButtonElement[] = screen.queryAllByTestId(/home-clock-button/i);
+    const button: HTMLButtonElement = screen.getByTestId(/home-clock-button-sort/i);
+
+    // ACT
+    await fireEvent.click(button);
+    const buttonsAfter: HTMLButtonElement[] = screen.queryAllByTestId(/home-clock-button/i);
+
+    // TODO: figure out how to solve this randomness
+    // ASSERT
+    expect(buttonsBefore[0]).not.toHaveTextContent(buttonsAfter[0].textContent);
+    expect(buttonsBefore[1]).not.toHaveTextContent(buttonsAfter[1].textContent);
+    expect(buttonsBefore[2]).not.toHaveTextContent(buttonsAfter[2].textContent);
+    expect(buttonsBefore[3]).not.toHaveTextContent(buttonsAfter[3].textContent);
+  });
+
+  // FIXME: typesafe-i18n always returns empty string
+  it.todo('should translate text when change language button clicked', async () => {
+    // ARRANGE
+    render(TestWrapper, { props: { component: HomeClock } });
+    const button: HTMLButtonElement = screen.getByTestId(/home-clock-button-language/i);
 
     // ASSERT
-    expect(sortBtn).toBeInTheDocument();
-    expect(clockBtn).toBeInTheDocument();
-    expect(languageBtn).toBeInTheDocument();
-    expect(startBtn).toBeInTheDocument();
+    expect(button).toHaveTextContent(/change language/i);
+
+    // ACT
+    await fireEvent.click(button);
+
+    // ASSERT
+    expect(button).toHaveTextContent(/ganti bahasa/i);
+  });
+
+  it('should call mocked navigate function when get started button clicked', async () => {
+    // ARRANGE
+    render(TestWrapper, { props: { component: HomeClock } });
+    const button: HTMLButtonElement = screen.getByTestId(/home-clock-button-start/i);
+    button.addEventListener('click', mockButtonFn);
+
+    // ACT
+    await fireEvent.click(button);
+
+    // ASSERT
+    expect(mockButtonFn).toHaveBeenCalled();
   });
 });

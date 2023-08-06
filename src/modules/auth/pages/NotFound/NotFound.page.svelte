@@ -8,14 +8,10 @@
 </script>
 
 <main class="flex h-screen flex-col items-center justify-center space-y-3 text-primary-content">
-  <h1 data-testid="notFound-title" class="text-3xl font-bold italic">{$LL.auth.notFound404()}</h1>
-  <p data-testid="notFound-subtitle" class="mb-5">{$LL.auth.gone()}</p>
+  <h1 class="text-3xl font-bold italic">{$LL.auth.notFound404()}</h1>
+  <p class="mb-5">{$LL.auth.gone()}</p>
 
-  <a
-    use:link
-    href={$user?.id ? '/' : '/login'}
-    data-testid="notFound-link"
-    class="link-neutral link hover:skew-x-12"
+  <a use:link href={$user?.id ? '/' : '/login'} class="text-primary-content link hover:skew-x-12"
     >{$LL.auth.backTo({ isLoggedIn: $user?.id ? 'true' : 'false' })}</a
   >
 </main>

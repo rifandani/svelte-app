@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/svelte';
+import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
 import { mockTodo } from '../../../../mocks/http/entities.http';
 import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
@@ -7,10 +7,9 @@ import TodosItem from './TodosItem.svelte';
 
 describe('TodosItem', () => {
   const todo: TodoSchema = mockTodo();
-  const onDeleteTodo = vi.fn();
+  // const onDeleteTodo = vi.fn();
   const mockSubmit = vi.fn();
   const mockChangeTodo = vi.fn();
-
   const getItemSpy = vi.spyOn(localStorage, 'getItem');
   localStorage.getItem = vi.fn(() => JSON.stringify({ id: todo.id }));
 
@@ -20,41 +19,43 @@ describe('TodosItem', () => {
   });
 
   it('should render properly', () => {
-    const result = render(TestWrapper, { todo, onDeleteTodo, component: TodosItem });
+    const result = render(TestWrapper, { props: { todo, component: TodosItem } });
     expect(() => result).not.toThrow();
   });
 
   // TypeError: Cannot read properties of undefined (reading 'todo')
   it('should render, check, and remove todo correctly', async () => {
     // ARRANGE
-    render(TestWrapper, {
-      props: {
-        todo,
-        onDeleteTodo,
-        component: TodosItem,
-      },
-    });
+    render(TestWrapper, { props: { todo, component: TodosItem } });
+    const form: HTMLFormElement = await screen.findByRole('form', { name: /todo/i });
+    const inputId: HTMLInputElement = await screen.findByTestId('input-todoId');
+    const inputTodo: HTMLInputElement = await screen.findByRole('checkbox', { name: /todo/i });
+    const link: HTMLAnchorElement = await screen.findByRole('link', { name: /todo/i });
 
     // ASSERT
-    await waitFor(() => {
-      expect(screen.getByTestId('form')).toBeInTheDocument();
-      expect(screen.getByTestId('input-todoId')).toBeInTheDocument();
-      // expect(screen.getByTestId('input-todoId').value).toBe(todo.id.toString());
-      expect(screen.getByTestId('input-todo')).toBeInTheDocument();
-      // expect(screen.getByTestId('input-todo').checked).toBe(todo.completed);
-      expect(screen.getByTestId('p-todo')).toBeInTheDocument();
-      // expect(screen.getByTestId('p-todo')).toHaveTextContent(todo.todo);
-      // expect(screen.getByTestId('button-remove')).toBeInTheDocument();
-    });
+    expect(form).toBeInTheDocument();
+    expect(inputId).toBeInTheDocument();
+    expect(inputId).toHaveValue(todo.id.toString());
+    expect(inputTodo).toBeInTheDocument();
+    expect(inputTodo).not.toBeChecked();
+    expect(link).toBeInTheDocument();
 
-    screen.getByTestId('form').addEventListener('submit', mockSubmit);
-    screen.getByTestId('input-todo').addEventListener('change', mockChangeTodo);
+    form.addEventListener('submit', mockSubmit);
+    inputTodo.addEventListener('change', mockChangeTodo);
 
     // ACT & ASSERT change todo
-    await fireEvent.change(screen.getByTestId('input-todo'), {
-      target: { value: !todo.completed },
-    });
+    await fireEvent.click(inputTodo);
     expect(mockChangeTodo).toHaveBeenCalled();
+  });
+
+  // FIXME: Unable to find role="button"
+  it.todo('should remove todo item correctly', async () => {
+    // ARRANGE
+    render(TestWrapper, { props: { todo, component: TodosItem } });
+    const removeBtn: HTMLButtonElement = await screen.findByRole('button');
+
+    // ASSERT
+    expect(removeBtn).toBeInTheDocument();
 
     // ACT & ASSERT remove todo
     // await fireEvent.click(buttonRemove);

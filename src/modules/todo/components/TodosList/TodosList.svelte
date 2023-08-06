@@ -12,13 +12,13 @@
 </script>
 
 {#if $todosQuery.isLoading}
-  <div class="flex items-center justify-center py-5">
+  <div data-testid="list-loading" class="flex items-center justify-center py-5">
     <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-secondary-content" />
   </div>
 {/if}
 
 {#if $todosQuery.isError}
-  <div class="alert alert-error mt-2 shadow-lg">
+  <div data-testid="list-error" class="alert alert-error mt-2 shadow-lg">
     <div class="flex items-center">
       <span>{$LL.common.error({ module: 'Todos' })}:</span>
       <pre>{JSON.stringify($todosQuery.error, null, 2)}</pre>
@@ -30,6 +30,8 @@
   {#each $todosQuery.data.todos as todo (todo.id)}
     <TodosItem {todo} />
   {:else}
-    <p class="flex items-center justify-center py-5">{$LL.common.empty()}</p>
+    <p data-testid="list-empty" class="flex items-center justify-center py-5">
+      {$LL.common.empty()}
+    </p>
   {/each}
 {/if}

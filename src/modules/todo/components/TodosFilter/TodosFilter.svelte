@@ -19,22 +19,25 @@
   //#endregion
 </script>
 
-<form data-testid="form" class="mb-3 flex w-full flex-col duration-300 md:flex-row md:space-x-2">
-  <label data-testid="label-limit" for="limit" class="label">
+<form
+  aria-label="form-filter"
+  class="mb-3 flex w-full flex-col duration-300 md:flex-row md:space-x-2"
+>
+  <label for="limit" class="label">
     <span class="label-text text-primary-content">{$LL.forms.limit()}</span>
   </label>
 
   <select
-    data-testid="select-limit"
+    aria-label="combobox-filter"
     class="select-bordered select select-secondary"
     name="limit"
     id="limit"
     value={selectedOption}
-    on:change={onChangeLimit}
+    on:blur={onChangeLimit}
   >
     {#each limits as limit (limit)}
       <option
-        data-testid={`option-limit-${limit}`}
+        data-testid={`filter-option-${limit}`}
         value={limit}
         selected={limit === selectedOption}>{limit}</option
       >

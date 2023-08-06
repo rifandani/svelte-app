@@ -69,7 +69,7 @@
 
 {#if showClock}
   <div
-    data-testid="show-clock"
+    data-testid="home-clock-show"
     in:slide={{ axis: 'y', duration: 500 }}
     out:slide={{ axis: 'y', duration: 250 }}
     class="stats mt-8 shadow"
@@ -84,10 +84,10 @@
   </div>
 {/if}
 
-<div class="mt-8 grid grid-cols-1 gap-2 duration-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+<ul class="mt-8 grid grid-cols-1 gap-2 duration-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
   {#each buttons as btn (btn.id)}
     <button
-      data-testid={btn.id}
+      data-testid={`home-clock-button-${btn.id}`}
       class={btn.class}
       animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
       on:click={btn.id === 'sort' ? () => (buttons = shuffle(buttons)) : btn.onClick}
@@ -95,4 +95,4 @@
       {btn.text}
     </button>
   {/each}
-</div>
+</ul>

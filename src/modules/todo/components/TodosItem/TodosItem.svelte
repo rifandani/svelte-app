@@ -38,15 +38,16 @@
 </script>
 
 <form
-  data-testid="form"
+  aria-label="form-todo"
+  data-testid={`form-${todo.id}`}
   class="mb-2 flex items-center justify-between"
   transition:fly={{ y: 10, duration: 1000 }}
   on:submit|preventDefault={onDeleteTodo}
 >
-  <input data-testid="input-todoId" value={todo.id} type="hidden" name="todoId" id="todoId" />
+  <input data-testid="input-todoId" type="hidden" name="todoId" id="todoId" value={todo.id} />
 
   <input
-    data-testid="input-todo"
+    aria-label="checkbox-todo"
     class="checkbox-accent checkbox"
     type="checkbox"
     id={`todo-${todo.id}`}
@@ -57,7 +58,7 @@
 
   <a
     use:link
-    data-testid="p-todo"
+    aria-label="todo"
     class="ml-5 w-full text-left text-lg text-secondary-content hover:font-bold"
     class:line-through={todo.completed}
     href={`/todos/${todo.id}`}
@@ -66,7 +67,7 @@
   </a>
 
   {#if todo.userId === $user.id}
-    <button data-testid="button-remove" class="btn-accent btn-sm btn normal-case" type="submit"
+    <button aria-label="button-submit" class="btn-accent btn-sm btn normal-case" type="submit"
       >{$LL.forms.remove({ icon: '💥' })}</button
     >
   {/if}
