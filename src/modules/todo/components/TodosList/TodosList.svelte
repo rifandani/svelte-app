@@ -2,12 +2,16 @@
   import Icon from '@iconify/svelte';
   import { createQuery } from '@tanstack/svelte-query';
   import LL from '../../../../i18n/i18n-svelte';
-  import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
+  import { todoApi } from '../../api/todo.api';
+  import { createTodoListParams } from '../../stores/createTodoListParams.store';
   import TodosItem from '../TodosItem/TodosItem.svelte';
 
   //#region VALUES
-  const { queryOptions } = createTodoListQuery();
-  $: todosQuery = createQuery($queryOptions);
+  const { queryKey } = createTodoListParams();
+  $: todosQuery = createQuery({
+    queryKey: $queryKey,
+    queryFn: ({ queryKey }) => todoApi.list(queryKey[2]),
+  });
   //#endregion
 </script>
 

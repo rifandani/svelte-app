@@ -7,16 +7,16 @@
   import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import type { TodoSchema } from '../../api/todo.schema';
   import { createTodoDeleteMutation } from '../../stores/createTodoDeleteMutation.store';
-  import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
+  import { createTodoListParams } from '../../stores/createTodoListParams.store';
   import { createTodoUpdateMutation } from '../../stores/createTodoUpdateMutation.store';
 
   //#region VALUES
   export let todo: TodoSchema;
 
-  const { queryOptions } = createTodoListQuery();
+  const { queryKey } = createTodoListParams();
   const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
-  $: todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryOptions.queryKey });
-  $: todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryOptions.queryKey });
+  $: todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryKey });
+  $: todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryKey });
   //#endregion
 
   //#region HANDLERS

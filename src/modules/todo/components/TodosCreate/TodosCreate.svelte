@@ -9,14 +9,14 @@
   import { createToast } from '../../../shared/stores/createToast.store';
   import { todoSchema, type TodoSchema } from '../../api/todo.schema';
   import { createTodoCreateMutation } from '../../stores/createTodoCreateMutation.store';
-  import { createTodoListQuery } from '../../stores/createTodoListQuery.store';
+  import { createTodoListParams } from '../../stores/createTodoListParams.store';
 
   //#region VALUES
   const queryClient = useQueryClient();
   const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
   const { toaster } = createToast();
-  const { queryOptions } = createTodoListQuery();
-  $: todoCreateMutation = createTodoCreateMutation({ queryKey: $queryOptions.queryKey });
+  const { queryKey } = createTodoListParams();
+  $: todoCreateMutation = createTodoCreateMutation({ queryKey: $queryKey });
 
   const { form } = createForm<TodoSchema>({
     extend: [validator({ schema: todoSchema })],
@@ -45,8 +45,7 @@
           });
 
           // If the mutation fails, use the context returned from `onMutate` to roll back
-          if (error)
-            queryClient.setQueryData($queryOptions.queryKey, context?.previousTodosQueryResponse);
+          if (error) queryClient.setQueryData($queryKey, context?.previousTodosQueryResponse);
         },
       });
     },

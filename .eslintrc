@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["svelte3", "@typescript-eslint", "testing-library", "jest-dom"],
+  "plugins": ["svelte3", "@typescript-eslint", "@tanstack/query", "testing-library", "jest-dom"],
   "overrides": [
     {
       "files": ["*.svelte"],
@@ -23,6 +23,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:jest-dom/recommended",
     "plugin:tailwindcss/recommended"
   ],

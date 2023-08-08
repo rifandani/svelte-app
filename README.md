@@ -9,7 +9,6 @@ Svelte template built with:
 - `vitest` + `@testing-library/svelte` -> unit test, integration test, coverage
 - `msw` -> browser and server mocking
 - `tailwindcss` + `tailwind-merge` + `daisyui` -> styling
-- `@formkit/auto-animate` -> automate transition animation when component mount/unmount
 - `@kobalte/core` -> unstyled UI component library (similar to `radix-ui` in React)
 - `redaxios` + `@tanstack/svelte-query` -> data fetching
 - `zod` -> schema validation
@@ -24,7 +23,7 @@ Svelte template built with:
 # install deps
 $ pnpm install
 
-# init msw
+# init msw for browser mocking
 $ pnpm msw:init
 
 # Runs the app
@@ -35,8 +34,8 @@ $ pnpm start
 # run test
 $ pnpm test
 
-# coverage with c8
-$ pnpm coverage
+# coverage with istanbul
+$ pnpm test:coverage
 ```
 
 ## Build
@@ -94,8 +93,7 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] use more [melt-ui](https://www.melt-ui.com/) or [grail-ui](https://grail-ui.vercel.app/)
-- [ ] fix all tests
+- [ ] fix all tests -> `typesafe-i18n` always returns empty string,,, `axios` + `svelte-query` + `msw` base url somehow does not works.
 - [ ] add `/docs` folder, including all my decisions or technical considerations.
 
 Debug query:

@@ -3,10 +3,10 @@
   import type { HTMLSelectAttributes } from 'svelte/elements';
   import LL from '../../../../i18n/i18n-svelte';
   import { limits } from '../../pages/Todos/Todos.page.svelte';
-  import { createTodoListReadable } from '../../stores/createTodoListReadable.store';
+  import { createTodoListParams } from '../../stores/createTodoListParams.store';
 
   //#region VALUES
-  const { searchParams, queryParams } = createTodoListReadable();
+  const { searchParams, queryParams } = createTodoListParams();
   $: selectedOption = $queryParams.limit.toString();
   //#endregion
 

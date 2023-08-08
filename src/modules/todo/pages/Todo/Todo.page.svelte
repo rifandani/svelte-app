@@ -13,7 +13,7 @@
   import { createToast } from '../../../shared/stores/createToast.store';
   import { todoApi, todoKeys } from '../../api/todo.api';
   import type { UpdateTodoApiResponseSchema, UpdateTodoSchema } from '../../api/todo.schema';
-  import { createTodoDetailQuery } from '../../stores/createTodoDetailQuery.store';
+  import { createTodoDetailParams } from '../../stores/createTodoDetailParams.store';
 
   //#region VALUES
   const { toaster } = createToast();
@@ -28,9 +28,13 @@
     const id = z.coerce.number().parse($params.id);
     return Number(id);
   });
-  const { queryOptions } = createTodoDetailQuery(id);
+  const { enabled, queryKey } = createTodoDetailParams(id);
 
-  $: todoQuery = createQuery($queryOptions);
+  $: todoQuery = createQuery({
+    enabled: $enabled,
+    queryKey: $queryKey,
+    queryFn: ({ queryKey }) => todoApi.detail(queryKey[2]),
+  });
   $: todoUpdateMutation = createMutation<
     UpdateTodoApiResponseSchema,
     ErrorApiResponseSchema,
@@ -39,7 +43,7 @@
     mutationFn: (updateTodo) => todoApi.update(updateTodo),
     onSuccess: async (updatedTodo) => {
       // NOTE: the order of function call MATTERS
-      push('/todos');
+      await push('/todos');
       queryClient.removeQueries({ queryKey: todoKeys.detail(updatedTodo.id) }); // delete the query cache
       await queryClient.invalidateQueries({ queryKey: todoKeys.lists() });
     },
