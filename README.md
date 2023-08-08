@@ -10,7 +10,7 @@ Svelte template built with:
 - `msw` -> browser and server mocking
 - `tailwindcss` + `tailwind-merge` + `daisyui` -> styling
 - `@kobalte/core` -> unstyled UI component library (similar to `radix-ui` in React)
-- `redaxios` + `@tanstack/svelte-query` -> data fetching
+- `axios` + `@tanstack/svelte-query` -> data fetching
 - `zod` -> schema validation
 - `felte` -> form management
 - `@iconify/svelte` -> icon on demand
