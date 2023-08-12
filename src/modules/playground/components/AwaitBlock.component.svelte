@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import axios from 'redaxios';
+  import axios from 'axios';
+  import type { Pokemon } from '../types/pokemon.type';
 
   let pokemon = '1';
   let evos = ['3'];
@@ -9,18 +10,21 @@
   $: evosPromises = getEvos(evos);
 
   async function getPokemon(_pokemon: string) {
-    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${_pokemon}`);
+    const res = await axios.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${_pokemon}`);
 
     if (res.status !== 200) {
-      throw new Error(res.data);
+      throw new Error('getPokemon fails');
     } else {
       return res.data;
     }
   }
   async function getEvos(_pokemons: string[]) {
     const res = await Promise.allSettled(
-      _pokemons.map((_pokemon) => axios.get(`https://pokeapi.co/api/v2/pokemon/${_pokemon}`)),
+      _pokemons.map((_pokemon) =>
+        axios.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${_pokemon}`),
+      ),
     );
+
     return res;
   }
 </script>

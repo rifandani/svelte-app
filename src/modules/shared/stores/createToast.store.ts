@@ -37,12 +37,13 @@ const runIfFn = <T>(
 };
 
 const msTime$ = readable(Date.now(), (set) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const task = loop(() => {
     set(Date.now());
     return true;
   });
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+  // eslint-disable-next-line @typescript-eslint/unbound-method, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
   return task.abort;
 });
 

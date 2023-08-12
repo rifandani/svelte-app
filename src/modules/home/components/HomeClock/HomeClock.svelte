@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { shuffle } from '@rifandani/nxact-yutiriti';
   import { onDestroy } from 'svelte';
   import { push } from 'svelte-spa-router';
-  import { flip } from 'svelte/animate';
+  import { flip, type FlipParams } from 'svelte/animate';
   import { slide } from 'svelte/transition';
   import LL, { locale } from '../../../../i18n/i18n-svelte';
   import { chooseLocaleSync } from '../../../shared/utils/helper.util';
 
   //#region VALUES
+  const flipParams: FlipParams = { duration: (dur) => 30 * Math.sqrt(dur) };
   let showClock = false;
   let timeoutId: ReturnType<typeof setInterval>;
   let seconds = 0;
@@ -40,7 +40,9 @@
     {
       id: 'sort',
       class: 'btn-neutral btn',
-      onClick: () => {},
+      onClick: () => {
+        // left empty, because doing `buttons = shuffle(buttons)` here doesn't work
+      },
       text: $LL.home.sortBtn(),
     },
     {
@@ -89,8 +91,8 @@
     <button
       data-testid={`home-clock-button-${btn.id}`}
       class={btn.class}
-      animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
-      on:click={btn.id === 'sort' ? () => (buttons = shuffle(buttons)) : btn.onClick}
+      animate:flip={flipParams}
+      on:click={btn.onClick}
     >
       {btn.text}
     </button>

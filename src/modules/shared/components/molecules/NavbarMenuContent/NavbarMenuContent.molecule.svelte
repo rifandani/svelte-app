@@ -45,7 +45,7 @@
 <li class="dropdown-top lg:dropdown-bottom lg:dropdown-end dropdown mt-auto mb-3 lg:mb-0 lg:mt-0">
   <button
     tabindex={0}
-    aria-label="theme"
+    aria-label="themes-opener"
     class="btn btn-sm btn-secondary btn-block normal-case text-secondary-content"
     >{$LL.common.theme()}</button
   >
@@ -59,7 +59,7 @@
         <button
           type="button"
           class="capitalize tracking-wide"
-          aria-label={`mode-${mode}`}
+          aria-label={`theme-${theme}`}
           on:click={() => onClickChangeTheme(theme)}
         >
           {theme}

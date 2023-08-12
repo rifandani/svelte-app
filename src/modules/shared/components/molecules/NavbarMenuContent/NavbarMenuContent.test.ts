@@ -16,8 +16,8 @@ describe('NavBarMenuContent', () => {
     // ARRANGE
     render(TestWrapper, { props: { component: NavBarMenuContent } });
     const link: HTMLAnchorElement = screen.getByRole('link', { name: /todos/i });
-    const themeBtn: HTMLButtonElement = screen.getByRole('button', { name: /theme/i });
-    const modesBtn: HTMLButtonElement[] = screen.getAllByRole('button', { name: /mode/i });
+    const themeBtn: HTMLButtonElement = screen.getByRole('button', { name: /themes-opener/i });
+    const modesBtn: HTMLButtonElement[] = screen.getAllByRole('button', { name: /theme-/i });
 
     modesBtn[0].addEventListener('click', mockModeBtn);
     await fireEvent.click(modesBtn[0]);

@@ -1,6 +1,5 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { type ComponentEvents } from 'svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
   import LL from '../../../../../i18n/i18n-svelte';
@@ -13,8 +12,8 @@
   const { reset } = createLocalStorage<LoginApiResponseSchema>('user');
 
   //#region HANDLERS
-  // CustomEvent<undefined>
-  const logout = (_ev: ComponentEvents<NavbarMenuContent>['logout']) => {
+  // CustomEvent<undefined> | ComponentEvents<NavbarMenuContent>['logout']
+  const logout = () => {
     reset(); // reset `user` store
     void replace('/login'); // back to login
   };
