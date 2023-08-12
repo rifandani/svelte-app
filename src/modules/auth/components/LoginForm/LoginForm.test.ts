@@ -22,11 +22,9 @@ describe('LoginForm', () => {
     const buttonSubmit: HTMLButtonElement = screen.getByRole('button');
     formLogin.addEventListener('submit', mockSubmitFn);
 
-    // ACT
+    // ACT & ASSERT
     await fireEvent.change(inputUsername, { target: { value: validUsername } });
     await fireEvent.change(inputPassword, { target: { value: validPassword } });
-
-    // ASSERT
     expect(inputUsername).toHaveValue(validUsername);
     expect(inputPassword).toHaveValue(validPassword);
     await fireEvent.click(buttonSubmit);

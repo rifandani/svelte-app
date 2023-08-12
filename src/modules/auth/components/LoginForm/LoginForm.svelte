@@ -107,7 +107,7 @@
   {/if}
 
   <button
-    id="button-submit"
+    aria-label="button-submit"
     class="btn-primary btn mt-8 normal-case"
     type="submit"
     disabled={!$isValid || $loginMutation.isLoading}
