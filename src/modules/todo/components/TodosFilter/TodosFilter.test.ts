@@ -18,17 +18,13 @@ describe('TodosFilter', () => {
     const form: HTMLFormElement = screen.getByRole('form');
     const select: HTMLInputElement = screen.getByRole('combobox', { name: /filter/i });
     const options: HTMLOptionElement[] = screen.getAllByRole('option');
+    select.addEventListener('select', mockChangeFn);
 
-    // ASSERT
+    // ACT & ASSERT
     expect(form).toBeInTheDocument();
     expect(select).toBeInTheDocument();
     expect(options).toHaveLength(4);
-
-    // ACT
-    select.addEventListener('select', mockChangeFn);
     await fireEvent.select(select, { target: { value: validLimit } });
-
-    // ASSERT
     expect(select).toHaveValue(validLimit);
     expect(mockChangeFn).toHaveBeenCalled();
   });

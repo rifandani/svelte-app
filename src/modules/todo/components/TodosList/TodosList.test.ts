@@ -17,17 +17,14 @@ describe('TodosList', () => {
   it('should be able to query and show error alert', async () => {
     // ARRANGE
     server.use(
-      rest.get(getBaseUrl('todos'), (_, res, ctx) => {
-        return res.once(ctx.status(500), ctx.json({ message: 'error' }));
-      }),
+      rest.get(getBaseUrl('todos'), (_, res, ctx) =>
+        res.once(ctx.status(500), ctx.json({ message: 'error' })),
+      ),
     );
 
     // ASSERT
     expect(screen.queryByTestId(loadingId)).not.toBeInTheDocument();
-
     render(TestWrapper, { component: TodosList });
-
-    // ASSERT
     await waitFor(() => {
       // wait for appearance inside an assertion
       expect(screen.getByTestId(loadingId)).toBeInTheDocument();

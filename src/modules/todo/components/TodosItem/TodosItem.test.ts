@@ -31,19 +31,16 @@ describe('TodosItem', () => {
     const inputId: HTMLInputElement = await screen.findByTestId('input-todoId');
     const inputTodo: HTMLInputElement = await screen.findByRole('checkbox', { name: /todo/i });
     const link: HTMLAnchorElement = await screen.findByRole('link', { name: /todo/i });
+    form.addEventListener('submit', mockSubmit);
+    inputTodo.addEventListener('change', mockChangeTodo);
 
-    // ASSERT
+    // ACT & ASSERT
     expect(form).toBeInTheDocument();
     expect(inputId).toBeInTheDocument();
     expect(inputId).toHaveValue(todo.id.toString());
     expect(inputTodo).toBeInTheDocument();
     expect(inputTodo).not.toBeChecked();
     expect(link).toBeInTheDocument();
-
-    form.addEventListener('submit', mockSubmit);
-    inputTodo.addEventListener('change', mockChangeTodo);
-
-    // ACT & ASSERT change todo
     await fireEvent.click(inputTodo);
     expect(mockChangeTodo).toHaveBeenCalled();
   });
@@ -54,10 +51,8 @@ describe('TodosItem', () => {
     render(TestWrapper, { props: { todo, component: TodosItem } });
     const removeBtn: HTMLButtonElement = await screen.findByRole('button');
 
-    // ASSERT
+    // ACT & ASSERT
     expect(removeBtn).toBeInTheDocument();
-
-    // ACT & ASSERT remove todo
     // await fireEvent.click(buttonRemove);
     // expect(mockSubmit).toHaveBeenCalled();
     // expect(onDeleteTodo).toHaveBeenCalled();

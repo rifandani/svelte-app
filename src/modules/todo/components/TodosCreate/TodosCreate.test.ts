@@ -18,20 +18,16 @@ describe('TodosCreate', () => {
       component: TodosCreate,
     });
     const createOptions: ByRoleOptions = { name: /add/i };
-    const formCreate: HTMLFormElement = screen.getByRole('form', {});
+    const formCreate: HTMLFormElement = screen.getByRole('form');
     const inputTodo: HTMLInputElement = screen.getByRole('textbox', createOptions);
     const buttonSubmit: HTMLButtonElement = screen.getByRole('button', createOptions);
+    formCreate.addEventListener('submit', mockCreateSubmitFn);
 
-    // ASSERT
+    // ACT & ASSERT
     expect(formCreate).toBeInTheDocument();
     expect(inputTodo).toBeInTheDocument();
     expect(buttonSubmit).toBeInTheDocument();
-
-    // ACT
-    formCreate.addEventListener('submit', mockCreateSubmitFn);
     await fireEvent.change(inputTodo, { target: { value: todoValue } });
-
-    // ASSERT
     expect(inputTodo).toHaveValue(todoValue);
     await fireEvent.click(buttonSubmit);
     expect(mockCreateSubmitFn).toHaveBeenCalled();

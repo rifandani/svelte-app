@@ -19,10 +19,9 @@ describe('NavBarMenuContent', () => {
     const themeBtn: HTMLButtonElement = screen.getByRole('button', { name: /themes-opener/i });
     const modesBtn: HTMLButtonElement[] = screen.getAllByRole('button', { name: /theme-/i });
 
+    // ACT & ASSERT
     modesBtn[0].addEventListener('click', mockModeBtn);
     await fireEvent.click(modesBtn[0]);
-
-    // ASSERT
     expect(link).toBeInTheDocument();
     expect(themeBtn).toBeInTheDocument();
     expect(modesBtn).toHaveLength(themes.length);
