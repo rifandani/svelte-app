@@ -4,7 +4,7 @@
   import { localStorageDetector } from 'typesafe-i18n/detectors';
   import { locale, setLocale } from '../../../../i18n/i18n-svelte';
   import { detectLocale } from '../../../../i18n/i18n-util';
-  import { chooseLocaleSync } from '../../utils/helper.util';
+  import { chooseLocaleSync } from '../../utils/helper/helper.util';
 
   export let component: ComponentType;
 
@@ -12,6 +12,7 @@
     defaultOptions: {
       queries: {
         retry: false,
+        cacheTime: 0,
       },
     },
     logger: {

@@ -12,7 +12,7 @@ import type {
   Toaster,
   Type,
 } from '../types/toast.type';
-import { addEventListener } from '../utils/helper.util';
+import { addEventListener } from '../utils/helper/helper.util';
 
 const defaultTimeouts: Record<Type, number> = {
   info: 5000,

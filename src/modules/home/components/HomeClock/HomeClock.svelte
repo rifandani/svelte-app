@@ -4,7 +4,7 @@
   import { flip, type FlipParams } from 'svelte/animate';
   import { slide } from 'svelte/transition';
   import LL, { locale } from '../../../../i18n/i18n-svelte';
-  import { chooseLocaleSync } from '../../../shared/utils/helper.util';
+  import { chooseLocaleSync } from '../../../shared/utils/helper/helper.util';
 
   //#region VALUES
   const flipParams: FlipParams = { duration: (dur) => 30 * Math.sqrt(dur) };

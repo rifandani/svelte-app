@@ -4,7 +4,7 @@ import type {
   PaginationItem,
   PaginationReturn,
 } from '../../../types/pagination.type';
-import { writableEffect } from '../../../utils/store.util';
+import { writableEffect } from '../../../utils/store/store.util';
 
 function getPageItem(item: string | number, page: number, count: number): PaginationItem {
   if (typeof item === 'number') {

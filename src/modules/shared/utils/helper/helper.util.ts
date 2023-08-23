@@ -1,9 +1,9 @@
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
 import { extendTailwindMerge } from 'tailwind-merge';
-import { setLocale } from '../../../i18n/i18n-svelte';
-import type { Locales } from '../../../i18n/i18n-types';
-import { loadLocaleAsync } from '../../../i18n/i18n-util.async';
-import { loadLocale } from '../../../i18n/i18n-util.sync';
+import { setLocale } from '../../../../i18n/i18n-svelte';
+import type { Locales } from '../../../../i18n/i18n-types';
+import { loadLocaleAsync } from '../../../../i18n/i18n-util.async';
+import { loadLocale } from '../../../../i18n/i18n-util.sync';
 
 // #region TYPES
 interface Clamp {
@@ -254,3 +254,21 @@ export const tw = extendTailwindMerge({
     alert: ['alert'],
   },
 });
+
+/**
+ * create `URLSearchParams` from object query params
+ *
+ * @example
+ *
+ * ```ts
+ * createSearchParamsFromObject({ limit: '10', skip: 2 }).toString() // -> 'limit=10&skip=2'
+ * createSearchParamsFromObject({ limit: ['10', '20], skip: 2 }).toString() // -> 'limit=10&limit=20&skip=2'
+ * ```
+ */
+export const createSearchParamsFromObject = (obj: Record<string, unknown>) =>
+  new URLSearchParams(
+    Object.entries(obj).flatMap(([key, values]) =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      Array.isArray(values) ? values.map((value) => [key, value]) : [[key, values]],
+    ),
+  );

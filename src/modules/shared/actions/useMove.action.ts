@@ -1,5 +1,5 @@
-import { clamp } from '../../shared/utils/helper.util';
 import type { Action } from '../types/action.type';
+import { clamp } from '../utils/helper/helper.util';
 
 export type OnMoveCallback = { detail: { x: number; y: number; moving: boolean; active: boolean } };
 

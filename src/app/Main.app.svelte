@@ -10,7 +10,7 @@
   import { locale, setLocale } from '../i18n/i18n-svelte';
   import { detectLocale } from '../i18n/i18n-util';
   import Toast from '../modules/shared/components/molecules/Toast.molecule.svelte';
-  import { chooseLocaleSync } from '../modules/shared/utils/helper.util';
+  import { chooseLocaleSync } from '../modules/shared/utils/helper/helper.util';
   import { routes } from './route.app';
 
   const queryClient = new QueryClient({
