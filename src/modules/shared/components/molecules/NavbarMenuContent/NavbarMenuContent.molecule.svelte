@@ -4,7 +4,7 @@
   import active from 'svelte-spa-router/active';
   import LL from '../../../../../i18n/i18n-svelte';
   import type { LoginApiResponseSchema } from '../../../../auth/api/auth.schema';
-  import { modes, themes } from '../../../constants/global.constant';
+  import { modes,themes } from '../../../constants/global.constant';
   import { createColorMode } from '../../../stores/createColorMode.store';
   import { createLocalStorage } from '../../../stores/createLocalStorage.store';
   import type { Theme } from '../../../types/theme.type';
@@ -44,6 +44,7 @@
 
 <li class="dropdown-top lg:dropdown-bottom lg:dropdown-end dropdown mt-auto mb-3 lg:mb-0 lg:mt-0">
   <button
+    type="button"
     tabindex={0}
     aria-label="themes-opener"
     class="btn btn-sm btn-secondary btn-block normal-case text-secondary-content"
@@ -72,8 +73,9 @@
 {#if !!$user.username}
   <li class="ml-0 lg:ml-3 lg:mt-0">
     <button
-      on:click={onClickLogout}
+      type="button"
       class="btn btn-sm btn-primary normal-case text-primary-content tracking-wide"
+      on:click={onClickLogout}
     >
       {$LL.auth.logoutUsername({ username: $user.username })}
     </button>

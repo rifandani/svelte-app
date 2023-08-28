@@ -32,15 +32,13 @@
 
         <LoginForm />
 
-        <div class="py-12 text-center">
-          <p>
-            <WrapTranslation message={$LL.auth.registerHere()} let:infix>
-              <a use:link aria-label="link-register" href="/register" class="link-primary link"
-                >{infix}</a
-              >
-            </WrapTranslation>
-          </p>
-        </div>
+        <p class="py-12 text-center">
+          <WrapTranslation message={$LL.auth.registerHere()} let:infix>
+            <a use:link aria-label="link-register" href="/register" class="link-primary link"
+              >{infix}</a
+            >
+          </WrapTranslation>
+        </p>
       </div>
     </section>
 

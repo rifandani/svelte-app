@@ -3,16 +3,10 @@
   import { createMutation } from '@tanstack/svelte-query';
   import { createForm } from 'felte';
   import { push } from 'svelte-spa-router';
-  import { twMerge } from 'tailwind-merge';
-  import LL from '../../../../i18n/i18n-svelte';
   import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
   import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import { login } from '../../api/auth.api';
-  import {
-    loginSchema,
-    type LoginApiResponseSchema,
-    type LoginSchema,
-  } from '../../api/auth.schema';
+  import { LoginApiResponseSchema,loginSchema,LoginSchema } from '../../api/auth.schema';
 
   //#region VALUES
   let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
@@ -48,7 +42,7 @@
 
 <form aria-label="form-login" class="form-control pt-3 md:pt-8" use:form>
   <!-- username -->
-  <div class="form-control pt-4">
+  <fieldset class="form-control pt-4">
     <label class="label" for="username">
       <span class="label-text">{$LL.forms.username()}</span>
     </label>
@@ -56,24 +50,27 @@
     <input
       id="username"
       name="username"
+      type="text"
       aria-label="textbox-username"
       aria-labelledby="#username"
-      type="text"
+      aria-invalid={
+        $errors?.username?.length ? 'true' : 'false'
+      }
       required
       placeholder={$LL.forms.usernamePlaceholder()}
-      class={twMerge(
+      class={twJoin(
         'input mt-1 shadow-md',
         $errors?.username?.length ? 'input-error' : 'input-primary',
       )}
     />
 
     {#if $errors?.username?.length}
-      <p class="pl-5 pt-1 text-error">{$LL.error.minLength({ field: 'username', length: 3 })}</p>
+      <p role="alert" class="pl-5 pt-1 text-error">{$LL.error.minLength({ field: 'username', length: 3 })}</p>
     {/if}
-  </div>
+  </fieldset>
 
   <!-- password -->
-  <div class="form-control pt-4">
+  <fieldset class="form-control pt-4">
     <label class="label" for="password">
       <span class="label-text">{$LL.forms.password()}</span>
     </label>
@@ -82,27 +79,29 @@
       id="password"
       name="password"
       role="textbox"
+      type="password"
       aria-label="textbox-password"
       aria-labelledby="#password"
-      type="password"
+      aria-invalid={
+        $errors?.password?.length ? 'true' : 'false'
+      }
       required
       placeholder={$LL.forms.passwordPlaceholder()}
-      class={twMerge(
+      class={twJoin(
         'input mt-1 shadow-md',
         $errors?.password?.length ? 'input-error' : 'input-primary',
       )}
     />
 
     {#if $errors?.password?.length}
-      <p class="pl-5 pt-1 text-error">{$LL.error.passwordMinLength()}</p>
+      <p role="alert" class="pl-5 pt-1 text-error">{$LL.error.passwordMinLength()}</p>
     {/if}
-  </div>
+  </fieldset>
 
   {#if $loginMutation.isError}
     <div class="alert alert-error mt-3 shadow-lg">
-      <div class="flex flex-col items-start">
-        <span>{$LL.forms.error({ icon: '❌' })}</span>
-      </div>
+      <p>{$LL.forms.error({ icon: '❌' })}</p>
+    </div>
     </div>
   {/if}
 
