@@ -16,7 +16,7 @@
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 30_000, // this is the default in v5
+        staleTime: 1_000 * 30, // 30sec, this is the default in v5
       },
     },
   });

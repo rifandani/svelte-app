@@ -128,8 +128,9 @@
         {#if $user.id === $todoQuery.data.userId}
           <button
             aria-label="button-submit"
-            class="btn-accent join-item btn normal-case"
+            class="btn-accent join-item btn normal-case disabled:btn-disabled"
             type="submit"
+            disabled={$todoUpdateMutation.isLoading}
           >
             {$LL.common.update({ icon: '🖋' })}
           </button>

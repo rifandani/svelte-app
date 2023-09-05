@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { shuffle } from '@rifandani/nxact-yutiriti';
   import { onDestroy } from 'svelte';
   import { push } from 'svelte-spa-router';
   import { flip, type FlipParams } from 'svelte/animate';
@@ -38,32 +39,38 @@
 
   $: buttons = [
     {
-      id: 'sort',
+      id: 'sort' as const,
       class: 'btn-neutral btn',
-      onClick: () => {
-        // left empty, because doing `buttons = shuffle(buttons)` here doesn't work
-      },
       text: $LL.home.sortBtn(),
     },
     {
-      id: 'clock',
+      id: 'clock' as const,
       class: 'btn-active btn',
-      onClick: () => (showClock = !showClock),
       text: $LL.home.toggleClock(),
     },
     {
-      id: 'language',
+      id: 'language' as const,
       class: 'btn-accent btn',
-      onClick: () => chooseLocaleSync($locale === 'en' ? 'id' : 'en'),
       text: $LL.home.changeLang(),
     },
     {
-      id: 'start',
+      id: 'start' as const,
       class: 'btn-secondary btn',
-      onClick: () => push('/todos'),
       text: $LL.home.getStarted(),
     },
   ];
+
+  const onClickMapper = (btnId: 'sort' | 'clock' | 'language' | 'start') => {
+    const mapper: Record<typeof btnId, () => void> = {
+      sort: () => (buttons = shuffle(buttons)),
+      clock: () => (showClock = !showClock),
+      language: () => chooseLocaleSync($locale === 'en' ? 'id' : 'en'),
+      start: () => void push('/todos'),
+    };
+
+    mapper[btnId]();
+  };
+
   //#endregion
 
   onDestroy(() => clearTimeout(timeoutId));
@@ -89,10 +96,11 @@
 <ul class="mt-8 grid grid-cols-1 gap-2 duration-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
   {#each buttons as btn (btn.id)}
     <button
+      type="button"
       data-testid={`home-clock-button-${btn.id}`}
       class={btn.class}
       animate:flip={flipParams}
-      on:click={btn.onClick}
+      on:click={() => onClickMapper(btn.id)}
     >
       {btn.text}
     </button>

@@ -33,7 +33,7 @@
     name="limit"
     id="limit"
     value={selectedOption}
-    on:blur={onChangeLimit}
+    on:change={onChangeLimit}
   >
     {#each limits as limit (limit)}
       <option

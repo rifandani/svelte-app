@@ -24,15 +24,19 @@
     $todoUpdateMutation.mutate({ ...todo, completed: !todo.completed });
   };
 
-  const onDeleteTodo: HTMLFormAttributes['on:submit'] = (ev) => {
+  const onDeleteTodo: HTMLFormAttributes['on:submit'] = (evt) => {
+    // example of directly manipulate submitter disabled attribute
+    evt.submitter.setAttribute('disabled', 'true');
+
     // don't allow if not the correct auth user
     if (todo.userId !== $user.id) return;
 
     // parse form data & get todo id from input hidden with name/id `todoId`
-    const formData = new FormData(ev.currentTarget);
+    const formData = new FormData(evt.currentTarget);
     const { todoId } = Object.fromEntries(formData.entries());
 
     $todoDeleteMutation.mutate(Number(todoId));
+    evt.submitter.removeAttribute('disabled');
   };
   //#endregion
 </script>
@@ -67,8 +71,10 @@
   </a>
 
   {#if todo.userId === $user.id}
-    <button aria-label="button-submit" class="btn-accent btn-sm btn normal-case" type="submit"
-      >{$LL.forms.remove({ icon: '💥' })}</button
+    <button
+      aria-label="button-submit"
+      class="btn-accent btn-sm btn normal-case disabled:btn-disabled"
+      type="submit">{$LL.forms.remove({ icon: '💥' })}</button
     >
   {/if}
 </form>

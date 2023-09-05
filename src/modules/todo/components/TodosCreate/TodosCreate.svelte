@@ -18,18 +18,19 @@
   const { queryKey } = createTodoListParams();
   $: todoCreateMutation = createTodoCreateMutation({ queryKey: $queryKey });
 
-  const { form } = createForm<TodoSchema>({
+  const { form, isSubmitting } = createForm<TodoSchema>({
     extend: [validator({ schema: todoSchema })],
     initialValues: {
-      id: 1, // doesn't matter, we override it later on `onSubmit` anyway
+      id: 1, // override it later on `onSubmit`
+      userId: 1, // override it later on `onSubmit`
       todo: '',
-      userId: $user.id,
       completed: false,
     },
     onSubmit: (values, { reset }) => {
       const payload = {
         ...values,
         id: random(11, 999_999),
+        userId: $user.id,
       };
 
       $todoCreateMutation.mutate(payload, {
@@ -66,8 +67,9 @@
 
   <button
     aria-label="button-add"
-    class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12"
+    class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12 disabled:btn-disabled"
     type="submit"
+    disabled={$isSubmitting}
   >
     {$LL.forms.add({ icon: '✔' })}
   </button>

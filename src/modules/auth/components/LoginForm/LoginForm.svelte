@@ -3,10 +3,16 @@
   import { createMutation } from '@tanstack/svelte-query';
   import { createForm } from 'felte';
   import { push } from 'svelte-spa-router';
+  import { twJoin } from 'tailwind-merge';
+  import LL from '../../../../i18n/i18n-svelte';
   import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
   import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
   import { login } from '../../api/auth.api';
-  import { LoginApiResponseSchema,loginSchema,LoginSchema } from '../../api/auth.schema';
+  import {
+    loginSchema,
+    type LoginApiResponseSchema,
+    type LoginSchema,
+  } from '../../api/auth.schema';
 
   //#region VALUES
   let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
@@ -53,9 +59,7 @@
       type="text"
       aria-label="textbox-username"
       aria-labelledby="#username"
-      aria-invalid={
-        $errors?.username?.length ? 'true' : 'false'
-      }
+      aria-invalid={$errors?.username?.length ? 'true' : 'false'}
       required
       placeholder={$LL.forms.usernamePlaceholder()}
       class={twJoin(
@@ -65,7 +69,9 @@
     />
 
     {#if $errors?.username?.length}
-      <p role="alert" class="pl-5 pt-1 text-error">{$LL.error.minLength({ field: 'username', length: 3 })}</p>
+      <p role="alert" class="pl-5 pt-1 text-error">
+        {$LL.error.minLength({ field: 'username', length: 3 })}
+      </p>
     {/if}
   </fieldset>
 
@@ -82,9 +88,7 @@
       type="password"
       aria-label="textbox-password"
       aria-labelledby="#password"
-      aria-invalid={
-        $errors?.password?.length ? 'true' : 'false'
-      }
+      aria-invalid={$errors?.password?.length ? 'true' : 'false'}
       required
       placeholder={$LL.forms.passwordPlaceholder()}
       class={twJoin(
@@ -101,7 +105,6 @@
   {#if $loginMutation.isError}
     <div class="alert alert-error mt-3 shadow-lg">
       <p>{$LL.forms.error({ icon: '❌' })}</p>
-    </div>
     </div>
   {/if}
 
