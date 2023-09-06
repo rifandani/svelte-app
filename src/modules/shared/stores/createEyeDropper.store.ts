@@ -19,7 +19,7 @@ export interface EyeDropperOptions {
 export interface EyeDropperReturn {
   isSupported: boolean;
   sRGBHex: Writable<string>;
-  open: (openOptions?: EyeDropperOpenOptions) => Promise<{ sRGBHex: string }>;
+  open: (openOptions?: EyeDropperOpenOptions) => Promise<{ sRGBHex: string } | undefined>;
 }
 
 /**
@@ -40,7 +40,7 @@ export interface EyeDropperReturn {
  * </Button>
  */
 export function createEyeDropper(options: EyeDropperOptions = {}): EyeDropperReturn {
-  let window: Window;
+  let window: Window | undefined;
   if (environment.browser) window = defaultWindow;
 
   const { initialValue = '' }: EyeDropperOptions = options;

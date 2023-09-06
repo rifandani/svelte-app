@@ -1,5 +1,4 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -15,6 +14,7 @@
     "checkJs": true,
     "isolatedModules": true
   },
+  "extends": ["@tsconfig/svelte/tsconfig.json", "./tsconfig.paths.json"],
   "include": ["index.d.ts", "src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte"],
   "exclude": ["node_modules", "postcss.config.js"],
   "references": [{ "path": "./tsconfig.node.json" }]

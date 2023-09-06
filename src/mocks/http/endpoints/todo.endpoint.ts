@@ -1,16 +1,13 @@
-import { rest } from 'msw';
-import {
-  resourceParamsSchema,
-  type ResourceParamsSchema,
-} from '../../../modules/shared/api/resource.schema';
+import { mockTodo } from '@mocks/http/entities.http';
+import { getBaseUrl } from '@mocks/util.mock';
+import { resourceParamsSchema, type ResourceParamsSchema } from '@shared/api/resource.schema';
 import type {
   CreateTodoSchema,
   DeleteTodoApiResponseSchema,
   TodoSchema,
   UpdateTodoSchema,
-} from '../../../modules/todo/api/todo.schema';
-import { getBaseUrl } from '../../util.mock';
-import { mockTodo } from '../entities.http';
+} from '@todo/api/todo.schema';
+import { rest } from 'msw';
 
 function getTodos(length: number) {
   return Array.from({ length }, (_, idx) =>

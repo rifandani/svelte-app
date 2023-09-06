@@ -1,4 +1,6 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Attributes = Record<string, number | string>;
 
 const nodeAttributesMap = new WeakMap<HTMLElement, object>();
 
@@ -33,8 +35,8 @@ function observer() {
  */
 export function lazy(
   node: HTMLElement,
-  attributes: Record<string, number | string>,
-): ReturnType<Action> {
+  attributes: Attributes,
+): ActionReturn<Attributes, HTMLElement> {
   nodeAttributesMap.set(node, attributes);
 
   observer().observe(node);

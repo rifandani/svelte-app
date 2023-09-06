@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { validator } from '@felte/validator-zod';
-  import { createMutation } from '@tanstack/svelte-query';
-  import { createForm } from 'felte';
-  import { push } from 'svelte-spa-router';
-  import { twJoin } from 'tailwind-merge';
-  import LL from '../../../../i18n/i18n-svelte';
-  import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
-  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
-  import { login } from '../../api/auth.api';
+  import { login } from '@auth/api/auth.api';
   import {
     loginSchema,
     type LoginApiResponseSchema,
     type LoginSchema,
-  } from '../../api/auth.schema';
+  } from '@auth/api/auth.schema';
+  import { validator } from '@felte/validator-zod';
+  import LL from '@i18n/i18n-svelte';
+  import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
+  import { createMutation } from '@tanstack/svelte-query';
+  import { createForm } from 'felte';
+  import { push } from 'svelte-spa-router';
+  import { twJoin } from 'tailwind-merge';
 
   //#region VALUES
   let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');

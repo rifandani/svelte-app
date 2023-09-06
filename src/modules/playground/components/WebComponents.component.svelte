@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte';
-  import type { HTMLButtonAttributes } from 'svelte/elements';
   import {
     myCounterEventDecrement,
     myCounterEventIncrement,
     type MyCounterEventDetail,
-  } from '../../../lib/wc/MyCounter.constant';
-  import '../../../lib/wc/MyCounter.wc.svelte';
+  } from '@lib/wc/MyCounter.constant';
+  import '@lib/wc/MyCounter.wc.svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import type { HTMLButtonAttributes } from 'svelte/elements';
 
-  let sectionRef: HTMLElement;
+  let sectionRef: Element;
   let initialCount = '10';
 
   const handleClickTambah: HTMLButtonAttributes['on:click'] = () => {
@@ -23,13 +23,25 @@
   };
 
   onMount(() => {
-    sectionRef.addEventListener(myCounterEventDecrement, onDecrement);
-    sectionRef.addEventListener(myCounterEventIncrement, onIncrement);
+    sectionRef.addEventListener(
+      myCounterEventDecrement,
+      onDecrement as EventListenerOrEventListenerObject,
+    );
+    sectionRef.addEventListener(
+      myCounterEventIncrement,
+      onIncrement as EventListenerOrEventListenerObject,
+    );
   });
 
   onDestroy(() => {
-    sectionRef.removeEventListener(myCounterEventDecrement, onDecrement);
-    sectionRef.removeEventListener(myCounterEventIncrement, onIncrement);
+    sectionRef.removeEventListener(
+      myCounterEventDecrement,
+      onDecrement as EventListenerOrEventListenerObject,
+    );
+    sectionRef.removeEventListener(
+      myCounterEventIncrement,
+      onIncrement as EventListenerOrEventListenerObject,
+    );
   });
 </script>
 

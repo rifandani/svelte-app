@@ -1,7 +1,7 @@
+import type { LoginSchema } from '@auth/api/auth.schema';
+import { mockLoginResponse } from '@mocks/http/entities.http';
+import { getBaseUrl } from '@mocks/util.mock';
 import { rest } from 'msw';
-import type { LoginSchema } from '../../../modules/auth/api/auth.schema';
-import { getBaseUrl } from '../../util.mock';
-import { mockLoginResponse } from '../entities.http';
 
 export const authHandlers = [
   rest.post(getBaseUrl('auth/login'), async (req, res, ctx) => {

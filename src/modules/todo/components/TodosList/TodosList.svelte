@@ -1,10 +1,10 @@
 <script lang="ts">
+  import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
   import { createQuery } from '@tanstack/svelte-query';
-  import LL from '../../../../i18n/i18n-svelte';
-  import { todoApi } from '../../api/todo.api';
-  import { createTodoListParams } from '../../stores/createTodoListParams.store';
-  import TodosItem from '../TodosItem/TodosItem.svelte';
+  import { todoApi } from '@todo/api/todo.api';
+  import TodosItem from '@todo/components/TodosItem/TodosItem.svelte';
+  import { createTodoListParams } from '@todo/stores/createTodoListParams.store';
 
   //#region VALUES
   const { queryKey } = createTodoListParams();

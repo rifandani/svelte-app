@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { locale, setLocale } from '@i18n/i18n-svelte';
+  import { detectLocale } from '@i18n/i18n-util';
+  import { chooseLocaleSync } from '@shared/utils/helper/helper.util';
   import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
   import { onMount, type ComponentType } from 'svelte';
   import { localStorageDetector } from 'typesafe-i18n/detectors';
-  import { locale, setLocale } from '../../../../i18n/i18n-svelte';
-  import { detectLocale } from '../../../../i18n/i18n-util';
-  import { chooseLocaleSync } from '../../utils/helper/helper.util';
 
   export let component: ComponentType;
 

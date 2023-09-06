@@ -1,4 +1,4 @@
-import type { Action } from '../../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 import { getHotkeyHandler, getHotkeyMatcher } from './parseHotkey';
 export { getHotkeyHandler };
 
@@ -48,7 +48,10 @@ function shouldFireEvent(event: KeyboardEvent) {
  *  <input bind:value on:keydown={getHotkeyHandler([['mod+Enter', () => onSubmit(value)]])} type="text" placeholder="Your message" />
  * ```
  */
-export function hotKey(node: HTMLElement, hotkeys: HotkeyItem[]): ReturnType<Action> {
+export function hotKey(
+  node: HTMLElement,
+  hotkeys: HotkeyItem[],
+): ActionReturn<HotkeyItem[], HTMLElement> {
   const keyDownListener = (event: KeyboardEvent) => {
     hotkeys.forEach(([hotkey, handler]) => {
       if (getHotkeyMatcher(hotkey)(event) && shouldFireEvent(event)) {
@@ -61,7 +64,7 @@ export function hotKey(node: HTMLElement, hotkeys: HotkeyItem[]): ReturnType<Act
   document.documentElement.addEventListener('keydown', keyDownListener);
 
   return {
-    update: (updatedHotKeys: HotkeyItem[]) => {
+    update: (updatedHotKeys) => {
       hotkeys = updatedHotKeys;
     },
     destroy: () => {

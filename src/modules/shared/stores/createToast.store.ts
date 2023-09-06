@@ -1,7 +1,5 @@
 import { chain, uid } from '@rifandani/nxact-yutiriti';
-import { loop } from 'svelte/internal';
-import { derived, get, readable, writable } from 'svelte/store';
-import { ESCAPE } from '../constants/global.constant';
+import { ESCAPE } from '@shared/constants/global.constant';
 import type {
   ActionWithParams,
   PromiseOptions,
@@ -11,8 +9,10 @@ import type {
   ToastReturn,
   Toaster,
   Type,
-} from '../types/toast.type';
-import { addEventListener } from '../utils/helper/helper.util';
+} from '@shared/types/toast.type';
+import { addEventListener } from '@shared/utils/helper/helper.util';
+import { loop } from 'svelte/internal';
+import { derived, get, readable, writable } from 'svelte/store';
 
 const defaultTimeouts: Record<Type, number> = {
   info: 5000,
@@ -145,10 +145,14 @@ export function createToast(initConfig?: ToastConfig): ToastReturn {
 
       promise
         .then((response) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           const successOptions = runIfFn(options.success, response);
           toaster.success({ ...shared, ...successOptions, id });
         })
         .catch((error) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           const errorOptions = runIfFn(options.error, error as Error);
           toaster.error({ ...shared, ...errorOptions, id });
         });

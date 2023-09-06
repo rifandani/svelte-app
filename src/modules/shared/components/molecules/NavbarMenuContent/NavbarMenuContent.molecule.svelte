@@ -1,13 +1,13 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import LL from '@i18n/i18n-svelte';
+  import { modes, themes } from '@shared/constants/global.constant';
+  import { createColorMode } from '@shared/stores/createColorMode.store';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
+  import type { Theme } from '@shared/types/theme.type';
   import { createEventDispatcher } from 'svelte';
   import { link } from 'svelte-spa-router';
   import active from 'svelte-spa-router/active';
-  import LL from '../../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../../auth/api/auth.schema';
-  import { modes,themes } from '../../../constants/global.constant';
-  import { createColorMode } from '../../../stores/createColorMode.store';
-  import { createLocalStorage } from '../../../stores/createLocalStorage.store';
-  import type { Theme } from '../../../types/theme.type';
 
   // event forwarding
   const dispatch = createEventDispatcher<{ logout: undefined }>();

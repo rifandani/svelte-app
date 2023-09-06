@@ -1,5 +1,5 @@
+import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
 import { render, screen } from '@testing-library/svelte';
-import TestWrapper from '../../atoms/TestWrapper.app.svelte';
 import NavBar from './Navbar.organism.svelte';
 
 describe('NavBar', () => {

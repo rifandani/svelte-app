@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import LL from '@i18n/i18n-svelte';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import { link } from 'svelte-spa-router';
-  import LL from '../../../../i18n/i18n-svelte';
-  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
-  import type { LoginApiResponseSchema } from '../../api/auth.schema';
 
   let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
 </script>

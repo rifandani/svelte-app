@@ -1,6 +1,6 @@
+import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import HomeClock from './HomeClock.svelte';
 
 describe('HomeClock', () => {
@@ -31,10 +31,10 @@ describe('HomeClock', () => {
     // ACT & ASSERT
     await fireEvent.click(button);
     const buttonsAfter: HTMLButtonElement[] = screen.queryAllByTestId(/home-clock-button/i);
-    expect(buttonsBefore[0]).not.toHaveTextContent(buttonsAfter[0].textContent);
-    expect(buttonsBefore[1]).not.toHaveTextContent(buttonsAfter[1].textContent);
-    expect(buttonsBefore[2]).not.toHaveTextContent(buttonsAfter[2].textContent);
-    expect(buttonsBefore[3]).not.toHaveTextContent(buttonsAfter[3].textContent);
+    expect(buttonsBefore[0]).not.toHaveTextContent(buttonsAfter[0].textContent as string);
+    expect(buttonsBefore[1]).not.toHaveTextContent(buttonsAfter[1].textContent as string);
+    expect(buttonsBefore[2]).not.toHaveTextContent(buttonsAfter[2].textContent as string);
+    expect(buttonsBefore[3]).not.toHaveTextContent(buttonsAfter[3].textContent as string);
   });
 
   // FIXME: typesafe-i18n always returns empty string

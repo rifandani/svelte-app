@@ -1,4 +1,6 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Params = { enabled: boolean; callback: (node: HTMLElement) => unknown };
 
 /**
  * a callback function will be fired whenever the user clicks outside of the dom node the action is applied to.
@@ -23,10 +25,7 @@ import type { Action } from '../types/action.type';
  * </div>
  * ```
  */
-export function clickOutside(
-  node: HTMLElement,
-  params: { enabled: boolean; callback: (node: HTMLElement) => unknown },
-): ReturnType<Action> {
+export function clickOutside(node: HTMLElement, params: Params): ActionReturn<Params, HTMLElement> {
   const { enabled: initialEnabled, callback } = params;
 
   const handleClickOutside = ({ target }: MouseEvent) => {

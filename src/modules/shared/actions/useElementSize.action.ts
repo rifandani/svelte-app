@@ -1,6 +1,6 @@
+import { environment } from '@shared/constants/global.constant';
+import type { Action } from '@shared/types/action.type';
 import { writable, type Writable } from 'svelte/store';
-import { environment } from '../constants/global.constant';
-import type { Action } from '../types/action.type';
 
 type ObserverRect = Omit<DOMRectReadOnly, 'toJSON'>;
 
@@ -53,7 +53,7 @@ export function useElementSize(): ElementSize {
 
     return {
       destroy: () => {
-        observer.disconnect();
+        observer?.disconnect();
         cancelAnimationFrame(frameID);
       },
     };

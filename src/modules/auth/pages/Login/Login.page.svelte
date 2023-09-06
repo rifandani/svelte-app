@@ -1,11 +1,11 @@
 <script lang="ts">
+  import svelteCyber from '@assets/svelte-cyber.avif';
+  import LoginForm from '@auth/components/LoginForm/LoginForm.svelte';
+  import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
+  import { WrapTranslation } from '@shared/components/atoms';
   import { link } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
-  import svelteCyber from '../../../../assets/svelte-cyber.avif';
-  import LL from '../../../../i18n/i18n-svelte';
-  import { WrapTranslation } from '../../../shared/components/atoms';
-  import LoginForm from '../../components/LoginForm/LoginForm.svelte';
 </script>
 
 <main in:fly={{ y: 50, duration: 1000 }} out:fade class="h-screen bg-white">

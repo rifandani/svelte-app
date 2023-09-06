@@ -1,12 +1,12 @@
+import Login from '@auth/pages/Login/Login.page.svelte';
 import type { RouteDefinition } from 'svelte-spa-router';
 import wrap from 'svelte-spa-router/wrap';
-import Login from '../pages/Login/Login.page.svelte';
 
 export const authRoute: RouteDefinition = {
   // exact path, lazy loaded
   '/login': wrap({
     component: Login,
-    userData: JSON.parse(localStorage.getItem('user')) as object,
+    userData: JSON.parse(localStorage.getItem('user') ?? '') as object,
     conditions: [
       () => {
         const user = localStorage.getItem('user');

@@ -1,12 +1,11 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import { configDefaults } from 'vitest/config';
 
 export default defineConfig({
-  server: {
-    port: 5500,
-  },
   plugins: [
+    tsconfigPaths(),
     svelte({
       hot: !process.env.VITEST, // disabling Svelte's hot module reload when tests are running
       exclude: ['./src/lib/wc/MyCounter.wc.svelte'], // exclude web components lib
@@ -19,6 +18,9 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    port: 5500,
+  },
   test: {
     // to see how your tests are running in real time in the terminal, add "default"
     // to generate HTML output and preview the results of your tests, add "html"

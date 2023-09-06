@@ -1,6 +1,6 @@
+import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
 import { fireEvent, render, screen, type ByRoleOptions } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
 import TodosCreate from './TodosCreate.svelte';
 
 describe('TodosCreate', () => {

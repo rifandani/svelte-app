@@ -5,11 +5,11 @@
 </script>
 
 <script lang="ts">
-  import LL from '../../../../i18n/i18n-svelte';
-  import { Navbar } from '../../../shared/components/organisms';
-  import TodosCreate from '../../components/TodosCreate/TodosCreate.svelte';
-  import TodosFilter from '../../components/TodosFilter/TodosFilter.svelte';
-  import TodosList from '../../components/TodosList/TodosList.svelte';
+  import LL from '@i18n/i18n-svelte';
+  import { Navbar } from '@shared/components/organisms';
+  import TodosCreate from '@todo/components/TodosCreate/TodosCreate.svelte';
+  import TodosFilter from '@todo/components/TodosFilter/TodosFilter.svelte';
+  import TodosList from '@todo/components/TodosList/TodosList.svelte';
 </script>
 
 <Navbar>

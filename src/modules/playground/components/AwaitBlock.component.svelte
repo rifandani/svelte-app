@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
+  import type { Pokemon } from '@playground/types/pokemon.type';
   import axios from 'axios';
-  import type { Pokemon } from '../types/pokemon.type';
 
   let pokemon = '1';
   let evos = ['3'];

@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { locale, setLocale } from '@i18n/i18n-svelte';
+  import { detectLocale } from '@i18n/i18n-util';
+  import Toast from '@shared/components/molecules/Toast.molecule.svelte';
+  import { chooseLocaleSync } from '@shared/utils/helper/helper.util';
   import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
   import { onMount } from 'svelte';
   import Router, { replace, type ConditionsFailedEvent } from 'svelte-spa-router';
@@ -7,10 +11,6 @@
     localStorageDetector,
     navigatorDetector,
   } from 'typesafe-i18n/detectors';
-  import { locale, setLocale } from '../i18n/i18n-svelte';
-  import { detectLocale } from '../i18n/i18n-util';
-  import Toast from '../modules/shared/components/molecules/Toast.molecule.svelte';
-  import { chooseLocaleSync } from '../modules/shared/utils/helper/helper.util';
   import { routes } from './route.app';
 
   const queryClient = new QueryClient({
@@ -28,7 +28,8 @@
     // redirect to /login
     if (!ev.detail.userData || !('token' in ev.detail.userData)) void replace('/login');
     // redirect to /
-    if (ev.detail.route === '/login' && 'token' in ev.detail.userData) void replace('/');
+    if (ev.detail.route === '/login' && ev.detail.userData && 'token' in ev.detail.userData)
+      void replace('/');
   };
 
   onMount(() => {

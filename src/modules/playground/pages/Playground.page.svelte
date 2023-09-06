@@ -1,6 +1,6 @@
 <script lang="ts">
-  import AwaitBlock from '../components/AwaitBlock.component.svelte';
-  import WebComponents from '../components/WebComponents.component.svelte';
+  import AwaitBlock from '@playground/components/AwaitBlock.component.svelte';
+  import WebComponents from '@playground/components/WebComponents.component.svelte';
 </script>
 
 <main

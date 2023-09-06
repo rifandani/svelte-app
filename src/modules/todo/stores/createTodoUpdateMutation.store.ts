@@ -1,14 +1,14 @@
+import LL from '@i18n/i18n-svelte';
+import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
+import { createToast } from '@shared/stores/createToast.store';
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
-import { get } from 'svelte/store';
-import LL from '../../../i18n/i18n-svelte';
-import type { ErrorApiResponseSchema } from '../../shared/api/error.schema';
-import { createToast } from '../../shared/stores/createToast.store';
-import { todoApi, todoKeys } from '../api/todo.api';
+import { todoApi, todoKeys } from '@todo/api/todo.api';
 import type {
   TodoListApiResponseSchema,
   UpdateTodoApiResponseSchema,
   UpdateTodoSchema,
-} from '../api/todo.schema';
+} from '@todo/api/todo.schema';
+import { get } from 'svelte/store';
 
 type CreateTodoUpdateMutationProps = {
   queryKey: ReturnType<typeof todoKeys.list>;

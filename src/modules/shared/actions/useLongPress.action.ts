@@ -1,4 +1,4 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 
 /**
  * Creates `long press` event when mousedown or touchstart is above the `duration` milliseconds.
@@ -15,7 +15,7 @@ import type { Action } from '../types/action.type';
  * </button>
  * ```
  */
-export function longPress(node: HTMLElement, duration: number): ReturnType<Action> {
+export function longPress(node: HTMLElement, duration: number): ActionReturn<number, HTMLElement> {
   let timer: number;
 
   function handlePress() {
@@ -34,7 +34,7 @@ export function longPress(node: HTMLElement, duration: number): ReturnType<Actio
   node.addEventListener('touchend', handleRelease);
 
   return {
-    update(newDuration: number) {
+    update(newDuration) {
       handleRelease();
       duration = newDuration;
     },

@@ -1,12 +1,12 @@
+import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
-import type { ErrorApiResponseSchema } from '../../shared/api/error.schema';
-import { todoApi, todoKeys } from '../api/todo.api';
+import { todoApi, todoKeys } from '@todo/api/todo.api';
 import type {
   CreateTodoApiResponseSchema,
   CreateTodoSchema,
   TodoListApiResponseSchema,
-} from '../api/todo.schema';
-import { defaultLimit } from '../pages/Todos/Todos.page.svelte';
+} from '@todo/api/todo.schema';
+import { defaultLimit } from '@todo/pages/Todos/Todos.page.svelte';
 
 type CreateTodoCreateMutationProps = {
   queryKey: ReturnType<typeof todoKeys.list>;

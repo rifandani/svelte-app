@@ -1,4 +1,4 @@
-import type { Action, FocusableElement } from '../types/action.type';
+import type { FocusableElement } from '@shared/types/action.type';
 
 /**
  * the affected dom node gets focused when it is mounted into the dom.
@@ -15,7 +15,7 @@ import type { Action, FocusableElement } from '../types/action.type';
  * <input use:focus placeholder="Focused"/>
  * ```
  */
-export function focus(node: FocusableElement): ReturnType<Action> | undefined {
+export function focus(node: FocusableElement) {
   node.focus();
 
   return;

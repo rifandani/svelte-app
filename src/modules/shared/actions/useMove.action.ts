@@ -1,5 +1,5 @@
-import type { Action } from '../types/action.type';
-import { clamp } from '../utils/helper/helper.util';
+import { clamp } from '@shared/utils/helper/helper.util';
+import type { ActionReturn } from 'svelte/action';
 
 export type OnMoveCallback = { detail: { x: number; y: number; moving: boolean; active: boolean } };
 
@@ -18,7 +18,7 @@ export type OnMoveCallback = { detail: { x: number; y: number; moving: boolean; 
  * </div>
  * ```
  */
-export function move(node: HTMLElement): ReturnType<Action> {
+export function move(node: HTMLElement): ActionReturn<undefined, HTMLElement> {
   let moving = false;
   let active = false;
   let frame = 0;

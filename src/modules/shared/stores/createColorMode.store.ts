@@ -129,7 +129,7 @@ export function createColorMode<T extends string = BasicColorMode>(
     if (disableTransition) {
       // Calling getComputedStyle forces the browser to redraw
       (() => window.getComputedStyle(style as Element).opacity)();
-      document.head.removeChild(style);
+      document.head.removeChild(style as Node);
     }
   };
 

@@ -1,7 +1,7 @@
+import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
+import { themes } from '@shared/constants/global.constant';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import { themes } from '../../../constants/global.constant';
-import TestWrapper from '../../atoms/TestWrapper.app.svelte';
 import NavBarMenuContent from './NavbarMenuContent.molecule.svelte';
 
 describe('NavBarMenuContent', () => {

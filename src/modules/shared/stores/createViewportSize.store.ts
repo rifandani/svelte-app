@@ -1,5 +1,5 @@
+import { environment } from '@shared/constants/global.constant';
 import { writable, type Writable } from 'svelte/store';
-import { defaultWindow, environment } from '../constants/global.constant';
 
 const listenerOptions = {
   passive: true,
@@ -15,9 +15,6 @@ const listenerOptions = {
  * $: ({ width, height } = $viewport);
  */
 export function createViewportSize(): Writable<{ width: number; height: number }> {
-  let window: Window;
-  if (environment.browser) window = defaultWindow;
-
   const windowSize = writable({
     width: environment.browser ? window.innerWidth : 0,
     height: environment.browser ? window.innerHeight : 0,

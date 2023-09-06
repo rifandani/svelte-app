@@ -21,7 +21,7 @@ export function createAriaHider(containerNode: HTMLElement) {
       return undefined;
     }
 
-    if (currentElement !== document.querySelector('body')) {
+    if (currentElement !== document.querySelector('body') && currentElement.parentElement) {
       const parentElement = currentElement.parentElement;
       const siblingElements = [...(Array.from(parentElement.children) as HTMLElement[])];
       siblingElements.forEach((node) => {

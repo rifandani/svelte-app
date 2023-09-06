@@ -1,4 +1,6 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Text = string | (() => string);
 
 /**
  * text passed into the text param will be copied to the users clipboard.
@@ -19,7 +21,7 @@ import type { Action } from '../types/action.type';
  *  <button use:clipboard={() => `This text will be copied at ${new Date().toUTCString()}`}>Copy Me</button>
  * ```
  */
-export function clipboard(node: HTMLElement, text: string | (() => string)): ReturnType<Action> {
+export function clipboard(node: HTMLElement, text: Text): ActionReturn<Text, HTMLElement> {
   const onClick = () => {
     const detailText = typeof text === 'function' ? text() : text;
 
@@ -35,7 +37,7 @@ export function clipboard(node: HTMLElement, text: string | (() => string)): Ret
   node.addEventListener('click', onClick, true);
 
   return {
-    update: (t: string | (() => string)) => (text = t),
+    update: (t) => (text = t),
     destroy: () => node.removeEventListener('click', onClick, true),
   };
 }

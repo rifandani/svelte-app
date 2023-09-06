@@ -1,4 +1,6 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Callback = Parameters<Document['addEventListener']>[1];
 
 /**
  * Call a function when the current tab is switched
@@ -17,8 +19,8 @@ import type { Action } from '../types/action.type';
  */
 export function tabLeave(
   _node: HTMLElement,
-  callback: Parameters<Document['addEventListener']>[1],
-): ReturnType<Action> {
+  callback: Callback,
+): ActionReturn<Callback, HTMLElement> {
   document.addEventListener('visibilitychange', callback);
 
   return {

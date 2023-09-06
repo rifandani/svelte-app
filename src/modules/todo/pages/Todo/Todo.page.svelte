@@ -1,19 +1,19 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
+  import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
+  import { Navbar } from '@shared/components/organisms';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
+  import { createToast } from '@shared/stores/createToast.store';
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
+  import { todoApi, todoKeys } from '@todo/api/todo.api';
+  import type { UpdateTodoApiResponseSchema, UpdateTodoSchema } from '@todo/api/todo.schema';
+  import { createTodoDetailParams } from '@todo/stores/createTodoDetailParams.store';
   import { createForm } from 'felte';
   import { link, params, push } from 'svelte-spa-router';
   import { derived } from 'svelte/store';
   import { z } from 'zod';
-  import LL from '../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import type { ErrorApiResponseSchema } from '../../../shared/api/error.schema';
-  import { Navbar } from '../../../shared/components/organisms';
-  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
-  import { createToast } from '../../../shared/stores/createToast.store';
-  import { todoApi, todoKeys } from '../../api/todo.api';
-  import type { UpdateTodoApiResponseSchema, UpdateTodoSchema } from '../../api/todo.schema';
-  import { createTodoDetailParams } from '../../stores/createTodoDetailParams.store';
 
   //#region VALUES
   const { toaster } = createToast();
@@ -60,8 +60,8 @@
     onSubmit: (values) => {
       const payload: UpdateTodoSchema = {
         ...values,
-        id: $todoQuery.data?.id,
-        completed: $todoQuery.data?.completed,
+        id: $todoQuery.data?.id ?? 1,
+        completed: $todoQuery.data?.completed ?? false,
       };
 
       $todoUpdateMutation.mutate(payload);

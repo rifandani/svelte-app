@@ -2,7 +2,7 @@
  * This file is taken from maciekgrzybek/svelte-inview
  * It has slight modifications therefore it is not a 1:1 copy */
 
-import type { Action } from '../../types//action.type';
+import type { ActionReturn } from 'svelte/action';
 import type {
   Event,
   LifecycleEventDetails,
@@ -43,7 +43,15 @@ const defaultOptions: Options = {
  *  </div>
  * ```
  */
-export function intersectionObserver(node: HTMLElement, options: Options = {}): ReturnType<Action> {
+export function intersectionObserver(
+  node: HTMLElement,
+  options: Options = {},
+): ActionReturn<Options, HTMLElement> {
+  // return early
+  if (typeof IntersectionObserver === 'undefined' && !node) {
+    console.warn('IntersectionObserver is not supported by the browser!');
+  }
+
   const { root, rootMargin, threshold, unobserveOnEnter } = { ...defaultOptions, ...options };
 
   let prevPosition: Position = {
@@ -56,66 +64,64 @@ export function intersectionObserver(node: HTMLElement, options: Options = {}): 
     horizontal: undefined,
   };
 
-  if (typeof IntersectionObserver !== 'undefined' && node) {
-    const observer = new IntersectionObserver(
-      (entries, _observer) => {
-        entries.forEach((singleEntry) => {
-          if (prevPosition.y > singleEntry.boundingClientRect.y) {
-            scrollDirection.vertical = 'up';
-          } else {
-            scrollDirection.vertical = 'down';
-          }
+  const observer = new IntersectionObserver(
+    (entries, _observer) => {
+      entries.forEach((singleEntry) => {
+        if (prevPosition.y && prevPosition.y > singleEntry.boundingClientRect.y) {
+          scrollDirection.vertical = 'up';
+        } else {
+          scrollDirection.vertical = 'down';
+        }
 
-          if (prevPosition.x > singleEntry.boundingClientRect.x) {
-            scrollDirection.horizontal = 'left';
-          } else {
-            scrollDirection.horizontal = 'right';
-          }
+        if (prevPosition.x && prevPosition.x > singleEntry.boundingClientRect.x) {
+          scrollDirection.horizontal = 'left';
+        } else {
+          scrollDirection.horizontal = 'right';
+        }
 
-          prevPosition = {
-            y: singleEntry.boundingClientRect.y,
-            x: singleEntry.boundingClientRect.x,
-          };
+        prevPosition = {
+          y: singleEntry.boundingClientRect.y,
+          x: singleEntry.boundingClientRect.x,
+        };
 
-          const detail: ObserverEventDetails = {
-            inView: singleEntry.isIntersecting,
-            entry: singleEntry,
-            scrollDirection,
-            node,
-            observer: _observer,
-          };
+        const detail: ObserverEventDetails = {
+          inView: singleEntry.isIntersecting,
+          entry: singleEntry,
+          scrollDirection,
+          node,
+          observer: _observer,
+        };
 
-          node.dispatchEvent(createEvent('change', detail));
+        node.dispatchEvent(createEvent('change', detail));
 
-          if (singleEntry.isIntersecting) {
-            node.dispatchEvent(createEvent('enter', detail));
+        if (singleEntry.isIntersecting) {
+          node.dispatchEvent(createEvent('enter', detail));
 
-            unobserveOnEnter && _observer.unobserve(node);
-          } else {
-            node.dispatchEvent(createEvent('leave', detail));
-          }
-        });
-      },
-      {
-        root,
-        rootMargin,
-        threshold,
-      },
-    );
+          unobserveOnEnter && _observer.unobserve(node);
+        } else {
+          node.dispatchEvent(createEvent('leave', detail));
+        }
+      });
+    },
+    {
+      root,
+      rootMargin,
+      threshold,
+    },
+  );
 
-    // This dispatcher has to be wrapped in setTimeout, as it won't work otherwise.
-    // Not sure why is it happening, maybe a callstack has to pass between the listeners?
-    // Definitely something to investigate to understand better.
-    setTimeout(() => {
-      node.dispatchEvent(createEvent<LifecycleEventDetails>('init', { observer, node }));
-    }, 0);
+  // This dispatcher has to be wrapped in setTimeout, as it won't work otherwise.
+  // Not sure why is it happening, maybe a callstack has to pass between the listeners?
+  // Definitely something to investigate to understand better.
+  setTimeout(() => {
+    node.dispatchEvent(createEvent<LifecycleEventDetails>('init', { observer, node }));
+  }, 0);
 
-    observer.observe(node);
+  observer.observe(node);
 
-    return {
-      destroy: () => {
-        observer.unobserve(node);
-      },
-    };
-  }
+  return {
+    destroy: () => {
+      observer.unobserve(node);
+    },
+  };
 }

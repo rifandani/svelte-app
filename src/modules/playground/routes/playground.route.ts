@@ -1,6 +1,6 @@
+import PlaygroundLoading from '@playground/pages/Playground.loading.svelte';
 import type { RouteDefinition } from 'svelte-spa-router';
 import wrap from 'svelte-spa-router/wrap';
-import PlaygroundLoading from '../pages/Playground.loading.svelte';
 
 export const playgroundRoute: RouteDefinition = {
   // exact path, lazy loaded

@@ -1,8 +1,8 @@
+import type { ResourceParamsSchema } from '@shared/api/resource.schema';
+import { todoKeys } from '@todo/api/todo.api';
+import { defaultLimit } from '@todo/pages/Todos/Todos.page.svelte';
 import { querystring } from 'svelte-spa-router';
 import { derived } from 'svelte/store';
-import type { ResourceParamsSchema } from '../../shared/api/resource.schema';
-import { todoKeys } from '../api/todo.api';
-import { defaultLimit } from '../pages/Todos/Todos.page.svelte';
 
 export const createTodoListParams = () => {
   const searchParams = derived(

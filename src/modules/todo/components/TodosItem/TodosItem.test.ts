@@ -1,8 +1,8 @@
+import { mockTodo } from '@mocks/http/entities.http';
+import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
 import { fireEvent, render, screen } from '@testing-library/svelte';
+import type { TodoSchema } from '@todo/api/todo.schema';
 import { vi } from 'vitest';
-import { mockTodo } from '../../../../mocks/http/entities.http';
-import TestWrapper from '../../../shared/components/atoms/TestWrapper.app.svelte';
-import type { TodoSchema } from '../../api/todo.schema';
 import TodosItem from './TodosItem.svelte';
 
 describe('TodosItem', () => {

@@ -1,16 +1,16 @@
 <script lang="ts">
+  import LL, { locale } from '@i18n/i18n-svelte';
   import { shuffle } from '@rifandani/nxact-yutiriti';
+  import { chooseLocaleSync } from '@shared/utils/helper/helper.util';
   import { onDestroy } from 'svelte';
   import { push } from 'svelte-spa-router';
   import { flip, type FlipParams } from 'svelte/animate';
   import { slide } from 'svelte/transition';
-  import LL, { locale } from '../../../../i18n/i18n-svelte';
-  import { chooseLocaleSync } from '../../../shared/utils/helper/helper.util';
 
   //#region VALUES
   const flipParams: FlipParams = { duration: (dur) => 30 * Math.sqrt(dur) };
   let showClock = false;
-  let timeoutId: ReturnType<typeof setInterval>;
+  let timeoutId: ReturnType<typeof setInterval> | undefined;
   let seconds = 0;
   let minutes = 0;
   let hours = 0;

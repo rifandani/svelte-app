@@ -1,4 +1,4 @@
-import type { Action } from '../../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 import { createAriaHider } from './createAriaHider';
 import { scopeTab } from './scopeTab';
 import { FOCUS_SELECTOR, focusable, tabbable } from './tabbable';
@@ -19,7 +19,7 @@ import { FOCUS_SELECTOR, focusable, tabbable } from './tabbable';
  * </div>
  * ```
  */
-export function focusTrap(node: HTMLElement, active = true): ReturnType<Action> | undefined {
+export function focusTrap(node: HTMLElement, active = true): ActionReturn<boolean, HTMLElement> {
   let restoreAria: (() => void) | null = null;
 
   function handleKeyDown(event: KeyboardEvent) {
@@ -76,7 +76,7 @@ export function focusTrap(node: HTMLElement, active = true): ReturnType<Action> 
   activate();
 
   return {
-    update(newActive: boolean) {
+    update(newActive) {
       active = newActive;
       activate();
     },

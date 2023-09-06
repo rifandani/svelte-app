@@ -1,7 +1,7 @@
 import App from './app/Main.app.svelte';
 import './main.css';
 
-const target = document.getElementById('app');
+const target = document.getElementById('app') as Element;
 
 if (import.meta.env.DEV && !(target instanceof HTMLElement)) {
   throw new Error(

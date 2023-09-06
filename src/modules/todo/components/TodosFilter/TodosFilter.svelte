@@ -1,13 +1,13 @@
 <script lang="ts">
+  import LL from '@i18n/i18n-svelte';
+  import { limits } from '@todo/pages/Todos/Todos.page.svelte';
+  import { createTodoListParams } from '@todo/stores/createTodoListParams.store';
   import { push } from 'svelte-spa-router';
   import type { HTMLSelectAttributes } from 'svelte/elements';
-  import LL from '../../../../i18n/i18n-svelte';
-  import { limits } from '../../pages/Todos/Todos.page.svelte';
-  import { createTodoListParams } from '../../stores/createTodoListParams.store';
 
   //#region VALUES
   const { searchParams, queryParams } = createTodoListParams();
-  $: selectedOption = $queryParams.limit.toString();
+  $: selectedOption = $queryParams.limit?.toString();
   //#endregion
 
   //#region HANDLERS

@@ -1,5 +1,5 @@
-import { environment } from '../constants/global.constant';
-import type { ConfigurableWindow, Pauseable } from '../types/action.type';
+import { environment } from '@shared/constants/global.constant';
+import type { ConfigurableWindow, Pauseable } from '@shared/types/action.type';
 
 export interface RafFnOptions extends ConfigurableWindow {
   /**

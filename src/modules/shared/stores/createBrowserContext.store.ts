@@ -1,6 +1,6 @@
+import { defaultWindow, environment } from '@shared/constants/global.constant';
 import { onMount } from 'svelte';
 import { writable, type Writable } from 'svelte/store';
-import { defaultWindow, environment } from '../constants/global.constant';
 
 export interface BrowserContextState {
   trigger: string;
@@ -45,7 +45,7 @@ const listenerOptions = {
  * } = $location);
  */
 export function createBrowserContext(): Writable<BrowserContextState> {
-  let window: Window;
+  let window: Window | undefined;
   if (environment.browser) window = defaultWindow;
 
   const setState = (trigger: string): BrowserContextState => {
@@ -81,12 +81,12 @@ export function createBrowserContext(): Writable<BrowserContextState> {
   };
 
   onMount(() => {
-    window.addEventListener('popstate', handlePopStateListener, listenerOptions);
-    window.addEventListener('hashchange', handleHashChangeListener, listenerOptions);
+    window?.addEventListener('popstate', handlePopStateListener, listenerOptions);
+    window?.addEventListener('hashchange', handleHashChangeListener, listenerOptions);
 
     return () => {
-      window.removeEventListener('popstate', handlePopStateListener);
-      window.removeEventListener('hashchange', handleHashChangeListener);
+      window?.removeEventListener('popstate', handlePopStateListener);
+      window?.removeEventListener('hashchange', handleHashChangeListener);
     };
   });
 

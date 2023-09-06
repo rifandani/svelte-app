@@ -1,4 +1,7 @@
-import type { Action, UnknownKeyString } from '../types/action.type';
+import type { UnknownKeyString } from '@shared/types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Props = UnknownKeyString<string>;
 
 /**
  * an object of properties will be treated as css custom variables.
@@ -32,16 +35,13 @@ import type { Action, UnknownKeyString } from '../types/action.type';
  * </style>
  * ```
  */
-export function cssVariable(
-  node: HTMLElement,
-  props: UnknownKeyString<string>,
-): ReturnType<Action> {
+export function cssVariable(node: HTMLElement, props: Props): ActionReturn<Props, HTMLElement> {
   Object.entries(props).forEach(([key, value]) => {
     node.style.setProperty(`--${key}`, `${value}`);
   });
 
   return {
-    update(_props: UnknownKeyString<string>) {
+    update(_props) {
       Object.entries(_props).forEach(([key, value]) => {
         node.style.setProperty(`--${key}`, `${value}`);
         delete props[key];

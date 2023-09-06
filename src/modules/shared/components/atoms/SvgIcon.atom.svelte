@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SvgProps } from '../../types/element.type';
+  import type { SvgProps } from '@shared/types/element.type';
 
   type $$Props = SvgProps & {
     id: 'icon-svelte';

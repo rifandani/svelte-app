@@ -1,15 +1,15 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
   import { validator } from '@felte/validator-zod';
+  import LL from '@i18n/i18n-svelte';
   import { random } from '@rifandani/nxact-yutiriti';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
+  import { createToast } from '@shared/stores/createToast.store';
   import { useQueryClient } from '@tanstack/svelte-query';
+  import { todoSchema, type TodoSchema } from '@todo/api/todo.schema';
+  import { createTodoCreateMutation } from '@todo/stores/createTodoCreateMutation.store';
+  import { createTodoListParams } from '@todo/stores/createTodoListParams.store';
   import { createForm } from 'felte';
-  import LL from '../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
-  import { createToast } from '../../../shared/stores/createToast.store';
-  import { todoSchema, type TodoSchema } from '../../api/todo.schema';
-  import { createTodoCreateMutation } from '../../stores/createTodoCreateMutation.store';
-  import { createTodoListParams } from '../../stores/createTodoListParams.store';
 
   //#region VALUES
   const queryClient = useQueryClient();

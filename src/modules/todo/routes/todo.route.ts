@@ -5,7 +5,7 @@ export const todoRoute: RouteDefinition = {
   // exact path, lazy loaded
   '/todos': wrap({
     asyncComponent: () => import('../pages/Todos/Todos.page.svelte'),
-    userData: JSON.parse(localStorage.getItem('user')) as object,
+    userData: JSON.parse(localStorage.getItem('user') ?? '') as object,
     conditions: [
       () => {
         const user = localStorage.getItem('user');
@@ -15,7 +15,7 @@ export const todoRoute: RouteDefinition = {
   }),
   '/todos/:id': wrap({
     asyncComponent: () => import('../pages/Todo/Todo.page.svelte'),
-    userData: JSON.parse(localStorage.getItem('user')) as object,
+    userData: JSON.parse(localStorage.getItem('user') ?? '') as object,
     conditions: [
       () => {
         const user = localStorage.getItem('user');

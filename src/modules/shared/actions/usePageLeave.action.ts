@@ -1,4 +1,7 @@
-import type { Action, Fn } from '../types/action.type';
+import type { Fn } from '@shared/types/action.type';
+import type { ActionReturn } from 'svelte/action';
+
+type Callback = Fn<void>;
 
 /**
  * Call a function when the mouse leaves the page
@@ -15,7 +18,10 @@ import type { Action, Fn } from '../types/action.type';
  * <div use:pageleave={() => count++}>Move the mouse off the page to see the counter go up: {count}</div>
  * ```
  */
-export function pageLeave(_node: HTMLElement, callback: Fn<void>): ReturnType<Action> {
+export function pageLeave(
+  _node: HTMLElement,
+  callback: Callback,
+): ActionReturn<Callback, HTMLElement> {
   document.documentElement.addEventListener('mouseleave', callback);
 
   return {

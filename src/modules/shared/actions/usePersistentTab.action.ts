@@ -1,4 +1,4 @@
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 
 /**
  * prevent current tab from being closed by user.
@@ -13,7 +13,10 @@ import type { Action } from '../types/action.type';
  * <button use:persistentTab={true}>Keep tab open</button>
  * ```
  */
-export function persistentTab(_node: HTMLElement, enabled: boolean): ReturnType<Action> {
+export function persistentTab(
+  _node: HTMLElement,
+  enabled: boolean,
+): ActionReturn<boolean, HTMLElement> {
   function handler(e: BeforeUnloadEvent) {
     e.preventDefault();
     e.returnValue = '';

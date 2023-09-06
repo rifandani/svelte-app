@@ -1,14 +1,14 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import LL from '@i18n/i18n-svelte';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
+  import type { TodoSchema } from '@todo/api/todo.schema';
+  import { createTodoDeleteMutation } from '@todo/stores/createTodoDeleteMutation.store';
+  import { createTodoListParams } from '@todo/stores/createTodoListParams.store';
+  import { createTodoUpdateMutation } from '@todo/stores/createTodoUpdateMutation.store';
   import { link } from 'svelte-spa-router';
   import type { HTMLFormAttributes, HTMLInputAttributes } from 'svelte/elements';
   import { fly } from 'svelte/transition';
-  import LL from '../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../auth/api/auth.schema';
-  import { createLocalStorage } from '../../../shared/stores/createLocalStorage.store';
-  import type { TodoSchema } from '../../api/todo.schema';
-  import { createTodoDeleteMutation } from '../../stores/createTodoDeleteMutation.store';
-  import { createTodoListParams } from '../../stores/createTodoListParams.store';
-  import { createTodoUpdateMutation } from '../../stores/createTodoUpdateMutation.store';
 
   //#region VALUES
   export let todo: TodoSchema;
@@ -26,7 +26,7 @@
 
   const onDeleteTodo: HTMLFormAttributes['on:submit'] = (evt) => {
     // example of directly manipulate submitter disabled attribute
-    evt.submitter.setAttribute('disabled', 'true');
+    evt.submitter?.setAttribute('disabled', 'true');
 
     // don't allow if not the correct auth user
     if (todo.userId !== $user.id) return;
@@ -36,7 +36,7 @@
     const { todoId } = Object.fromEntries(formData.entries());
 
     $todoDeleteMutation.mutate(Number(todoId));
-    evt.submitter.removeAttribute('disabled');
+    evt.submitter?.removeAttribute('disabled');
   };
   //#endregion
 </script>

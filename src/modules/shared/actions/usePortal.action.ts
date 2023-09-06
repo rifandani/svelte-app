@@ -1,5 +1,5 @@
 import { tick } from 'svelte';
-import type { Action } from '../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 
 type Target = HTMLElement | string;
 
@@ -17,8 +17,11 @@ type Target = HTMLElement | string;
  * <div use:portal={document.body}>
  * ```
  */
-export function portal(node: HTMLElement, target: Target = 'body'): ReturnType<Action> {
-  let targetNode: HTMLElement;
+export function portal(
+  node: HTMLElement,
+  target: Target = 'body',
+): ActionReturn<Target, HTMLElement> {
+  let targetNode: HTMLElement | null;
 
   function update(newTarget: Target) {
     target = newTarget;

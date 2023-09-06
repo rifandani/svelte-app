@@ -1,12 +1,12 @@
 <script lang="ts">
+  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
+  import SvgIcon from '@shared/components/atoms/SvgIcon.atom.svelte';
+  import { NavbarMenuContent } from '@shared/components/molecules';
+  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
-  import LL from '../../../../../i18n/i18n-svelte';
-  import type { LoginApiResponseSchema } from '../../../../auth/api/auth.schema';
-  import { createLocalStorage } from '../../../stores/createLocalStorage.store';
-  import SvgIcon from '../../atoms/SvgIcon.atom.svelte';
-  import { NavbarMenuContent } from '../../molecules';
 
   // get 'user' store
   const { reset } = createLocalStorage<LoginApiResponseSchema>('user');

@@ -1,9 +1,9 @@
+import { setLocale } from '@i18n/i18n-svelte';
+import type { Locales } from '@i18n/i18n-types';
+import { loadLocaleAsync } from '@i18n/i18n-util.async';
+import { loadLocale } from '@i18n/i18n-util.sync';
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
 import { extendTailwindMerge } from 'tailwind-merge';
-import { setLocale } from '../../../../i18n/i18n-svelte';
-import type { Locales } from '../../../../i18n/i18n-types';
-import { loadLocaleAsync } from '../../../../i18n/i18n-util.async';
-import { loadLocale } from '../../../../i18n/i18n-util.sync';
 
 // #region TYPES
 interface Clamp {

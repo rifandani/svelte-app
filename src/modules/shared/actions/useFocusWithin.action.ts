@@ -1,14 +1,12 @@
+import type { Action } from '@shared/types/action.type';
 import { writable, type Writable } from 'svelte/store';
-import type { Action } from '../types/action.type';
-
-// prettier-ignore
 
 export interface UseFocusWithinOptions {
-	onFocus?(event: FocusEvent): void;
-	onBlur?(event: FocusEvent): void;
+  onFocus?(event: FocusEvent): void;
+  onBlur?(event: FocusEvent): void;
 }
 
-type FocusWithin = [Writable<boolean>, Action];
+type FocusWithin = [Writable<boolean>, Action<UseFocusWithinOptions>];
 
 function containsRelatedTarget(event: FocusEvent) {
   if (event.currentTarget instanceof HTMLElement && event.relatedTarget instanceof HTMLElement) {

@@ -1,5 +1,4 @@
-import { defaultWindow, environment } from '../../constants/global.constant';
-import type { Action } from '../../types/action.type';
+import type { ActionReturn } from 'svelte/action';
 import { createStyleTag } from './createStyleTag';
 import { getLockStyles } from './getLockStyles';
 import { injectStyles } from './injectStyleTag';
@@ -30,19 +29,12 @@ export function lockScroll(
   node: HTMLElement,
   lock?: boolean,
   options: LockScrollOptions = { disableBodyPadding: false },
-): ReturnType<Action> {
-  const { browser } = environment;
-  let window: Window;
-
-  if (browser) {
-    window = defaultWindow;
-  }
-
-  let scrollLocked = lock ?? false;
+): ActionReturn<boolean, HTMLElement> {
+  let scrollLocked: boolean | undefined = lock ?? false;
 
   const { disableBodyPadding } = options;
 
-  let stylesheet: HTMLStyleElement;
+  let stylesheet: HTMLStyleElement | null;
 
   const lockScroll = () => {
     const styles = getLockStyles({ disableBodyPadding });
@@ -76,7 +68,7 @@ export function lockScroll(
   }
 
   return {
-    update: (locked: boolean) => {
+    update: (locked) => {
       if (locked) {
         lockScroll();
       } else {
