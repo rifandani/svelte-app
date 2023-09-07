@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Tri Rizeki Rifandani",
   "type": "module",
-  "packageManager": "pnpm@8.6.9",
+  "packageManager": "pnpm@8.7.4",
   "msw": {
     "workerDirectory": "public"
   },

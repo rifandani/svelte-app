@@ -6,7 +6,7 @@ export const authRoute: RouteDefinition = {
   // exact path, lazy loaded
   '/login': wrap({
     component: Login,
-    userData: JSON.parse(localStorage.getItem('user') ?? '') as object,
+    userData: JSON.parse(localStorage.getItem('user') ?? '{}') as object,
     conditions: [
       () => {
         const user = localStorage.getItem('user');

@@ -6,7 +6,7 @@ export const homeRoute: RouteDefinition = {
   // exact path, eager loaded
   '/': wrap({
     component: Home,
-    userData: JSON.parse(localStorage.getItem('user') ?? '') as object,
+    userData: JSON.parse(localStorage.getItem('user') ?? '{}') as object,
     conditions: [
       () => {
         const user = localStorage.getItem('user');
