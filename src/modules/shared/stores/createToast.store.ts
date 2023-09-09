@@ -15,11 +15,12 @@ import { loop } from 'svelte/internal';
 import { derived, get, readable, writable } from 'svelte/store';
 
 const defaultTimeouts: Record<Type, number> = {
-  info: 5000,
-  error: 5000,
-  success: 2000,
+  info: 3_000,
+  error: 3_000,
+  success: 3_000,
+  warning: 3_000,
+  custom: 3_000,
   loading: Infinity,
-  custom: 5000,
 };
 
 export function getToastDuration(duration: number | undefined, type: Type) {
@@ -133,6 +134,9 @@ export function createToast(initConfig?: ToastConfig): ToastReturn {
     },
     loading(options: ToastOptions) {
       return toaster.upsert({ ...options, type: 'loading' });
+    },
+    warning(options: ToastOptions) {
+      return toaster.upsert({ ...options, type: 'warning' });
     },
     success(options: ToastOptions) {
       return toaster.upsert({ ...options, type: 'success' });

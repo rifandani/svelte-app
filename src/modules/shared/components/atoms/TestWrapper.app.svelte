@@ -15,11 +15,6 @@
         cacheTime: 0,
       },
     },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => void 0,
-    },
   });
 
   // set locale to localStorage everytime locale readable store changes

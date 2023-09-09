@@ -17,7 +17,7 @@
 
 {#if $todosQuery.isLoading}
   <div data-testid="list-loading" class="flex items-center justify-center py-5">
-    <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-secondary-content" />
+    <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-primary-content" />
   </div>
 {/if}
 

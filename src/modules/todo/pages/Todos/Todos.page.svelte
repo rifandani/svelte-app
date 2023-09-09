@@ -16,13 +16,11 @@
   <main
     class="flex flex-col items-center justify-center px-10 py-20 duration-300 md:px-24 lg:px-40 xl:px-52"
   >
-    <h1 class="text-primary-content mb-10 text-2xl font-semibold tracking-wider">
+    <h1 class="mb-10 text-2xl font-semibold tracking-wider">
       {$LL.common.list('Todo')}
     </h1>
 
-    <section
-      class="card bg-secondary text-secondary-content w-full rounded-lg border p-5 shadow-lg"
-    >
+    <section class="card bg-base-200 w-full p-5 shadow-lg">
       <TodosCreate />
 
       <TodosFilter />

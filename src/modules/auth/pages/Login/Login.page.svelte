@@ -4,11 +4,18 @@
   import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
   import { WrapTranslation } from '@shared/components/atoms';
+  import { modes } from '@shared/constants/global.constant';
+  import { createColorMode } from '@shared/stores/createColorMode.store';
   import { link } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
+
+  createColorMode({
+    modes,
+    attribute: 'data-theme',
+  });
 </script>
 
-<main in:fly={{ y: 50, duration: 1000 }} out:fade class="h-screen bg-white">
+<main in:fly={{ y: 50, duration: 1000 }} out:fade class="h-screen">
   <div class="flex w-full flex-wrap">
     <!-- Login Section -->
     <section class="flex w-full flex-col md:w-1/2">

@@ -81,7 +81,7 @@
     data-testid="home-clock-show"
     in:slide={{ axis: 'y', duration: 500 }}
     out:slide={{ axis: 'y', duration: 250 }}
-    class="stats mt-8 shadow"
+    class="stats mt-8 bg-base-200 shadow"
   >
     <div class="stat">
       <div class="stat-title">{$LL.home.clock()}:</div>

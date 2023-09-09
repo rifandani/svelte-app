@@ -1,16 +1,20 @@
-import { onDestroy } from 'svelte';
-
 /**
  * attaches a MediaQuery listener to window, listening to changes to provided query
- * NOTE: using onDestroy inside
  *
  * @param query Media query to listen for
  * @param callback function called every time the media match changes
+ * @returns unsubscribe function
  *
  * @example
- * makeMediaQueryListener("(max-width: 767px)", e => {
+ * ```ts
+ * import { onDestroy } from 'svelte'
+ *
+ * const unsubscribe = makeMediaQueryListener("(max-width: 767px)", (e) => {
  *    // e.matches
  * });
+ *
+ * onDestroy(unsubscribe)
+ * ```
  */
 export function makeMediaQueryListener(
   query: string | MediaQueryList,
@@ -34,6 +38,6 @@ export function makeMediaQueryListener(
     }
   }
 
-  // remove event listener `onDestroy` lifecycle hooks
-  onDestroy(() => mql.removeEventListener('change', callback));
+  // return unsubscribe function to remove event listener
+  return () => mql.removeEventListener('change', callback);
 }

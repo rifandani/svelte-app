@@ -95,16 +95,3 @@ export default writable(0);
 
 - [ ] fix all tests -> `typesafe-i18n` always returns empty string,,, `axios` + `svelte-query` + `msw` base url somehow does not works.
 - [ ] add `/docs` folder, including all my decisions or technical considerations.
-
-Debug query:
-
-```ts
-$: console.log('🚀 ~ file: Todos.page.svelte:119', {
-  $todosQuery,
-  todoQueryKeysTodos: queryClient.getQueryData(todoQueryKeys.list._def),
-  $queryOptionsTodos: queryClient.getQueryData($queryOptions.queryKey),
-  queryCache: queryClient.getQueryCache(),
-  $updateTodoMutation,
-  $deleteTodoMutation,
-});
-```

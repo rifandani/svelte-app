@@ -24,12 +24,12 @@
   class="mb-3 flex w-full flex-col duration-300 md:flex-row md:space-x-2"
 >
   <label for="limit" class="label">
-    <span class="label-text text-primary-content">{$LL.forms.limit()}</span>
+    <span class="label-text">{$LL.forms.limit()}</span>
   </label>
 
   <select
     aria-label="combobox-filter"
-    class="select-bordered select select-secondary"
+    class="select-bordered select select-primary"
     name="limit"
     id="limit"
     value={selectedOption}

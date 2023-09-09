@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import { createUserStore } from '@auth/stores/createUserStore.store';
   import LL from '@i18n/i18n-svelte';
   import { modes, themes } from '@shared/constants/global.constant';
   import { createColorMode } from '@shared/stores/createColorMode.store';
-  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import type { Theme } from '@shared/types/theme.type';
   import { createEventDispatcher } from 'svelte';
   import { link } from 'svelte-spa-router';
@@ -11,9 +10,7 @@
 
   // event forwarding
   const dispatch = createEventDispatcher<{ logout: undefined }>();
-
-  // get 'user' store
-  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
+  const user = createUserStore();
   const mode = createColorMode({
     modes,
     attribute: 'data-theme',
@@ -25,7 +22,7 @@
   };
 
   const onClickChangeTheme = (_theme: Theme) => {
-    mode.update(_theme);
+    mode.set(_theme);
   };
   //#endregion
 </script>
@@ -33,10 +30,10 @@
 <li>
   <a
     use:link
-    use:active={{ path: '/todos', className: 'link-secondary', inactiveClassName: 'link-neutral' }}
+    use:active={{ path: '/todos', className: 'link-hover' }}
     href="/todos"
     aria-label="todos"
-    class="link-hover px-3 link text-primary tracking-wide mx-0 lg:mx-3"
+    class="px-3 link tracking-wide mx-0 lg:mx-3"
   >
     Todos
   </a>
@@ -47,13 +44,12 @@
     type="button"
     tabindex={0}
     aria-label="themes-opener"
-    class="btn btn-sm btn-secondary btn-block normal-case text-secondary-content"
-    >{$LL.common.theme()}</button
+    class="btn btn-sm btn-outline btn-block normal-case">{$LL.common.theme()}</button
   >
 
   <ul
     tabIndex={0}
-    class="bg-secondary text-secondary-content dropdown-content menu rounded-box block max-h-60 w-72 lg:w-52 overflow-y-auto p-2 shadow z-10"
+    class="bg-base-200 dropdown-content menu rounded-box block max-h-60 w-72 lg:w-52 overflow-y-auto p-2 shadow z-10"
   >
     {#each themes as theme (theme)}
       <li>
@@ -70,11 +66,11 @@
   </ul>
 </li>
 
-{#if !!$user.username}
+{#if !!$user?.username}
   <li class="ml-0 lg:ml-3 lg:mt-0">
     <button
       type="button"
-      class="btn btn-sm btn-primary normal-case text-primary-content tracking-wide"
+      class="btn btn-sm btn-error normal-case tracking-wide text-error-content"
       on:click={onClickLogout}
     >
       {$LL.auth.logoutUsername({ username: $user.username })}

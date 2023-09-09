@@ -5,18 +5,16 @@
     type LoginApiResponseSchema,
     type LoginSchema,
   } from '@auth/api/auth.schema';
+  import { createUserStore } from '@auth/stores/createUserStore.store';
   import { validator } from '@felte/validator-zod';
   import LL from '@i18n/i18n-svelte';
   import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
-  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import { createMutation } from '@tanstack/svelte-query';
   import { createForm } from 'felte';
   import { push } from 'svelte-spa-router';
-  import { twJoin } from 'tailwind-merge';
 
   //#region VALUES
-  let { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
-
+  const user = createUserStore();
   const loginMutation = createMutation<LoginApiResponseSchema, ErrorApiResponseSchema, LoginSchema>(
     {
       mutationFn: (creds) => login(creds),
@@ -48,7 +46,7 @@
 
 <form aria-label="form-login" class="form-control pt-3 md:pt-8" use:form>
   <!-- username -->
-  <fieldset class="form-control pt-4">
+  <fieldset class="group/username form-control pt-4">
     <label class="label" for="username">
       <span class="label-text">{$LL.forms.username()}</span>
     </label>
@@ -59,13 +57,10 @@
       type="text"
       aria-label="textbox-username"
       aria-labelledby="#username"
-      aria-invalid={$errors?.username?.length ? 'true' : 'false'}
+      aria-invalid={$errors?.username?.length ? true : false}
       required
       placeholder={$LL.forms.usernamePlaceholder()}
-      class={twJoin(
-        'input mt-1 shadow-md',
-        $errors?.username?.length ? 'input-error' : 'input-primary',
-      )}
+      class="input input-primary mt-1 shadow-md aria-[invalid='true']:input-error"
     />
 
     {#if $errors?.username?.length}
@@ -76,7 +71,7 @@
   </fieldset>
 
   <!-- password -->
-  <fieldset class="form-control pt-4">
+  <fieldset class="group/password form-control pt-4">
     <label class="label" for="password">
       <span class="label-text">{$LL.forms.password()}</span>
     </label>
@@ -88,13 +83,10 @@
       type="password"
       aria-label="textbox-password"
       aria-labelledby="#password"
-      aria-invalid={$errors?.password?.length ? 'true' : 'false'}
+      aria-invalid={$errors?.password?.length ? true : false}
       required
       placeholder={$LL.forms.passwordPlaceholder()}
-      class={twJoin(
-        'input mt-1 shadow-md',
-        $errors?.password?.length ? 'input-error' : 'input-primary',
-      )}
+      class="input input-primary mt-1 shadow-md aria-[invalid='true']:input-error"
     />
 
     {#if $errors?.password?.length}

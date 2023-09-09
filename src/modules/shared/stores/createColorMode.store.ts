@@ -1,6 +1,6 @@
 import { onDestroy } from 'svelte';
-import { derived, writable } from 'svelte/store';
-import { createLocalStorage } from './createLocalStorage.store';
+import { derived, writable, type Writable } from 'svelte/store';
+import { createPersisted } from './createPersisted.store';
 import { createPrefersDark } from './createPrefersDark.store';
 
 export type BasicColorSchema = BasicColorMode | 'auto';
@@ -83,20 +83,11 @@ export function createColorMode<T extends string = BasicColorMode>(
     ...(options.modes || {}),
   } as Record<BasicColorSchema | T, string>;
 
-  const initialValueStore = writable(initialValue);
   const store = !storageKey
-    ? {
-        store: initialValueStore,
-        reset: () => {
-          initialValueStore.set(initialValue);
-        },
-        update: (newValue: T | BasicColorSchema) => {
-          initialValueStore.update(() => newValue);
-        },
-      }
-    : createLocalStorage(storageKey, initialValue);
+    ? writable(initialValue)
+    : (createPersisted(storageKey, initialValue) as Writable<T>);
   const preferredDark = createPrefersDark();
-  const state = derived([store.store, preferredDark], ([$store, $preferredDark]) =>
+  const state = derived([store, preferredDark], ([$store, $preferredDark]) =>
     $store === 'auto' ? ($preferredDark ? 'dark' : 'light') : $store,
   );
 
@@ -128,8 +119,10 @@ export function createColorMode<T extends string = BasicColorMode>(
 
     if (disableTransition) {
       // Calling getComputedStyle forces the browser to redraw
-      (() => window.getComputedStyle(style as Element).opacity)();
-      document.head.removeChild(style as Node);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      (() => window.getComputedStyle(style!).opacity)();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      document.head.removeChild(style!);
     }
   };
 

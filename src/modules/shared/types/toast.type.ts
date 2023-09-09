@@ -71,7 +71,7 @@ export type ToastParams = {
    *
    * @defaultValue `info`
    */
-  type: 'success' | 'error' | 'loading' | 'info' | 'custom';
+  type: 'success' | 'error' | 'warning' | 'loading' | 'info' | 'custom';
 
   /**
    * The duration of the toast. The default duration is computed based on the specified `type`.
@@ -204,6 +204,11 @@ export interface Toaster {
    * Creates or updates a toast with `error` type.
    */
   error(options: ToastOptions): string | undefined;
+
+  /**
+   * Creates or updates a toast with `warning` type.
+   */
+  warning(options: ToastOptions): string | undefined;
 
   /**
    * Creates or updates a toast with `loading` type.

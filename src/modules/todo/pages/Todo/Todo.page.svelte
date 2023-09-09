@@ -1,10 +1,9 @@
 <script lang="ts">
-  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import { createUserStore } from '@auth/stores/createUserStore.store';
   import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
   import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
   import { Navbar } from '@shared/components/organisms';
-  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import { createToast } from '@shared/stores/createToast.store';
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
   import { todoApi, todoKeys } from '@todo/api/todo.api';
@@ -18,7 +17,7 @@
   //#region VALUES
   const { toaster } = createToast();
   const queryClient = useQueryClient();
-  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
+  const user = createUserStore();
   const id = derived(params, ($params) => {
     // initial load, `$params === undefined`
     // -1 to make query options `enabled: false`
@@ -73,16 +72,11 @@
 <Navbar>
   <section class="flex flex-col justify-center px-10 py-20 md:px-24 lg:px-40 xl:px-52">
     <div class="mb-10 flex w-full flex-col space-y-2">
-      <a
-        use:link
-        aria-label="go-back"
-        href="/todos"
-        class="btn-link w-fit normal-case text-primary-content"
-      >
+      <a use:link aria-label="go-back" href="/todos" class="link w-fit normal-case hover:skew-x-12">
         ⬅ {$LL.todo.backTo({ target: 'Todos' })}
       </a>
 
-      <h1 class="text-2xl font-semibold tracking-wider text-primary-content">
+      <h1 class="text-2xl font-semibold tracking-wider">
         {$LL.common.xDetail({ feature: 'Todo' })}
       </h1>
     </div>
@@ -91,16 +85,16 @@
       <div data-testid="todo-mutationError" class="alert alert-error mt-2 shadow-lg">
         <div class="flex items-center">
           <span>
-            {$LL.common.error({ module: 'Todo Mutation' })}:{' '}
-            {$todoUpdateMutation.error.message}
+            {$LL.common.error({ module: 'Todo Mutation' })}
           </span>
+          <pre>{JSON.stringify($todoUpdateMutation.error.message, null, 2)}</pre>
         </div>
       </div>
     {/if}
 
     {#if $todoQuery.isLoading}
       <div data-testid="todo-loading" class="flex items-center justify-center py-5">
-        <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-secondary-content" />
+        <Icon icon="svg-spinners:3-dots-fade" height="5em" class="text-primary-content" />
       </div>
     {/if}
 
@@ -117,7 +111,7 @@
       <form use:form aria-label="form-todo" class="join">
         <input
           aria-label="textbox-todo"
-          class="input-bordered input-accent input join-item w-full text-accent-content"
+          class="input-bordered input-primary input join-item w-full"
           name="todo"
           id="todo"
           type="text"
@@ -125,10 +119,10 @@
           value={$todoQuery.data.todo ?? $LL.common.loading()}
         />
 
-        {#if $user.id === $todoQuery.data.userId}
+        {#if $user?.id === $todoQuery.data.userId}
           <button
             aria-label="button-submit"
-            class="btn-accent join-item btn normal-case disabled:btn-disabled"
+            class="btn-primary join-item btn normal-case disabled:btn-disabled"
             type="submit"
             disabled={$todoUpdateMutation.isLoading}
           >

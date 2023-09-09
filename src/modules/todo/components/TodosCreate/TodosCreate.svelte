@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import { createUserStore } from '@auth/stores/createUserStore.store';
   import { validator } from '@felte/validator-zod';
   import LL from '@i18n/i18n-svelte';
   import { random } from '@rifandani/nxact-yutiriti';
-  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import { createToast } from '@shared/stores/createToast.store';
   import { useQueryClient } from '@tanstack/svelte-query';
   import { todoSchema, type TodoSchema } from '@todo/api/todo.schema';
@@ -13,7 +12,7 @@
 
   //#region VALUES
   const queryClient = useQueryClient();
-  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
+  const user = createUserStore();
   const { toaster } = createToast();
   const { queryKey } = createTodoListParams();
   $: todoCreateMutation = createTodoCreateMutation({ queryKey: $queryKey });
@@ -30,7 +29,7 @@
       const payload = {
         ...values,
         id: random(11, 999_999),
-        userId: $user.id,
+        userId: $user?.id ?? 1,
       };
 
       $todoCreateMutation.mutate(payload, {
@@ -56,7 +55,7 @@
 
 <form use:form aria-label="form-add" class="form-control mb-3 w-full duration-300 lg:flex-row">
   <input
-    class="input-bordered input-accent input text-accent-content w-full lg:w-10/12"
+    class="input-bordered input-primary input w-full lg:w-10/12"
     aria-label="textbox-add"
     name="todo"
     id="todo"
@@ -67,10 +66,10 @@
 
   <button
     aria-label="button-add"
-    class="btn-accent btn ml-0 mt-2 w-full normal-case lg:ml-2 lg:mt-0 lg:w-2/12 disabled:btn-disabled"
+    class="btn-primary btn ml-0 mt-2 w-full normal-case text-primary-content lg:ml-2 lg:mt-0 lg:w-2/12 disabled:btn-disabled"
     type="submit"
     disabled={$isSubmitting}
   >
-    {$LL.forms.add({ icon: '✔' })}
+    {$LL.forms.add({ icon: '💾' })}
   </button>
 </form>

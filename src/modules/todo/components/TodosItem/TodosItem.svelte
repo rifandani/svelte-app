@@ -1,7 +1,6 @@
 <script lang="ts">
-  import type { LoginApiResponseSchema } from '@auth/api/auth.schema';
+  import { createUserStore } from '@auth/stores/createUserStore.store';
   import LL from '@i18n/i18n-svelte';
-  import { createLocalStorage } from '@shared/stores/createLocalStorage.store';
   import type { TodoSchema } from '@todo/api/todo.schema';
   import { createTodoDeleteMutation } from '@todo/stores/createTodoDeleteMutation.store';
   import { createTodoListParams } from '@todo/stores/createTodoListParams.store';
@@ -14,7 +13,7 @@
   export let todo: TodoSchema;
 
   const { queryKey } = createTodoListParams();
-  const { store: user } = createLocalStorage<LoginApiResponseSchema>('user');
+  const user = createUserStore();
   $: todoUpdateMutation = createTodoUpdateMutation({ queryKey: $queryKey });
   $: todoDeleteMutation = createTodoDeleteMutation({ queryKey: $queryKey });
   //#endregion
@@ -29,7 +28,7 @@
     evt.submitter?.setAttribute('disabled', 'true');
 
     // don't allow if not the correct auth user
-    if (todo.userId !== $user.id) return;
+    if (todo.userId !== $user?.id) return;
 
     // parse form data & get todo id from input hidden with name/id `todoId`
     const formData = new FormData(evt.currentTarget);
@@ -52,7 +51,7 @@
 
   <input
     aria-label="checkbox-todo"
-    class="checkbox-accent checkbox"
+    class="checkbox-primary checkbox"
     type="checkbox"
     id={`todo-${todo.id}`}
     name={`todo-${todo.id}`}
@@ -63,18 +62,16 @@
   <a
     use:link
     aria-label="todo"
-    class="ml-5 w-full text-left text-lg text-secondary-content hover:font-bold"
+    class="ml-5 w-full text-left text-lg hover:font-bold"
     class:line-through={todo.completed}
     href={`/todos/${todo.id}`}
   >
     {todo.todo}
   </a>
 
-  {#if todo.userId === $user.id}
-    <button
-      aria-label="button-submit"
-      class="btn-accent btn-sm btn normal-case disabled:btn-disabled"
-      type="submit">{$LL.forms.remove({ icon: '💥' })}</button
+  {#if todo.userId === $user?.id}
+    <button aria-label="button-submit" class="btn-primary btn-sm btn normal-case" type="submit"
+      >{$LL.forms.remove({ icon: '💥' })}</button
     >
   {/if}
 </form>

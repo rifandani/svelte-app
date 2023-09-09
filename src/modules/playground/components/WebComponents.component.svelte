@@ -49,7 +49,7 @@
   class="card bg-secondary text-secondary-content w-full rounded-lg border p-5 shadow-lg flex flex-col space-y-3 items-center"
   bind:this={sectionRef}
 >
-  <button class="btn btn-xs btn-info" on:click={handleClickTambah}>Tambah</button>
+  <button class="btn btn-xs btn-primary" on:click={handleClickTambah}>Tambah</button>
 
   <my-counter {initialCount} />
 </section>
