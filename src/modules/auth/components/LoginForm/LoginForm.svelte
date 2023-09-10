@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { login } from '@auth/api/auth.api';
+  import { authApi } from '@auth/api/auth.api';
   import {
     loginSchema,
     type LoginApiResponseSchema,
@@ -17,7 +17,7 @@
   const user = createUserStore();
   const loginMutation = createMutation<LoginApiResponseSchema, ErrorApiResponseSchema, LoginSchema>(
     {
-      mutationFn: (creds) => login(creds),
+      mutationFn: (creds) => authApi.login(creds),
       onSuccess: async (resp) => {
         // set user data to local storage
         user.set(resp);
@@ -57,7 +57,7 @@
       type="text"
       aria-label="textbox-username"
       aria-labelledby="#username"
-      aria-invalid={$errors?.username?.length ? true : false}
+      aria-invalid={!!$errors?.username?.length}
       required
       placeholder={$LL.forms.usernamePlaceholder()}
       class="input input-primary mt-1 shadow-md aria-[invalid='true']:input-error"
@@ -83,7 +83,7 @@
       type="password"
       aria-label="textbox-password"
       aria-labelledby="#password"
-      aria-invalid={$errors?.password?.length ? true : false}
+      aria-invalid={!!$errors?.password?.length}
       required
       placeholder={$LL.forms.passwordPlaceholder()}
       class="input input-primary mt-1 shadow-md aria-[invalid='true']:input-error"
