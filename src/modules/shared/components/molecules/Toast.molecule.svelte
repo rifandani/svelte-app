@@ -62,7 +62,7 @@
 
       {#if isFinite(toast.duration)}
         <progress
-          class={twJoin('progress absolute bottom-0', mapper.progress[toast.type])}
+          class={twJoin('progress absolute bottom-0 left-0', mapper.progress[toast.type])}
           value={$progress(toast)}
           max={toast.duration}
         />

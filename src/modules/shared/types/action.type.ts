@@ -2,7 +2,7 @@ export type Action<T = unknown> = (
   node: HTMLElement,
   parameters?: T,
 ) => {
-  update?: (parameters: T) => unknown | void;
+  update?: (parameters: T) => void;
   destroy?: () => void;
 };
 

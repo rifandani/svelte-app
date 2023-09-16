@@ -93,5 +93,6 @@ export default writable(0);
 
 ## NOTES
 
+- [ ] use melt-ui
 - [ ] fix all tests -> `typesafe-i18n` always returns empty string,,, `axios` + `svelte-query` + `msw` base url somehow does not works.
 - [ ] add `/docs` folder, including all my decisions or technical considerations.
