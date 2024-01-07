@@ -1,4 +1,10 @@
-import { writable, type Readable, type Updater, type Writable } from 'svelte/store';
+import {
+  writable,
+  type Readable,
+  type StoresValues,
+  type Updater,
+  type Writable,
+} from 'svelte/store';
 
 /**
  * convert Writable to Readable by referencing to `.subscribe` method
@@ -30,4 +36,21 @@ export function writableEffect<T>(
   };
 
   return { subscribe, set: _set, update: _update };
+}
+
+/**
+ * For melt ui `updateOption` context.
+ *
+ * @returns option updater function
+ */
+export function getOptionUpdater(options: Record<string, Writable<unknown>>) {
+  return function <
+    K extends keyof typeof options,
+    V extends StoresValues<(typeof options)[keyof typeof options]>,
+  >(key: K, value: V | undefined) {
+    if (value === undefined) return;
+
+    const store = options[key];
+    store.set(value as never);
+  };
 }

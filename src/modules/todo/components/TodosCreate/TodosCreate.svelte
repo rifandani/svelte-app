@@ -3,7 +3,7 @@
   import { validator } from '@felte/validator-zod';
   import LL from '@i18n/i18n-svelte';
   import { random } from '@rifandani/nxact-yutiriti';
-  import { createToast } from '@shared/stores/createToast.store';
+  import { createToast } from '@shared/components/molecules/Toast/createToast.store';
   import { useQueryClient } from '@tanstack/svelte-query';
   import { todoSchema, type TodoSchema } from '@todo/api/todo.schema';
   import { createTodoCreateMutation } from '@todo/stores/createTodoCreateMutation.store';

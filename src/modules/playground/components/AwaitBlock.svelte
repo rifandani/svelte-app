@@ -29,14 +29,12 @@
   }
 </script>
 
-<section
-  class="card bg-secondary text-secondary-content w-full rounded-lg border p-5 shadow-lg flex flex-col items-center"
->
+<section class="card bg-base-200 w-full rounded-lg p-5 flex flex-col items-center">
   <div class="form-control">
-    <p class="text-lg text-secondary-content mb-3">Choose your starter pokemon:</p>
+    <p class="text-lg mb-3">Choose your starter pokemon:</p>
 
     <label class="label cursor-pointer">
-      <span class="label-text text-secondary-content mr-5">Bulbasaur</span>
+      <span class="label-text mr-5">Bulbasaur</span>
       <input
         class="radio checked:bg-green-500"
         type="radio"
@@ -47,7 +45,7 @@
       />
     </label>
     <label class="label cursor-pointer">
-      <span class="label-text text-secondary-content mr-5">Charmender</span>
+      <span class="label-text mr-5">Charmender</span>
       <input
         class="radio checked:bg-red-500"
         type="radio"
@@ -58,7 +56,7 @@
       />
     </label>
     <label class="label cursor-pointer">
-      <span class="label-text text-secondary-content mr-5">Squirtle</span>
+      <span class="label-text mr-5">Squirtle</span>
       <input
         class="radio checked:bg-blue-500"
         type="radio"
@@ -84,11 +82,11 @@
   {/await}
 
   <div class="form-control mt-10">
-    <p class="text-lg text-secondary-content mb-3">Pick your evolutions:</p>
+    <p class="text-lg mb-3">Pick your evolutions:</p>
 
     {#each pokemons as poke}
       <label class="label cursor-pointer">
-        <span class="label-text text-secondary-content mr-5">{poke.toLocaleUpperCase()}</span>
+        <span class="label-text mr-5">{poke.toLocaleUpperCase()}</span>
         <input
           class="checkbox checked:bg-primary-500"
           type="checkbox"

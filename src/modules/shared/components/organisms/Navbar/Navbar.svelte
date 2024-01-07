@@ -2,8 +2,8 @@
   import { createUserStore } from '@auth/stores/createUserStore.store';
   import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
-  import SvgIcon from '@shared/components/atoms/SvgIcon.atom.svelte';
-  import { NavbarMenuContent } from '@shared/components/molecules';
+  import SvgIcon from '@shared/components/atoms/SvgIcon/SvgIcon.svelte';
+  import NavbarMenuContent from '@shared/components/molecules/NavbarMenuContent/NavbarMenuContent.svelte';
   import { link, replace } from 'svelte-spa-router';
   import { fade, fly } from 'svelte/transition';
 

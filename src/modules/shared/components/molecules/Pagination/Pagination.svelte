@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createPagination } from './createPagination.factory';
+  import { createPagination } from './createPagination.store';
 
   const { navAttrs, items, pageAttrs, page, start, end, total } = createPagination({ total: 69 });
 </script>

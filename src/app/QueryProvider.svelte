@@ -4,7 +4,9 @@
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 1_000 * 30, // 30sec, this is the default in v5
+        // networkMode: 'offlineFirst'
+        // gcTime: 1_000 * 60 * 5, // 5 mins. Defaults to 5 mins
+        staleTime: 1_000 * 30, // 30 secs. Defaults to 0
       },
     },
   });

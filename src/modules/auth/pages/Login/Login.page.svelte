@@ -3,7 +3,7 @@
   import LoginForm from '@auth/components/LoginForm/LoginForm.svelte';
   import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
-  import { WrapTranslation } from '@shared/components/atoms';
+  import WrapTranslation from '@shared/components/atoms/WrapTranslation/WrapTranslation.svelte';
   import { modes } from '@shared/constants/global.constant';
   import { createColorMode } from '@shared/stores/createColorMode.store';
   import { link } from 'svelte-spa-router';

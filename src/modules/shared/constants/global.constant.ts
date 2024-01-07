@@ -1,6 +1,6 @@
 import type { Environment } from '@shared/types/action.type';
 import type { Theme } from '@shared/types/theme.type';
-import { isBrowser } from '@shared/utils/helper/helper.util';
+import { isBrowser } from '@shared/utils/checker/checker.util';
 
 export const themes: Theme[] = [
   'auto',
@@ -36,10 +36,13 @@ export const themes: Theme[] = [
 ];
 
 // object version of `themes`
-export const modes = themes.reduce((acc, item) => {
-  acc[item] = item;
-  return acc;
-}, {} as Record<Theme, Theme>);
+export const modes = themes.reduce(
+  (acc, item) => {
+    acc[item] = item;
+    return acc;
+  },
+  {} as Record<Theme, Theme>,
+);
 
 // Commonly used keyboard constants
 export const ESCAPE = 'Escape';

@@ -1,4 +1,4 @@
-import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
+import TestWrapper from '@app/TestWrapper.svelte';
 import { render, screen } from '@testing-library/svelte';
 import Login from './Login.page.svelte';
 

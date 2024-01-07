@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import LL from '@i18n/i18n-svelte';
-  import { Navbar } from '@shared/components/organisms';
+  import Navbar from '@shared/components/organisms/Navbar/Navbar.svelte';
   import TodosCreate from '@todo/components/TodosCreate/TodosCreate.svelte';
   import TodosFilter from '@todo/components/TodosFilter/TodosFilter.svelte';
   import TodosList from '@todo/components/TodosList/TodosList.svelte';

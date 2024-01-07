@@ -1,8 +1,8 @@
-import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
+import TestWrapper from '@app/TestWrapper.svelte';
 import { themes } from '@shared/constants/global.constant';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import NavBarMenuContent from './NavbarMenuContent.molecule.svelte';
+import NavBarMenuContent from './NavbarMenuContent.svelte';
 
 describe('NavBarMenuContent', () => {
   const mockModeBtn = vi.fn();

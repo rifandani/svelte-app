@@ -3,34 +3,14 @@ import type { Locales } from '@i18n/i18n-types';
 import { loadLocaleAsync } from '@i18n/i18n-util.async';
 import { loadLocale } from '@i18n/i18n-util.sync';
 import { deepReadObject } from '@rifandani/nxact-yutiriti';
+import type {
+  Arrayable,
+  Clamp,
+  GeneralEventListener,
+  Stringifiable,
+} from '@shared/types/helper.type';
 import { extendTailwindMerge } from 'tailwind-merge';
-
-// #region TYPES
-interface Clamp {
-  value: number;
-  min: number;
-  max: number;
-}
-type Arrayable<T> = T[] | T;
-export interface GeneralEventListener<E = Event> {
-  (evt: E): unknown;
-}
-// #endregion
-
-/**
- * Type Guard for typescript assertions
- *
- * @example
- *
- * ```ts
- * isApiSuccessResponse(postDetail.postDetailData) && ...
- * ```
- */
-// export function isApiSuccessResponse<T>(
-//   obj: ApiResponse<T> | undefined,
-// ): obj is ApiSuccessResponse<T> {
-//   return obj ? obj.ok : false;
-// }
+import type { ValueOf } from 'type-fest';
 
 /**
  * Provided a string template it will replace dynamics parts in place of variables.
@@ -39,8 +19,8 @@ export interface GeneralEventListener<E = Event> {
  * @param str {string} - The string you wish to use as template
  * @param params {Record<string, string>} - The params to inject into the template
  * @param reg {RegExp} - The RegExp used to find and replace. Default to `/{{(.*?)}}/g`
- *
  * @returns {string} - The fully injected template
+ * @category String
  *
  * @example
  * ```ts
@@ -48,17 +28,16 @@ export interface GeneralEventListener<E = Event> {
  * // => 'Hello Tom'
  * ```
  */
-export const template = (str: string, params: Record<string, string>, reg = /{{(.*?)}}/g): string =>
-  str.replace(reg, (_, key: string) => deepReadObject(params, key, ''));
-
-export function clamp({ value, min, max }: Clamp) {
-  return Math.min(Math.max(value, min), max);
+export function template(str: string, params: Record<string, string>, reg = /{{(.*?)}}/g): string {
+  return str.replace(reg, (_, key: string) => deepReadObject(params, key, ''));
 }
 
 /**
- * Check if we are in browser, not server
+ * @category Number
  */
-export const isBrowser = () => typeof window !== 'undefined';
+export function clamp({ value, min, max }: Clamp) {
+  return Math.min(Math.max(value, min), max);
+}
 
 export function addEventListener<E extends keyof WindowEventMap>(
   target: Window,
@@ -122,9 +101,9 @@ export async function chooseLocaleAsync(locale: Locales) {
  * Format phone number based on mockup, currently only covered minimum 11 characters and max 15 characters include +62
  * e.g +62-812-7363-6365
  *
- * @param phoneNumber
+ * @category String
  */
-export const indonesianPhoneNumberFormat = (phoneNumber?: string) => {
+export function indonesianPhoneNumberFormat(phoneNumber?: string) {
   if (!phoneNumber) return '';
   // e.g: +62
   const code = phoneNumber.slice(0, 3);
@@ -148,12 +127,14 @@ export const indonesianPhoneNumberFormat = (phoneNumber?: string) => {
   const matches = uniqNumber.replace(regexp, '$1-$2');
 
   return [code, ndc, matches].join('-');
-};
+}
 
 /**
  * convert deep nested object keys to camelCase.
+ *
+ * @category Object
  */
-export const toCamelCase = <T>(object: unknown): T => {
+export function toCamelCase<T>(object: unknown): T {
   let transformedObject = object as Record<string, unknown>;
   if (typeof object === 'object' && object !== null) {
     if (object instanceof Array) {
@@ -170,12 +151,14 @@ export const toCamelCase = <T>(object: unknown): T => {
     }
   }
   return transformedObject as T;
-};
+}
 
 /**
  * convert deep nested object keys to snake_case.
+ *
+ * @category Object
  */
-export const toSnakeCase = <T>(object: unknown): T => {
+export function toSnakeCase<T>(object: unknown): T {
   let transformedObject = object as Record<string, unknown>;
   if (typeof object === 'object' && object !== null) {
     if (object instanceof Array) {
@@ -193,36 +176,42 @@ export const toSnakeCase = <T>(object: unknown): T => {
     }
   }
   return transformedObject as T;
-};
+}
 
 /**
- * Remove leading zero
+ * Remove leading zeros
+ *
+ * @category String
  */
-export const removeLeadingZeros = (value: string) => {
+export function removeLeadingZeros(value: string) {
   if (/^([0]{1,})([1-9]{1,})/i.test(value)) {
     return value.replace(/^(0)/i, '');
   }
 
   return value.replace(/^[0]{2,}/i, '0');
-};
+}
 
 /**
  * Remove leading whitespaces
+ *
+ * @category String
  */
-export const removeLeadingWhitespace = (value?: string) => {
+export function removeLeadingWhitespace(value?: string) {
   if (!value) return '';
   if (/^[\s]*$/i.test(value)) {
     return value.replace(/^[\s]*/i, '');
   }
 
   return value;
-};
+}
 
 /**
  * This will works with some rules:
  * 1. If the file source located in the same origin as the application.
  * 2. If the file source is on different location e.g s3 bucket, etc. Set the response headers `Content-Disposition: attachment`.
  * Otherwise it only view on new tab.
+ *
+ * @category String
  */
 export function doDownload(url: string): void {
   if (!url) return;
@@ -239,24 +228,28 @@ export function doDownload(url: string): void {
  * create merge function with custom config which extends the default config.
  * Use this if you use the default Tailwind config and just extend it in some places.
  */
-export const tw = extendTailwindMerge({
-  classGroups: {
-    // ↓ The `foo` key here is the class group ID
-    //   ↓ Creates group of classes which have conflicting styles
-    //     Classes here: 'alert-info', 'alert-success', 'alert-warning', 'alert-error'
-    alert: ['alert-info', 'alert-success', 'alert-warning', 'alert-error'],
-  },
-  // ↓ Here you can define additional conflicts across different groups
-  conflictingClassGroups: {
-    // ↓ ID of class group which creates a conflict with…
-    //     ↓ …classes from groups with these IDs
-    // In this case `tw('alert-success alert-error') → 'alert-error'`
-    alert: ['alert'],
+export const tw = extendTailwindMerge<'alert'>({
+  extend: {
+    classGroups: {
+      // ↓ The `foo` key here is the class group ID
+      //   ↓ Creates group of classes which have conflicting styles
+      //     Classes here: 'alert-info', 'alert-success', 'alert-warning', 'alert-error'
+      alert: ['alert-info', 'alert-success', 'alert-warning', 'alert-error'],
+    },
+    // ↓ Here you can define additional conflicts across different groups
+    conflictingClassGroups: {
+      // ↓ ID of class group which creates a conflict with…
+      //     ↓ …classes from groups with these IDs
+      // In this case `tw('alert-success alert-error') → 'alert-error'`
+      alert: ['alert'],
+    },
   },
 });
 
 /**
  * create `URLSearchParams` from object query params
+ *
+ * @category Object
  *
  * @example
  *
@@ -265,10 +258,91 @@ export const tw = extendTailwindMerge({
  * createSearchParamsFromObject({ limit: ['10', '20], skip: 2 }).toString() // -> 'limit=10&limit=20&skip=2'
  * ```
  */
-export const createSearchParamsFromObject = (obj: Record<string, unknown>) =>
-  new URLSearchParams(
+export function createSearchParamsFromObject(obj: Record<string, unknown>) {
+  return new URLSearchParams(
     Object.entries(obj).flatMap(([key, values]) =>
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       Array.isArray(values) ? values.map((value) => [key, value]) : [[key, values]],
     ),
   );
+}
+
+/**
+ * omit keys in an object
+ *
+ * @category Object
+ */
+export function omit<T extends Record<string, PropertyKey>, K extends keyof T>(
+  obj: T,
+  ...keys: K[]
+): Omit<T, K> {
+  const result = {} as Omit<T, K>;
+  for (const key of Object.keys(obj)) {
+    if (!keys.includes(key as unknown as K)) {
+      result[key as keyof Omit<T, K>] = obj[key] as ValueOf<Omit<T, K>>;
+    }
+  }
+  return result;
+}
+
+/**
+ * Provides a method with typed keys for Object.keys
+ *
+ * @category Object
+ */
+export function objectKeys<O extends object>(object: O) {
+  return Object.keys(object) as Array<`${keyof O & Stringifiable}`>;
+}
+
+/**
+ * Strict typed `Object.entries`
+ * Extracted from https://github.com/antfu/utils
+ *
+ * @category Object
+ */
+export function objectEntries<T extends object>(obj: T) {
+  return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
+}
+
+/**
+ * Function that returns an array of keys given multiple objects.
+ * The array of keys has no duplicates.
+ *
+ * @category Object
+ */
+export function joinKeys<T extends string | number | symbol>(...objects: object[]) {
+  return [...new Set(objects.flatMap(Object.keys))] as T[];
+}
+
+/**
+ * remove undefined values from objects
+ *
+ * @category Object
+ */
+export function removeUndefined<T extends object>(obj: T): T {
+  const result = {} as T;
+  for (const key in obj) {
+    const value = obj[key];
+    if (value !== undefined) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+/**
+ * YOLO
+ */
+export function noop() {
+  // do nothing
+}
+
+/**
+ * map style object to string
+ */
+export function styleToString(style: Record<string, number | string | undefined>): string {
+  return Object.keys(style).reduce((str, key) => {
+    if (style[key] === undefined) return str;
+    return str + `${key}:${style[key]};`;
+  }, '');
+}

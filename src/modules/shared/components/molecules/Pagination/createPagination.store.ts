@@ -1,10 +1,6 @@
-import type {
-  PaginationConfig,
-  PaginationItem,
-  PaginationReturn,
-} from '@shared/types/pagination.type';
 import { writableEffect } from '@shared/utils/store/store.util';
 import { derived, readable, writable } from 'svelte/store';
+import type { PaginationConfig, PaginationItem, PaginationReturn } from './pagination.type';
 
 function getPageItem(item: string | number, page: number, count: number): PaginationItem {
   if (typeof item === 'number') {

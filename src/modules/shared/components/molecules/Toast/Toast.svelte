@@ -1,8 +1,8 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { createToast } from '@shared/stores/createToast.store';
   import { fly, scale } from 'svelte/transition';
   import { twJoin } from 'tailwind-merge';
+  import { createToast } from './createToast.store';
 
   const { toasts, toaster, useToast, rootAttrs, groupAttrs, progress } = createToast();
   const mapper = {

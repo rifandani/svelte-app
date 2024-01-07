@@ -1,6 +1,6 @@
+import TestWrapper from '@app/TestWrapper.svelte';
 import { rest, server } from '@mocks/http/server.http';
 import { getBaseUrl } from '@mocks/util.mock';
-import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
 import { render, screen, waitFor } from '@testing-library/svelte';
 import TodosList from './TodosList.svelte';
 

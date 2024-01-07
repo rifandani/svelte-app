@@ -46,7 +46,7 @@
 </script>
 
 <section
-  class="card bg-secondary text-secondary-content w-full rounded-lg border p-5 shadow-lg flex flex-col space-y-3 items-center"
+  class="card bg-base-200 w-full rounded-lg p-5 flex flex-col space-y-3 items-center"
   bind:this={sectionRef}
 >
   <button class="btn btn-xs btn-primary" on:click={handleClickTambah}>Tambah</button>

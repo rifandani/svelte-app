@@ -1,5 +1,8 @@
 import { chain, uid } from '@rifandani/nxact-yutiriti';
 import { ESCAPE } from '@shared/constants/global.constant';
+import { addEventListener } from '@shared/utils/helper/helper.util';
+import { loop } from 'svelte/internal';
+import { derived, get, readable, writable } from 'svelte/store';
 import type {
   ActionWithParams,
   PromiseOptions,
@@ -9,10 +12,7 @@ import type {
   ToastReturn,
   Toaster,
   Type,
-} from '@shared/types/toast.type';
-import { addEventListener } from '@shared/utils/helper/helper.util';
-import { loop } from 'svelte/internal';
-import { derived, get, readable, writable } from 'svelte/store';
+} from './toast.type';
 
 const defaultTimeouts: Record<Type, number> = {
   info: 3_000,

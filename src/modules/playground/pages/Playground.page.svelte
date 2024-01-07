@@ -1,21 +1,21 @@
 <script lang="ts">
-  import AwaitBlock from '@playground/components/AwaitBlock.component.svelte';
-  import WebComponents from '@playground/components/WebComponents.component.svelte';
-  import { modes } from '@shared/constants/global.constant';
-  import { createColorMode } from '@shared/stores/createColorMode.store';
-
-  createColorMode({
-    modes,
-    selector: 'data-theme',
-  });
+  import Designer from '@playground/components/Designer.svelte';
+  import RealPlayground from '@playground/components/RealPlayground.svelte';
+  import { Tabs } from 'bits-ui';
 </script>
 
-<main
-  class="min-h-screen flex flex-col space-y-5 items-center justify-center px-10 py-20 duration-300 md:px-24 lg:px-40 xl:px-52"
->
-  <h1 data-testid="title" class="mb-10 text-2xl font-semibold tracking-wider">Playground</h1>
+<main class="flex min-h-screen w-full">
+  <Tabs.Root value="designer" class="w-full">
+    <Tabs.List aria-label="Playground Tabs" class="mx-auto my-5 flex w-fit justify-center">
+      <Tabs.Trigger value="designer">Designer</Tabs.Trigger>
+      <Tabs.Trigger value="playground">Playground</Tabs.Trigger>
+    </Tabs.List>
 
-  <AwaitBlock />
-
-  <WebComponents />
+    <Tabs.Content value="designer" class="flex h-full w-full">
+      <Designer />
+    </Tabs.Content>
+    <Tabs.Content value="playground" class="flex h-full w-full">
+      <RealPlayground />
+    </Tabs.Content>
+  </Tabs.Root>
 </main>

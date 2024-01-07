@@ -5,6 +5,7 @@ import { writable, type Writable } from 'svelte/store';
  * This creates a store that also integrated with local storage.
  * NOTE: using `onDestroy` inside
  *
+ * @deprecated use `createPersisted` instead
  * @example
  *
  * ```ts
@@ -24,6 +25,7 @@ export function createLocalStorage<T>(key: string): {
  * This creates a store that also integrated with local storage.
  * NOTE: using `onDestroy` inside
  *
+ * @deprecated use `createPersisted` instead
  * @example
  *
  * ```ts

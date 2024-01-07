@@ -3,8 +3,8 @@
   import LL from '@i18n/i18n-svelte';
   import Icon from '@iconify/svelte';
   import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
-  import { Navbar } from '@shared/components/organisms';
-  import { createToast } from '@shared/stores/createToast.store';
+  import { createToast } from '@shared/components/molecules/Toast/createToast.store';
+  import Navbar from '@shared/components/organisms/Navbar/Navbar.svelte';
   import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
   import { todoApi, todoKeys } from '@todo/api/todo.api';
   import type { UpdateTodoApiResponseSchema, UpdateTodoSchema } from '@todo/api/todo.schema';

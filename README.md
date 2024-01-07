@@ -9,7 +9,7 @@ Svelte template built with:
 - `vitest` + `@testing-library/svelte` -> unit test, integration test, coverage
 - `msw` -> browser and server mocking
 - `tailwindcss` + `tailwind-merge` + `daisyui` -> styling
-- `@kobalte/core` -> unstyled UI component library (similar to `radix-ui` in React)
+- `@melt-ui/svelte` -> accessible and customizable UI component builders library
 - `axios` + `@tanstack/svelte-query` -> data fetching
 - `zod` -> schema validation
 - `felte` -> form management
@@ -93,6 +93,5 @@ export default writable(0);
 
 ## NOTES
 
-- [ ] use melt-ui
 - [ ] fix all tests -> `typesafe-i18n` always returns empty string,,, `axios` + `svelte-query` + `msw` base url somehow does not works.
 - [ ] add `/docs` folder, including all my decisions or technical considerations.

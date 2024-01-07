@@ -1,7 +1,7 @@
 <script lang="ts">
   import HomeClock from '@home/components/HomeClock/HomeClock.svelte';
   import LL from '@i18n/i18n-svelte';
-  import { Navbar } from '@shared/components/organisms';
+  import Navbar from '@shared/components/organisms/Navbar/Navbar.svelte';
 </script>
 
 <Navbar>

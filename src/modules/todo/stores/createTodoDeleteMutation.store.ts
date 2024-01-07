@@ -1,6 +1,6 @@
 import LL from '@i18n/i18n-svelte';
 import type { ErrorApiResponseSchema } from '@shared/api/error.schema';
-import { createToast } from '@shared/stores/createToast.store';
+import { createToast } from '@shared/components/molecules/Toast/createToast.store';
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 import { todoApi, todoKeys } from '@todo/api/todo.api';
 import type {

@@ -1,3 +1,5 @@
+import type { createEventDispatcher } from 'svelte';
+
 export type Action<T = unknown> = (
   node: HTMLElement,
   parameters?: T,
@@ -73,3 +75,12 @@ export interface ConfigurableLocation {
    */
   location?: Location;
 }
+
+export type CustomEventHandler<T extends Event = Event, M extends Element = Element> = T & {
+  currentTarget: EventTarget & M;
+  originalEvent: T;
+};
+
+export type CreateDispatcher = {
+  createDispatcher: typeof createEventDispatcher;
+};

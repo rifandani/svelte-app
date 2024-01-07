@@ -1,4 +1,4 @@
-import TestWrapper from '@shared/components/atoms/TestWrapper.app.svelte';
+import TestWrapper from '@app/TestWrapper.svelte';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { vi } from 'vitest';
 import HomeClock from './HomeClock.svelte';
